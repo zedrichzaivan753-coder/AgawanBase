@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 6225508985345353894}
   - component: {fileID: 6339502016104981967}
   - component: {fileID: 2387276358469101691}
+  - component: {fileID: 1818751684990010445}
   m_Layer: 0
   m_Name: BluePlayer
   m_TagString: Untagged
@@ -309,6 +310,23 @@ MonoBehaviour:
   hideWhenNeutral: 1
   state: 0
   isConfigured: 0
+--- !u!114 &1818751684990010445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120947414604288943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9f35d4fafd61a469424cc2c5cb408d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterFacing
+  visual: {fileID: 0}
+  turnSpeedDegreesPerSecond: 720
+  minMoveMagnitude: 0.1
+  drawFacingGizmo: 0
+  logWarnings: 1
 --- !u!1 &1805313967250436572
 GameObject:
   m_ObjectHideFlags: 0

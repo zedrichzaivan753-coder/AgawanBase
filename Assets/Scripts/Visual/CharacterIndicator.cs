@@ -245,9 +245,9 @@ public class CharacterIndicator : MonoBehaviour
 
     void LateUpdate()
     {
-        // Pin the marker axis-aligned in world space. CharacterMotor turns the character root,
-        // and a ground ring that spun with the body would read as part of the character rather
-        // than as a marker on the floor. Setting the WORLD rotation is what cancels the yaw.
+        // Pin the marker axis-aligned in world space. CharacterFacing turns only the "Visual" child of the body,
+        // so a ground ring that turned with the model would read as part of the character
+        // rather than as a marker on the floor. Setting the WORLD rotation cancels any yaw.
         transform.rotation = Quaternion.identity;
 
         // Only the controlled character bobs. A captured player's marker is dimmed AND still,

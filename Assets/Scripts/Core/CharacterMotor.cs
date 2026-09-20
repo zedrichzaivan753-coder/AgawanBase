@@ -4,6 +4,10 @@ using UnityEngine;
 /// The ONLY place that physically moves a character.
 /// It wraps Unity's CharacterController so that PlayerController and EnemyAI can both
 /// simply say "move in this direction". It also owns prison teleporting and the frozen flag.
+///
+/// It does NOT turn the character any more. Turning is cosmetic, so it lives in CharacterFacing,
+/// which rotates only the "Visual" child. That keeps the ring, the icon and the collider
+/// axis-aligned, which is what makes the direction a character is facing readable at a glance.
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMotor : MonoBehaviour
@@ -33,6 +37,15 @@ public class CharacterMotor : MonoBehaviour
     /// </summary>
     public bool IsMoving { get; private set; }
 
+    /// <summary>
+    /// The direction this character was last asked to walk, on the ground plane
+    /// (x = world X, y = world Z). Zero while standing still or frozen.
+    ///
+    /// CharacterFacing reads this to turn the model, so the player and the AI turn by exactly
+    /// the same rule and neither of them has to look at the root transform.
+    /// </summary>
+    public Vector2 MoveDirection { get; private set; }
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -47,11 +60,15 @@ public class CharacterMotor : MonoBehaviour
         if (isFrozen || controller == null)
         {
             IsMoving = false;
+            MoveDirection = Vector2.zero;
             return;
         }
 
         // Remember whether we were actually asked to walk this frame. SprintStamina uses it.
         IsMoving = input.sqrMagnitude > 0.0001f;
+
+        // The direction this frame's walk is going. CharacterFacing turns the model with it.
+        MoveDirection = IsMoving ? input : Vector2.zero;
 
         // Work out this frame's motion: sideways from the input, plus a small downward push.
         // speedMultiplier is 1 unless SprintStamina has raised it for a sprint.
@@ -59,12 +76,6 @@ public class CharacterMotor : MonoBehaviour
         motion.y = groundStickSpeed;
 
         controller.Move(motion * Time.deltaTime);
-
-        // Turn to face the way we are walking. Only the Y axis matters in a top-down game.
-        if (input.sqrMagnitude > 0.0001f)
-        {
-            transform.rotation = Quaternion.LookRotation(new Vector3(input.x, 0f, input.y));
-        }
     }
 
     /// <summary>
@@ -84,5 +95,12 @@ public class CharacterMotor : MonoBehaviour
     public void SetFrozen(bool frozen)
     {
         isFrozen = frozen;
+
+        // A frozen character is not walking anywhere, so it must not claim a direction either.
+        if (frozen)
+        {
+            IsMoving = false;
+            MoveDirection = Vector2.zero;
+        }
     }
 }
