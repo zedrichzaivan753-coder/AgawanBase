@@ -24,6 +24,7 @@ public static class BarangayBuild
 
         Palette();
         CameraAndLighting();
+        Arena();
         Foundation();
         CourtMarkings();
         Prisons();
@@ -78,7 +79,9 @@ public static class BarangayBuild
         if (cam != null)
         {
             cam.orthographic = true;
-            cam.orthographicSize = 12.2f;
+            // Framing for the team-sized arena. Arena() sets the same value, so the two can never
+            // drift apart: 12.2 only ever framed the old 32 x 18 solo arena.
+            cam.orthographicSize = 14f;
             cam.nearClipPlane = 0.3f;
             cam.farClipPlane = 60f;
             cam.clearFlags = CameraClearFlags.SolidColor;
@@ -103,6 +106,81 @@ public static class BarangayBuild
         RenderSettings.fog = false;
     }
 
+    // ==================================================================== arena
+
+    /// <summary>
+    /// Resizes the play area for team matches (up to 4v4), and NOTHING else.
+    ///
+    /// Ground, the four walls, the base plates and the camera are set by writing their Transform
+    /// and component fields DIRECTLY - they are deliberately never routed through Prim(), which
+    /// destroys whatever collider it finds. Ground and Wall_N/S/E/W carry the BoxColliders that
+    /// hold every character up and keep them in; deleting those would drop the whole roster
+    /// through the floor.
+    ///
+    /// The arena grows SOUTH and EAST/WEST only. Wall_N stays at z = 8.75, because that is what
+    /// preserves the tuned backdrop: it is the wall that hides where the arena ends, and every
+    /// backdrop body sits at z >= 10.15. Pushing the north wall out would open a strip of bare
+    /// ground between the wall and the houses.
+    /// </summary>
+    public static void Arena()
+    {
+        // 35.5 x 20, its south edge pulled out from z = -9 to z = -11.
+        Move("Game/Environment/Ground", new Vector3(0f, -0.1f, -1f), new Vector3(35.5f, 0.2f, 20f));
+
+        // North wall: widened to cover the new width, but left exactly where it was.
+        Move("Game/Environment/Wall_N", new Vector3(0f, 1f, 8.75f),  new Vector3(35.5f, 2f, 0.5f));
+        Move("Game/Environment/Wall_S", new Vector3(0f, 1f, -10.75f), new Vector3(35.5f, 2f, 0.5f));
+        Move("Game/Environment/Wall_E", new Vector3(17.5f, 1f, -1f),  new Vector3(0.5f, 2f, 20f));
+        Move("Game/Environment/Wall_W", new Vector3(-17.5f, 1f, -1f), new Vector3(0.5f, 2f, 20f));
+
+        // Bases stay on the x = +-11 lane and shrink from 8 m to 6.4 m, so the safe circle still
+        // exactly matches the plate a character can see under their feet.
+        ShrinkBase("Game/Environment/Base_Blue", -11f);
+        ShrinkBase("Game/Environment/Base_Red", 11f);
+
+        // The two slim posts behind the bases follow the smaller plates outward.
+        Move("Game/Environment/Decor_Backdrop/BasePost_Blue", new Vector3(-11f, 0f, 4.9f), null);
+        Move("Game/Environment/Decor_Backdrop/BasePost_Red",  new Vector3(11f, 0f, 4.9f), null);
+
+        // A wider arena only helps if the player can SEE it: the orthographic size grows so the
+        // new south edge and both corners stay on screen. Yaw stays 0, so the joystick is still
+        // 1:1 with world X/Z.
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            cam.orthographicSize = 14f;
+            EditorUtility.SetDirty(cam);
+        }
+    }
+
+    /// <summary>Writes a position (and optionally a scale) straight onto an existing object.
+    /// Does NOT touch its collider - see the Arena() comment.</summary>
+    static void Move(string path, Vector3 localPosition, Vector3? localScale)
+    {
+        GameObject go = FindPath(path);
+        if (go == null) { Debug.LogWarning("[Build] Arena: missing " + path); return; }
+
+        go.transform.localPosition = localPosition;
+        if (localScale.HasValue) go.transform.localScale = localScale.Value;
+
+        EditorUtility.SetDirty(go);
+    }
+
+    /// <summary>Resizes a base plate and its safe circle together, so they can never disagree.</summary>
+    static void ShrinkBase(string path, float x)
+    {
+        GameObject go = FindPath(path);
+        if (go == null) { Debug.LogWarning("[Build] Arena: missing " + path); return; }
+
+        go.transform.localPosition = new Vector3(x, 0.04f, 0f);
+        go.transform.localScale = new Vector3(6.4f, 0.04f, 6.4f);
+
+        BaseZone zone = go.GetComponent<BaseZone>();
+        if (zone != null) zone.radius = 3.2f;
+
+        EditorUtility.SetDirty(go);
+    }
+
     // ================================================================ foundation
 
     public static void Foundation()
@@ -113,11 +191,11 @@ public static class BarangayBuild
         // (about 92% up), so a strip of warm sky shows above the rooftops. Extending it
         // further would fill the whole top of the frame with flat ground.
         Prim(court, PrimitiveType.Cube, "Floor_Outside",
-             new Vector3(0f, -0.04f, -1.25f), new Vector3(62f, 0.06f, 35.5f), "Mat_Ground");
+             new Vector3(0f, -0.04f, -0.3f), new Vector3(62f, 0.06f, 37.4f), "Mat_Ground");
 
         // The street/court slab. Tucks slightly under the four walls so there is no gap.
         Prim(court, PrimitiveType.Cube, "Court_Slab",
-             new Vector3(0f, 0.015f, 0f), new Vector3(31f, 0.03f, 17.4f), "Mat_Asphalt");
+             new Vector3(0f, 0.015f, -1f), new Vector3(34.5f, 0.03f, 19f), "Mat_Asphalt");
     }
 
     // ============================================================ chalk markings
@@ -127,15 +205,15 @@ public static class BarangayBuild
         Transform court = Group("Game/Environment", "Decor_Court");
 
         const float y = 0.04f;
-        Vector3 alongZ = new Vector3(0.1f, 0.02f, 17.4f);
-        Vector3 alongX = new Vector3(30f, 0.02f, 0.1f);
+        Vector3 alongZ = new Vector3(0.1f, 0.02f, 19f);
+        Vector3 alongX = new Vector3(33.6f, 0.02f, 0.1f);
 
-        Prim(court, PrimitiveType.Cube, "Line_Sideline_W", new Vector3(-15f, y, 0f), alongZ, "Mat_Chalk");
-        Prim(court, PrimitiveType.Cube, "Line_Sideline_E", new Vector3( 15f, y, 0f), alongZ, "Mat_Chalk");
+        Prim(court, PrimitiveType.Cube, "Line_Sideline_W", new Vector3(-16.75f, y, -1f), alongZ, "Mat_Chalk");
+        Prim(court, PrimitiveType.Cube, "Line_Sideline_E", new Vector3( 16.75f, y, -1f), alongZ, "Mat_Chalk");
         Prim(court, PrimitiveType.Cube, "Line_Baseline_N", new Vector3(0f, y,  8.4f), alongX, "Mat_Chalk");
-        Prim(court, PrimitiveType.Cube, "Line_Baseline_S", new Vector3(0f, y, -8.4f), alongX, "Mat_Chalk");
-        Prim(court, PrimitiveType.Cube, "Line_Halfway",    new Vector3(0f, y,  0f),   alongZ, "Mat_Chalk");
-        Dashes(court, "Line_CentreCircle", Vector3.zero, 3f, 12, 1.55f, 0.1f, y, "Mat_Chalk");
+        Prim(court, PrimitiveType.Cube, "Line_Baseline_S", new Vector3(0f, y, -10.4f), alongX, "Mat_Chalk");
+        Prim(court, PrimitiveType.Cube, "Line_Halfway",    new Vector3(0f, y, -1f),   alongZ, "Mat_Chalk");
+        Dashes(court, "Line_CentreCircle", new Vector3(0f, 0f, -1f), 3f, 12, 1.55f, 0.1f, y, "Mat_Chalk");
     }
 
     // ============================================================== bases/prisons
@@ -149,8 +227,8 @@ public static class BarangayBuild
         // outside the 8x8 base plate (top y = 0.06), so nothing intersects the plate.
         GameObject bb = FindPath("Game/Environment/Base_Blue");
         GameObject br = FindPath("Game/Environment/Base_Red");
-        if (bb != null) Dashes(court, "Ring_Blue", Flat(bb.transform.position), 4.35f, 16, 1.2f, 0.14f, y, "Mat_Blue");
-        if (br != null) Dashes(court, "Ring_Red",  Flat(br.transform.position), 4.35f, 16, 1.2f, 0.14f, y, "Mat_Red");
+        if (bb != null) Dashes(court, "Ring_Blue", Flat(bb.transform.position), 3.55f, 16, 1.1f, 0.14f, y, "Mat_Blue");
+        if (br != null) Dashes(court, "Ring_Red",  Flat(br.transform.position), 3.55f, 16, 1.1f, 0.14f, y, "Mat_Red");
 
         // Chalk squares around the two 3x3 prison plates.
         GameObject pr = FindPath("Game/Environment/PrisonForRed");
@@ -239,8 +317,8 @@ public static class BarangayBuild
         // Two slim utility posts on the FAR side of each base, 1.6 m outside the safe
         // circle and off the base-to-base lane. 0.18 m thick, so even if a character stands
         // directly behind one, the post covers under a third of their width.
-        UtilityPole(bd, "BasePost_Blue", new Vector3(-11f, 0f, 5.6f), 7.0f, 0.18f);
-        UtilityPole(bd, "BasePost_Red",  new Vector3( 11f, 0f, 5.6f), 7.0f, 0.18f);
+        UtilityPole(bd, "BasePost_Blue", new Vector3(-11f, 0f, 4.9f), 7.0f, 0.18f);
+        UtilityPole(bd, "BasePost_Red",  new Vector3( 11f, 0f, 4.9f), 7.0f, 0.18f);
     }
 
     public static void Vehicles()
@@ -301,15 +379,15 @@ public static class BarangayBuild
         Debug.Log(string.Format(
             "[Build] objects created={0} updated={1}\n" +
             "  camera world={2} pitch={3:F1}deg orthoSize={4:F1} aspect={5:F2}\n" +
-            "  arena near edge z=-9 at {6:F1}% of screen height\n" +
+            "  arena near edge z=-11 at {6:F1}% of screen height\n" +
             "  far wall top      at {7:F1}%\n" +
-            "  ground horizon z=16.5 at {8:F1}%  (above that = sky)\n" +
+            "  ground horizon z=18.4 at {8:F1}%  (above that = sky)\n" +
             "  decor renderers={9} decor colliders={10} decor tris={11}",
             made, updated,
             cam.transform.position.ToString("F2"), pitch, cam.orthographicSize, cam.aspect,
-            Frac(new Vector3(0f, 0f, -9f)) * 100f,
+            Frac(new Vector3(0f, 0f, -11f)) * 100f,
             Frac(new Vector3(0f, 2f, 8.75f)) * 100f,
-            Frac(new Vector3(0f, 0f, 16.5f)) * 100f,
+            Frac(new Vector3(0f, 0f, 18.4f)) * 100f,
             renderers, decorColliders, decorTri));
     }
 

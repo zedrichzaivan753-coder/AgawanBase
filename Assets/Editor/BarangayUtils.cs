@@ -106,10 +106,12 @@ public static class BarangayUtils
         if (motor != null) motor.TeleportTo(new Vector3(-4f, 0f, -3f));
 
         // Freeze the AI so a tag cannot interrupt the shot.
-        for (int i = 0; i < m.enemies.Length; i++)
+        // The roster now comes from TeamManager, which every character registers with itself.
+        var reds = TeamManager.Members(Team.Red);
+        for (int i = 0; i < reds.Count; i++)
         {
-            if (m.enemies[i] == null) continue;
-            EnemyAI ai = m.enemies[i].GetComponent<EnemyAI>();
+            if (reds[i] == null) continue;
+            EnemyAI ai = reds[i].GetComponent<EnemyAI>();
             if (ai != null) ai.enabled = false;
         }
 
@@ -122,13 +124,13 @@ public static class BarangayUtils
     public static void ForceCapture()
     {
         MatchManager m = Object.FindAnyObjectByType<MatchManager>();
-        if (m == null || m.enemies == null || m.enemies.Length == 0 || m.prisonForRed == null)
+        if (m == null || TeamManager.Count(Team.Red) == 0 || m.prisonForRed == null)
         {
             Debug.LogWarning("[Utils] capture test: missing refs.");
             return;
         }
 
-        CharacterStatus e = m.enemies[0];
+        CharacterStatus e = TeamManager.Members(Team.Red)[0];
         if (e == null) { Debug.LogWarning("[Utils] capture test: enemy null."); return; }
 
         Vector3 spot = new Vector3(m.prisonForRed.position.x, 0f, m.prisonForRed.position.z);
@@ -373,9 +375,10 @@ public static class BarangayUtils
             ReportRig(player.transform);
         }
 
-        for (int i = 0; i < m.enemies.Length; i++)
+        var redsInScene = TeamManager.Members(Team.Red);
+        for (int i = 0; i < redsInScene.Count; i++)
         {
-            CharacterStatus e = m.enemies[i];
+            CharacterStatus e = redsInScene[i];
             if (e == null) continue;
             Debug.Log("[Utils] enemy " + e.name + " pos=" + e.transform.position.ToString("F2") +
                       " captured=" + e.isCaptured);
