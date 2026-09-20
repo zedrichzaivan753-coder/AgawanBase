@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 7890440405743448207}
   - component: {fileID: 6225508985345353894}
   - component: {fileID: 6339502016104981967}
+  - component: {fileID: 2387276358469101691}
   m_Layer: 0
   m_Name: BluePlayer
   m_TagString: Untagged
@@ -215,8 +216,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStatus
   team: 0
   homeBase: {fileID: 0}
+  spawnIndex: 0
   fieldTime: 0
   isCaptured: 0
+  immunityTimer: 0
+  rescueCooldownTimer: 0
 --- !u!114 &7890440405743448207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +289,26 @@ MonoBehaviour:
   carryArmDegrees: -150
   flag: {fileID: 0}
   isCarrying: 0
+--- !u!114 &2387276358469101691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120947414604288943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f591bbc5b707f4080c1838c36a9e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterIndicator
+  ringY: 0.04
+  iconY: 1.95
+  arrowY: 2.05
+  bobHeight: 0.07
+  bobHz: 1.6
+  hideWhenNeutral: 1
+  state: 0
+  isConfigured: 0
 --- !u!1 &1805313967250436572
 GameObject:
   m_ObjectHideFlags: 0

@@ -270,6 +270,30 @@ public class MatchManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Would `a` capture `b` if they touched? This is the ONLY place the fieldTime verdict is
+    /// written down, and it is public so the on-screen tag indicators can ASK the rules instead
+    /// of keeping a second copy of them. ResolveTouch calls it as well, so a ring drawn on the
+    /// ground and the capture it predicts can never disagree.
+    ///
+    /// Range and the base rule are deliberately NOT here. They are geometry, they already live
+    /// in CheckCharacterTouches, and the indicator gates on distance separately.
+    /// </summary>
+    public bool WouldWinTag(CharacterStatus a, CharacterStatus b)
+    {
+        if (a == null || b == null) return false;
+
+        // Prisoners cannot fight, and a just-rescued character is immune for a couple of
+        // seconds. In both cases nobody wins anything.
+        if (a.isCaptured || b.isCaptured) return false;
+        if (a.IsImmune || b.IsImmune) return false;
+
+        // Equal fieldTime is a draw, and a draw captures nobody.
+        if (tieIsNoCapture && Mathf.Abs(a.fieldTime - b.fieldTime) <= tieEpsilon) return false;
+
+        return a.fieldTime < b.fieldTime;
+    }
+
     /// <summary>Applies the "lower fieldTime wins" rule to one touching pair.</summary>
     void ResolveTouch(CharacterStatus blue, CharacterStatus red)
     {
@@ -287,7 +311,7 @@ public class MatchManager : MonoBehaviour
             return;
         }
 
-        bool blueWins = blueTime < redTime;
+        bool blueWins = WouldWinTag(blue, red);
         CharacterStatus loser = blueWins ? red : blue;
 
         if (logRules)

@@ -76,9 +76,15 @@ public static class MatchSettings
     const string TeamSizeKey = "match.teamSize";
     const string DifficultyKey = "match.difficulty";
 
+    // Tag hints are a DISPLAY preference, not a match rule, so they are remembered here
+    // with the other choices - this class stays the only thing in the project that talks
+    // to PlayerPrefs.
+    const string TagHintsKey = "match.tagHints";
+
     static int teamSize = MinTeamSize;
     static MatchDifficulty difficulty = MatchDifficulty.Normal;
     static bool loaded;
+    static bool tagHints = true;
 
     /// <summary>Characters on EACH side, including the human on Blue. 1 = 1v1, 4 = 4v4.</summary>
     public static int TeamSize
@@ -116,6 +122,24 @@ public static class MatchSettings
         get { return TeamSize + "v" + TeamSize; }
     }
 
+    /// <summary>
+    /// Show the tag-status rings on opponents. Defaults ON, and persists: it is the feature
+    /// this build adds, but it is only a display preference, so switching it off changes no
+    /// rule and the controlled-character marker stays on regardless.
+    /// </summary>
+    public static bool TagHints
+    {
+        get { EnsureLoaded(); return tagHints; }
+    }
+
+    /// <summary>Flips the tag hints and remembers the choice.</summary>
+    public static void SetTagHints(bool value)
+    {
+        EnsureLoaded();
+        tagHints = value;
+        Save();
+    }
+
     /// <summary>Reads the remembered choice. Called automatically the first time anything asks.</summary>
     public static void Load()
     {
@@ -124,10 +148,14 @@ public static class MatchSettings
         int saved = PlayerPrefs.GetInt(DifficultyKey, (int)MatchDifficulty.Normal);
         difficulty = (MatchDifficulty)Mathf.Clamp(saved, 0, 2);
 
+        // Absent means ON: a fresh install should show the rings this feature exists for.
+        tagHints = PlayerPrefs.GetInt(TagHintsKey, 1) != 0;
+
         loaded = true;
 
         Debug.Log("[Settings] loaded " + SizeName + " (" + BlueAiCount + " Blue AI + " + RedAiCount +
-                  " Red AI) at " + DifficultyName(difficulty) + " skill.");
+                  " Red AI) at " + DifficultyName(difficulty) + " skill, tag hints " +
+                  (tagHints ? "ON" : "OFF") + ".");
     }
 
     /// <summary>Remembers the current choice.</summary>
@@ -135,6 +163,7 @@ public static class MatchSettings
     {
         PlayerPrefs.SetInt(TeamSizeKey, teamSize);
         PlayerPrefs.SetInt(DifficultyKey, (int)difficulty);
+        PlayerPrefs.SetInt(TagHintsKey, tagHints ? 1 : 0);
         PlayerPrefs.Save();
     }
 

@@ -44,6 +44,13 @@ public class GameManager : MonoBehaviour
     [Tooltip("Big VICTORY / GAME OVER / DRAW label on the end screen.")]
     public Text resultText;
 
+    [Header("Tag hints")]
+    [Tooltip("Caption on the pause screen's TAG HINTS button, so it can read ON or OFF.")]
+    public Text tagHintsLabel;
+
+    [Tooltip("Asked to redraw the rings the instant the toggle is pressed. Optional.")]
+    public IndicatorController indicatorController;
+
     [Header("Flags")]
     [Tooltip("Both flags. They are sent home whenever the match is not live, so no screen can ever " +
              "leave a flag stuck to a character or abandoned in the middle of the field.")]
@@ -140,6 +147,33 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         if (State == GameState.Paused) SetState(GameState.Playing);
+    }
+
+    /// <summary>
+    /// TAG HINTS button on the pause screen.
+    ///
+    /// This is a DISPLAY preference and nothing else. Switching it off hides the tag-status
+    /// rings on the opponents and changes no rule - MatchManager still decides every capture
+    /// the same way. The marker on the character the player controls stays on regardless, so
+    /// the player is never left without a "this one is me" cue.
+    /// </summary>
+    public void ToggleTagHints()
+    {
+        MatchSettings.SetTagHints(!MatchSettings.TagHints);
+
+        // Redraw NOW rather than waiting for the controller's next tick. While this screen is
+        // up Time.timeScale is 0, so Time.deltaTime is 0 and the controller's refresh timer
+        // never reaches its interval - the rings would not change until well after Resume.
+        if (indicatorController != null) indicatorController.ForceRefresh();
+
+        RefreshTagHintsLabel();
+    }
+
+    /// <summary>Keeps the button's caption in step with the remembered choice.</summary>
+    void RefreshTagHintsLabel()
+    {
+        if (tagHintsLabel != null)
+            tagHintsLabel.text = MatchSettings.TagHints ? "TAG HINTS: ON" : "TAG HINTS: OFF";
     }
 
     /// <summary>
@@ -259,6 +293,9 @@ public class GameManager : MonoBehaviour
         if (panelMatchSetup != null) panelMatchSetup.SetActive(next == GameState.MatchSetup);
         if (panelHud != null) panelHud.SetActive(next == GameState.Playing || next == GameState.Paused);
         if (panelPause != null) panelPause.SetActive(next == GameState.Paused);
+
+        // The caption must already be correct when the screen appears, not one click later.
+        if (next == GameState.Paused) RefreshTagHintsLabel();
         if (panelEnd != null)
         {
             panelEnd.SetActive(next == GameState.Victory || next == GameState.GameOver ||
