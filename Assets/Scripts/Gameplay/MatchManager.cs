@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// The single authority for the rules of the game. Nothing else decides who wins a touch.
@@ -9,8 +10,11 @@ using UnityEngine;
 ///     than <see cref="tagDistance"/>. The character with the LOWER fieldTime wins; the loser
 ///     is teleported into the enemy prison and frozen.
 ///   - Exactly equal fieldTime is a draw, and nothing happens.
-///   - The Blue player reaching the Red flag while free = Victory.
-///   - A free Red reaching the Blue flag = Game Over.
+///   - CAPTURE THE FLAG: the Blue player picks the Red flag up by touching it while free, and
+///     wins only by carrying it into his OWN base. Touching the flag on its own is no longer a
+///     win - that is the whole change.
+///   - If the carrier is captured, the flag drops exactly where he stood and is sent home either
+///     by a free Red touching it or by its own drop timeout.
 ///
 /// Note on bases: a character inside its own base always has fieldTime 0, so it can never lose
 /// a touch there. That is how a base acts as a safe zone, with no extra special case needed.
@@ -30,11 +34,11 @@ public class MatchManager : MonoBehaviour
     [Tooltip("Where captured RED enemies are held (PrisonForRed).")]
     public Transform prisonForRed;
 
-    [Tooltip("The Blue flag that the enemies try to reach (Flag_Blue).")]
-    public Transform blueFlag;
+    [Tooltip("The Blue flag. Only used by the optional 'a Red steals your flag' stretch goal.")]
+    public Flag blueFlag;
 
-    [Tooltip("The Red flag the player tries to reach (Flag_Red).")]
-    public Transform redFlag;
+    [Tooltip("The Red flag the player steals and carries home (Flag_Red).")]
+    public Flag redFlag;
 
     [Tooltip("The Blue player.")]
     public CharacterStatus player;
@@ -49,6 +53,9 @@ public class MatchManager : MonoBehaviour
     [Tooltip("How close a free character must be to the enemy flag to grab it, in metres.")]
     public float flagDistance = 1.5f;
 
+    [Tooltip("How close a free Red must be to one of its own DROPPED flags to send it home, in metres.")]
+    public float returnDistance = 1.2f;
+
     [Tooltip("Difference in fieldTime below which a touch counts as a draw.")]
     public float tieEpsilon = 0.01f;
 
@@ -60,6 +67,12 @@ public class MatchManager : MonoBehaviour
 
     [Tooltip("ON = equal fieldTime means nothing happens.")]
     public bool tieIsNoCapture = true;
+
+    [Header("Debug")]
+    [Tooltip("Editor/desktop only: press SPACE to drop the flag where the player is standing. " +
+             "Being tagged always ends the match, so this is the only practical way to watch the " +
+             "drop, return and timeout rules while playing. Turn off for the final build.")]
+    public bool allowDebugDrop = true;
 
     [Header("State - read only")]
     [Tooltip("Set by GameManager. The rules only run while this is true.")]
@@ -95,6 +108,14 @@ public class MatchManager : MonoBehaviour
     void Update()
     {
         if (!matchActive) return;
+
+        // Winning is checked FIRST. If the carrier steps into his own base in the same frame as a
+        // tag, "he got home" is the result he earned, and the flag is handed back before any
+        // other rule can act on it.
+        CheckWinCondition();
+        if (!matchActive) return;
+
+        HandleDebugDrop();
 
         // Touches are resolved before flag grabs: if you are tagged you are no longer "free",
         // so reaching the flag in the same instant does not save you.
@@ -155,6 +176,15 @@ public class MatchManager : MonoBehaviour
 
         if (loser == blue)
         {
+            // He was carrying the flag, so it drops exactly where he was caught. This has to happen
+            // BEFORE Capture(), because Capture teleports him to prison - dropping afterwards would
+            // leave the flag sitting inside the prison.
+            if (redFlag != null && redFlag.IsCarried && redFlag.carrier == blue.transform)
+            {
+                Debug.Log("[Match] the flag carrier was caught -> the RED flag drops where he stood");
+                redFlag.Drop(blue.transform.position);
+            }
+
             // The player lost: freeze him in the enemy prison and end the match.
             blue.Capture(PrisonSpot(prisonForBlue, 0));
             matchActive = false;
@@ -173,29 +203,86 @@ public class MatchManager : MonoBehaviour
 
     // ------------------------------------------------------------------ flags
 
+    /// <summary>
+    /// The win: be FREE, be CARRYING the enemy flag, and step inside your OWN base.
+    /// Touching the flag on its own does nothing any more - that is the capture-the-flag change.
+    /// </summary>
+    void CheckWinCondition()
+    {
+        if (player == null || player.isCaptured) return;
+        if (redFlag == null || !redFlag.IsCarried) return;
+        if (redFlag.carrier != player.transform) return;   // somebody else is carrying it
+        if (!player.IsInHomeBase) return;
+
+        Debug.Log("[Match] the BLUE player carried the RED flag into his own base -> VICTORY");
+
+        redFlag.ReturnHome();       // the flag goes back on its pole; the match is over anyway
+        matchActive = false;
+        if (PlayerWon != null) PlayerWon();
+    }
+
+    /// <summary>
+    /// Everything to do with the flags themselves: stealing one, and getting a dropped one home.
+    /// </summary>
     void CheckFlagTouches()
     {
-        // The player grabs the Red flag while free -> Victory.
-        if (player != null && !player.isCaptured && IsTouching(player.transform.position, redFlag))
+        // --- the player steals the Red flag ---
+        if (player != null && !player.isCaptured && redFlag != null && !redFlag.IsCarried)
         {
-            matchActive = false;
-            Debug.Log("[Match] the BLUE player touched the RED flag while free -> VICTORY");
-            if (PlayerWon != null) PlayerWon();
-            return;
+            if (IsTouching(player.transform.position, redFlag.transform) &&
+                redFlag.TryPickUp(player.transform, player.team))
+            {
+                Debug.Log("[Match] the BLUE player picked up the RED flag - now carry it home");
+            }
         }
 
-        // A free enemy reaches the Blue flag -> Game Over.
-        for (int i = 0; i < enemies.Length; i++)
+        // --- a free Red sends its own dropped flag home by touching it ---
+        // The AI's ReturnFlag state does the walking; the touch itself is judged here, exactly
+        // like every other touch in the game, so there is still only one place that decides.
+        if (redFlag != null && redFlag.IsDropped)
         {
-            CharacterStatus enemy = enemies[i];
-            if (enemy == null || enemy.isCaptured) continue;
-            if (!IsTouching(enemy.transform.position, blueFlag)) continue;
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                CharacterStatus enemy = enemies[i];
+                if (enemy == null || enemy.isCaptured) continue;
+                if (FlatDistance(enemy.transform.position, redFlag.transform.position) > returnDistance) continue;
 
-            matchActive = false;
-            Debug.Log("[Match] " + enemy.name + " touched the BLUE flag while free -> GAME OVER");
-            if (PlayerLost != null) PlayerLost();
-            return;
+                Debug.Log("[Match] " + enemy.name + " touched the dropped RED flag -> it goes home");
+                redFlag.ReturnHome();
+                break;
+            }
         }
+    }
+
+    /// <summary>
+    /// Testing hook. Being tagged always ends the match, so there is no way to watch the drop,
+    /// return and timeout rules during normal play - SPACE puts the flag on the ground instead.
+    /// Stripped out of a release build by the #if, which costs nothing at runtime.
+    /// </summary>
+    void HandleDebugDrop()
+    {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (!allowDebugDrop) return;
+        if (player == null) return;
+        if (Keyboard.current == null) return;
+        if (!Keyboard.current.spaceKey.wasPressedThisFrame) return;
+        if (redFlag == null || !redFlag.IsCarried) return;
+
+        // Fake a capture: leave the flag on the spot, then step the carrier off it.
+        // The step matters. A drop always lands inside grab range of whoever was carrying it, so
+        // without it the player would pick his own dropped flag straight back up and there would
+        // be no way to watch the return and timeout rules at all. A real capture does the same
+        // thing by teleporting the carrier to prison.
+        Vector3 dropSpot = player.transform.position;
+
+        CharacterMotor motor = player.GetComponent<CharacterMotor>();
+        if (motor != null) motor.TeleportTo(dropSpot + new Vector3(0f, 0f, 4f));
+
+        redFlag.Drop(dropSpot);
+
+        Debug.Log("[Match] DEBUG: dropped the flag at " + dropSpot.ToString("F2") +
+                  " and stepped the player clear, so the return rules can be watched.");
+#endif
     }
 
     // ------------------------------------------------------- small helpers

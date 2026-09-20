@@ -14,6 +14,10 @@ public class CharacterMotor : MonoBehaviour
     [Tooltip("Small constant downward speed that keeps the character glued to the ground.")]
     public float groundStickSpeed = -2f;
 
+    [Tooltip("Live speed multiplier. SprintStamina raises this while a character is sprinting. " +
+             "Leave it at 1 for normal walking speed.")]
+    public float speedMultiplier = 1f;
+
     CharacterController controller;
     bool isFrozen;
 
@@ -22,6 +26,12 @@ public class CharacterMotor : MonoBehaviour
     {
         get { return isFrozen; }
     }
+
+    /// <summary>
+    /// True when the last <see cref="Move"/> call was given a real direction.
+    /// SprintStamina reads this so that standing still never drains stamina.
+    /// </summary>
+    public bool IsMoving { get; private set; }
 
     void Awake()
     {
@@ -34,10 +44,18 @@ public class CharacterMotor : MonoBehaviour
     /// </summary>
     public void Move(Vector2 input)
     {
-        if (isFrozen || controller == null) return;
+        if (isFrozen || controller == null)
+        {
+            IsMoving = false;
+            return;
+        }
+
+        // Remember whether we were actually asked to walk this frame. SprintStamina uses it.
+        IsMoving = input.sqrMagnitude > 0.0001f;
 
         // Work out this frame's motion: sideways from the input, plus a small downward push.
-        Vector3 motion = new Vector3(input.x, 0f, input.y) * moveSpeed;
+        // speedMultiplier is 1 unless SprintStamina has raised it for a sprint.
+        Vector3 motion = new Vector3(input.x, 0f, input.y) * (moveSpeed * speedMultiplier);
         motion.y = groundStickSpeed;
 
         controller.Move(motion * Time.deltaTime);

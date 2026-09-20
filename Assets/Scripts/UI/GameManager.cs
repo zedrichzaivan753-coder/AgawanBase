@@ -41,6 +41,12 @@ public class GameManager : MonoBehaviour
     [Tooltip("Big VICTORY / GAME OVER label on the end screen.")]
     public Text resultText;
 
+    [Header("Flags")]
+    [Tooltip("Both flags. They are sent home whenever the match is not live, so no screen can ever " +
+             "leave a flag stuck to a character or abandoned in the middle of the field.")]
+    public Flag redFlag;
+    public Flag blueFlag;
+
     [Header("Settings")]
     [Tooltip("Hard limit for the mobile build.")]
     public int targetFrameRate = 30;
@@ -147,6 +153,16 @@ public class GameManager : MonoBehaviour
         // The player must not be able to walk around on menus.
         if (playerController != null) playerController.enabled = (next == GameState.Playing);
 
+        // Flags: any screen that is NOT the live match leaves them in a clean, predictable state.
+        // Restart and Title reload the scene anyway; Victory and Game Over do not, so reset here.
+        // Paused is deliberately excluded - pausing mid-carry must freeze the flag on the carrier,
+        // not teleport it home, or resuming would silently undo the player's steal.
+        if (next != GameState.Playing && next != GameState.Paused)
+        {
+            if (redFlag != null) redFlag.ReturnHome();
+            if (blueFlag != null) blueFlag.ReturnHome();
+        }
+
         // Screens
         if (panelTitle != null) panelTitle.SetActive(next == GameState.Title);
         if (panelHud != null) panelHud.SetActive(next == GameState.Playing || next == GameState.Paused);
@@ -162,7 +178,7 @@ public class GameManager : MonoBehaviour
 
         if (resultText != null)
         {
-            if (next == GameState.Victory) resultText.text = "VICTORY!\nYou reached the red flag.";
+            if (next == GameState.Victory) resultText.text = "VICTORY!\nYou carried the red flag home.";
             else if (next == GameState.GameOver) resultText.text = "GAME OVER\nYou were captured.";
         }
 
