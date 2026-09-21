@@ -1,0 +1,74 @@
+================ Part D - Row 7: Android build ================
+Recorded: 2026-09-21
+
+-- how the build was triggered --
+`manage_build(action="build", target="android")` was attempted first and failed:
+    "No Unity Editor instances found. Please ensure Unity is running with MCP for Unity bridge."
+The project's own editor helper was used instead: `BarangayUtils.BuildApk()` (Assets/Editor/BarangayUtils.cs:225),
+run through the editor script bridge. It builds the enabled scenes in EditorBuildSettings with
+BuildPipeline.BuildPlayer and logs the BuildReport summary.
+
+-- result --
+result              = Succeeded
+errors              = 0
+started             = 15:34:27
+finished            = 15:36:06   (about 99 s)
+apk                 = C:\Users\Zedrich\AgawanBase\Builds\AgawanBase.apk
+apk bytes           = 38,415,617
+apk MB              = 36.64
+size cap            = 100 MB  ->  PASS (36.64 MB is 36.6% of the cap)
+
+NOTE ON THE BUILDREPORT SIZE:
+BuildReport.summary.totalSize reported 730,216,659 bytes (696.39 MB). That figure is the whole build
+output, which includes `AgawanBase_BackUpThisFolder_ButDontShipItWithYourGame\` - the IL2CPP
+intermediate C++ and burst output. It is NOT the shippable size. The shippable artifact is the .apk
+alone, measured on disk at 36.64 MB.
+
+-- build configuration read at build time (BarangayUtils.ReportBuild) --
+activeBuildTarget        = Android
+scriptingBackend         = IL2CPP
+targetArchitectures      = ARM64
+minSdkVersion            = AndroidApiLevel26
+defaultInterfaceOrientation = LandscapeLeft
+bundleVersion            = 0.1
+quality level            = Mobile   (shadowDistance 0, shadows Disable, vSync 0, targetFrameRate 30)
+build scenes             = ON  Assets/Scenes/Game.unity   (the only enabled scene)
+
+-- read back from the built APK itself (Unity Android SDK aapt.exe 36.0.0) --
+aapt dump badging Builds\AgawanBase.apk:
+    package:            name='com.UnityTechnologies.com.unity.template.urpblank' versionCode='1' versionName='0.1'
+    platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36'
+    sdkVersion:         '26'
+    targetSdkVersion:   '36'
+    application-label:  'AgawanBase'
+    native-code:        'arm64-v8a'
+    launchable-activity: com.unity3d.player.UnityPlayerGameActivity
+    supports-screens:   'small' 'normal' 'large' 'xlarge'
+
+aapt dump xmltree Builds\AgawanBase.apk AndroidManifest.xml (filtered):
+    A: android:screenOrientation(0x0101001e)=(type 0x10)0x0     -> 0 = landscape, landscape only
+    A: android:glEsVersion(0x01010281)=(type 0x11)0x30001       -> GLES 3.1
+    A: android:resizeableActivity(0x010104f6)=(type 0x12)0xffffffff
+
+-- APK zip contents (System.IO.Compression) --
+entries total = 510
+    lib/arm64-v8a/libil2cpp.so             47,886,880 B   (compressed into the 36.64 MB apk)
+    lib/arm64-v8a/libunity.so              22,308,816 B
+    lib/arm64-v8a/libc++_shared.so          1,292,904 B
+    lib/arm64-v8a/lib_burst_generated.so      377,648 B
+    lib/arm64-v8a/libmain.so                    6,696 B
+    (no lib/armeabi-v7a/ entry  ->  ARM64 only, as configured)
+    assets/bin/Data/Managed/Metadata/global-metadata.dat  8,730,380 B  (IL2CPP metadata)
+
+-- confirmed against the row's expected values --
+min SDK 26          -> CONFIRMED (manifest sdkVersion:'26', and PlayerSettings AndroidApiLevel26)
+ARM64               -> CONFIRMED (manifest native-code:'arm64-v8a', and only lib/arm64-v8a in the apk)
+landscape           -> CONFIRMED (manifest android:screenOrientation = 0 = landscape)
+under 100 MB        -> CONFIRMED (36.64 MB)
+
+-- separate finding, NOT fixed --
+The application identifier is still the Unity URP template default:
+    com.UnityTechnologies.com.unity.template.urpblank
+`productName` is correctly 'AgawanBase' and the launcher label reads 'AgawanBase', but the package id
+itself was never rebranded. A release build should carry a real reverse-DNS identifier before upload.
+This is a build-configuration item, so it was recorded here rather than changed.

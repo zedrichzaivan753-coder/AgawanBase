@@ -1,0 +1,296 @@
+================ Part D probe log ================
+utc=2026-09-21T07:16:48.8670479Z
+unity=6000.6.0f1  platform=WindowsEditor
+isPlaying=True  activeScene=Assets/Scenes/Game.unity
+gpu=Direct3D11 / NVIDIA GeForce GTX 1070
+renderPipeline=UniversalRenderPipelineAsset
+-- build settings --
+activeBuildTarget=Android
+android scriptingBackend=IL2CPP
+android minSdkVersion=AndroidApiLevel26
+android targetArchitectures=ARM64
+android bundleVersionCode=1
+defaultInterfaceOrientation=LandscapeLeft
+companyName='DefaultCompany' productName='AgawanBase'
+colorSpace=Linear
+buildScene[0] enabled=True path=Assets/Scenes/Game.unity
+-- scene inventory --
+sceneGameObjects=501  missingScriptComponents=0
+-- key scene objects present --
+  OK   Game/MatchManager
+  OK   Game/Systems/CharacterSpawner
+  OK   Game/Systems/IndicatorController
+  OK   Game/Environment/Ground
+  OK   Game/Environment/Base_Blue
+  OK   Game/Environment/Base_Red
+  OK   Game/Environment/Flag_Blue
+  OK   Game/Environment/Flag_Red
+  OK   Game/Environment/PrisonForBlue
+  OK   Game/Environment/PrisonForRed
+  OK   Game/Characters/BluePlayer
+  OK   Game/CameraRig
+  OK   Game/CameraRig/Main Camera
+  OK   Game/UI/Panel_Title
+  OK   Game/UI/Panel_MatchSetup
+  OK   Game/UI/Panel_Hud
+  OK   Game/UI/Panel_Pause
+  OK   Game/UI/Panel_End
+  OK   Game/UI/VirtualJoystick
+  OK   Game/EventSystem
+  OK   Game/UI/Panel_Hud/SprintButton
+  OK   Game/UI/Panel_Hud/PauseButton
+  OK   Game/UI/Panel_Hud/FreshnessBarBg/FreshnessFill
+  OK   Game/UI/Panel_Hud/StaminaBarBg/StaminaFill
+  OK   Game/UI/Panel_Hud/BlueStatusLabel
+  OK   Game/UI/Panel_Hud/RedStatusLabel
+  OK   Game/UI/Panel_Hud/FlagLabel
+  OK   Game/UI/Panel_Hud/AlertLabel
+  OK   Game/UI/Panel_Hud/AIDebugLabel
+-- serialized object-reference scan (null UnityEngine.Object fields) --
+  GameManager on 'Game'  nullRefs=(none)
+  MatchManager on 'MatchManager'  nullRefs=(none)
+  HudController on 'UI'  nullRefs=(none)
+  CharacterSpawner on 'CharacterSpawner'  nullRefs=(none)
+  PlayerController on 'BluePlayer'  nullRefs=(none)
+  FollowCamera on 'CameraRig'  nullRefs=(none)
+  VirtualJoystick on 'VirtualJoystick'  nullRefs=(none)
+  SprintButton on 'SprintButton'  nullRefs=(none)
+  MatchSetupUI on 'Panel_MatchSetup'  nullRefs=(none)
+  OffScreenMarkers on 'Panel_Hud'  nullRefs=match=NULL
+-- camera at rest --
+R08 camera: orthographic=True orthographicSize=5.493 screen=1139x558 aspect=2.041 rigPos=(-11.000,-1.000) followTarget=BluePlayer
+R08 camera: visibleWidthPercent=0.650 -> VisibleWidth=22.425 m  VisibleDepth=13.412 m  WantedOrthographicSize=5.493 -> covers 65.000% of the 34.500 m arena width
+STATE state=Title matchActive=False timeScale=1.000 outcome=None matchClock=0.000 titleActive=True setupActive=False hudActive=False pauseActive=False endActive=False joystickActive=False
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R01_title.png
+CLICK 'Game/UI/Panel_Title/StartButton'  activeSelf=True interactable=True
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R02_matchsetup.png
+CLICK 'Game/UI/Panel_MatchSetup/SizeButton2'  activeSelf=True interactable=True
+CLICK 'Game/UI/Panel_MatchSetup/NormalButton'  activeSelf=True interactable=True
+R02 chose teamSize=2 diff=Normal
+CLICK 'Game/UI/Panel_MatchSetup/StartButton'  activeSelf=True interactable=True
+R02 route B(reload): PLAYING after 0.014 s realtime  (polls=1)
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: BluePlayer[Blue/HUMAN], Blue_AI_1[Blue], Red_AI_1[Red], Red_AI_2[Red]
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R02_hud.png
+R03 rules parked (matchActive=false) so no AI can interrupt the control measurements
+R03 joystick: handleRange=80 deadZone=0.12 joystickActive=False eventSystem=EventSystem
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(0.000,1.000) -> Value=(0.000,1.000)
+R03 dir=UP(+Z) moved=0.000 m  delta=(0.000,0.000) endPos=(0.000,0.000) expectedDirection=(0.000,1.000)  movedTheRightWay=False
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(1.000,0.000) -> Value=(1.000,0.000)
+R03 dir=RIGHT(+X) moved=0.000 m  delta=(0.000,0.000) endPos=(0.000,0.000) expectedDirection=(1.000,0.000)  movedTheRightWay=False
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(0.000,-1.000) -> Value=(0.000,-1.000)
+R03 dir=DOWN(-Z) moved=0.000 m  delta=(0.000,0.000) endPos=(0.000,0.000) expectedDirection=(0.000,-1.000)  movedTheRightWay=False
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(-1.000,0.000) -> Value=(-1.000,0.000)
+R03 dir=LEFT(-X) moved=0.000 m  delta=(0.000,0.000) endPos=(0.000,0.000) expectedDirection=(-1.000,0.000)  movedTheRightWay=False
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+R03 after release: moved=0.000 m over 0.6 s  (0.000 = the character stopped dead)
+CLICK 'Game/UI/Panel_Pause/RestartButton'  activeSelf=True interactable=True
+R02 route RESTART-from-pause: PLAYING after 0.221 s realtime  (polls=2)
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: Blue_AI_1[Blue], BluePlayer[Blue/HUMAN], Red_AI_1[Red], Red_AI_2[Red]
+RULES PARKED (matchActive=false)
+R03 rules parked (matchActive=false) so no AI can interrupt the control measurements
+R03 joystick: handleRange=80 deadZone=0.12 joystickActive=True eventSystem=EventSystem
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(0.000,1.000) -> Value=(0.000,1.000)
+R03 dir=UP(+Z) moved=5.388 m  delta=(0.000,5.388) endPos=(0.000,5.388) expectedDirection=(0.000,1.000)  movedTheRightWay=True
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(1.000,0.000) -> Value=(1.000,0.000)
+R03 dir=RIGHT(+X) moved=3.800 m  delta=(3.800,0.000) endPos=(3.800,0.000) expectedDirection=(1.000,0.000)  movedTheRightWay=True
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(0.000,-1.000) -> Value=(0.000,-1.000)
+R03 dir=DOWN(-Z) moved=3.599 m  delta=(0.000,-3.599) endPos=(0.000,-3.599) expectedDirection=(0.000,-1.000)  movedTheRightWay=True
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(-1.000,0.000) -> Value=(-1.000,0.000)
+R03 dir=LEFT(-X) moved=3.599 m  delta=(-3.599,0.000) endPos=(-3.599,0.000) expectedDirection=(-1.000,0.000)  movedTheRightWay=True
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+R03 after release: moved=0.000 m over 0.6 s  (0.000 = the character stopped dead)
+R03 sprint: maxStamina=2.000 drainPerSecond=1.000 regenPerSecond=0.700 restartThreshold=0.400 sprintSpeedMultiplier=1.600 stamina01=1.000
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+  stick push dir=(0.000,1.000) -> Value=(0.000,1.000)
+R03 WALK phase: 5.389 m in 0.601 s = 8.961 m/s   stamina01=1.000
+R03(walking) state=Playing freshnessFill=0.000 freshnessText='43.2 s in the field' staminaFill=1.000 staminaText='STAMINA  100%' flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  2/2 free  |  flag: AT BASE' redText='RED  1/2 free  |  flag: AT BASE' alertText='CAPTURED - waiting for a rescue' aiDebugVisible=False showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PATROL
+RED:   Red_AI_1  DEFENDER  RESCUE   Red_AI_2  RAIDER  PRISON' playerFieldTime=43.226 playerInBase=False
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+R03 sprint button held -> IsHeld=True
+  stick push dir=(0.000,1.000) -> Value=(0.000,1.000)
+R03 SPRINT phase: 5.929 m in 0.601 s = 9.861 m/s   ratioVsWalk=1.100   (sprintSpeedMultiplier is 1.600)   IsSprinting=True stamina01=0.684 speedMultiplier=1.600
+  stick push dir=(0.000,1.000) -> Value=(0.000,1.000)
+  R03 drain t=0.352 s  IsSprinting=True stamina01=0.517 CanSprint=True staminaFill=0.534 staminaText='SPRINTING  53%'
+  stick push dir=(1.000,0.000) -> Value=(1.000,0.000)
+  R03 drain t=0.704 s  IsSprinting=True stamina01=0.333 CanSprint=True staminaFill=0.350 staminaText='SPRINTING  35%'
+  stick push dir=(0.000,-1.000) -> Value=(0.000,-1.000)
+  R03 drain t=1.059 s  IsSprinting=True stamina01=0.150 CanSprint=True staminaFill=0.167 staminaText='SPRINTING  17%'
+  stick push dir=(-1.000,0.000) -> Value=(-1.000,0.000)
+  R03 drain t=1.412 s  IsSprinting=True stamina01=0.000 CanSprint=False staminaFill=0.000 staminaText='SPRINTING  0%'
+R03 STAMINA EXHAUSTED at t=1.412 s: stamina01=0.000 IsSprinting=True CanSprint=False
+R03 lock-out probe: button still held, stick still pushed -> IsSprinting=True CanSprint=False (both must be False)
+  stick push dir=(0.000,1.000) -> Value=(0.000,1.000)
+  R03 drain t=1.765 s  IsSprinting=False stamina01=0.000 CanSprint=False staminaFill=0.000 staminaText='STAMINA  0%'
+  R03 drain t=2.118 s  IsSprinting=False stamina01=0.023 CanSprint=False staminaFill=0.012 staminaText='STAMINA  1%'
+  R03 drain t=2.470 s  IsSprinting=False stamina01=0.152 CanSprint=False staminaFill=0.140 staminaText='STAMINA  14%'
+  R03 drain t=2.822 s  IsSprinting=True stamina01=0.126 CanSprint=True staminaFill=0.143 staminaText='SPRINTING  14%'
+  stick push dir=(1.000,0.000) -> Value=(1.000,0.000)
+  R03 drain t=3.175 s  IsSprinting=False stamina01=0.000 CanSprint=False staminaFill=0.000 staminaText='STAMINA  0%'
+  R03 drain t=3.526 s  IsSprinting=False stamina01=0.000 CanSprint=False staminaFill=0.000 staminaText='STAMINA  0%'
+  R03 drain t=4.254 s  IsSprinting=False stamina01=0.023 CanSprint=False staminaFill=0.011 staminaText='STAMINA  1%'
+R03 drain end: elapsed=4.254 s stamina01=0.023 IsSprinting=False CanSprint=False (stamina refills once sprinting stops: regenDelay 0.600 s then 0.700/s)
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R03_stamina.png
+R03(sprint drained) state=Playing freshnessFill=0.000 freshnessText='47.6 s in the field' staminaFill=0.011 staminaText='STAMINA  1%' flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  2/2 free  |  flag: AT BASE' redText='RED  1/2 free  |  flag: AT BASE' alertText='CAPTURED - waiting for a rescue' aiDebugVisible=False showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PATROL
+RED:   Red_AI_1  DEFENDER  RESCUE   Red_AI_2  RAIDER  PRISON' playerFieldTime=47.592 playerInBase=False
+  stick released -> Value=(0.000,0.000)  handle=(0.000,0.000)
+R03 sprint button released -> IsHeld=False
+RULES ON (matchActive=true)
+R04 TIE staged: Blue_AI_1 fieldTime=4.00 at (0,0)   Red_AI_1 fieldTime=4.00 at (1,0)   tagDistance=1.200 tieIsNoCapture=True tieEpsilon=0.010
+R04 TIE after 1.5 s: blueCaptured=False redCaptured=False   (expected both False - equal fieldTime captures nobody)
+RULES ON (matchActive=true)
+--------------------------------------------------------------
+--- Part D probe: continued run (rows 4, 5, 8 and 6) ---
+utc=2026-09-21T07:25:10.2585183Z  unity=6000.6.0f1
+--------------------------------------------------------------
+STATE state=Title matchActive=False timeScale=1.000 outcome=None matchClock=0.000 titleActive=True setupActive=False hudActive=False pauseActive=False endActive=False joystickActive=False
+CLICK 'Game/UI/Panel_Title/StartButton'  activeSelf=True interactable=True
+CLICK 'Game/UI/Panel_MatchSetup/SizeButton2'  activeSelf=True interactable=True
+CLICK 'Game/UI/Panel_MatchSetup/NormalButton'  activeSelf=True interactable=True
+R02 chose teamSize=2 diff=Normal
+CLICK 'Game/UI/Panel_MatchSetup/StartButton'  activeSelf=True interactable=True
+R02 route B(reload): PLAYING after 0.023 s realtime  (polls=1)
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: BluePlayer[Blue/HUMAN], Blue_AI_1[Blue], Red_AI_1[Red], Red_AI_2[Red]
+RULES PARKED (matchActive=false)
+R08 probe EAST-wall: player=(17.200,0.000)  rig=(11.037,1.500)  orthoSize=5.493  allowedX=+/-11.038  allowedZ=-8.794..6.794  insideClamp=True
+R08 probe WEST-wall: player=(-17.200,0.000)  rig=(-11.037,1.500)  orthoSize=5.493  allowedX=+/-11.038  allowedZ=-8.794..6.794  insideClamp=True
+R08 probe NORTH-wall: player=(0.000,8.000)  rig=(0.000,6.794)  orthoSize=5.493  allowedX=+/-11.038  allowedZ=-8.794..6.794  insideClamp=True
+R08 probe SOUTH-wall: player=(0.000,-10.000)  rig=(0.000,-8.420)  orthoSize=5.493  allowedX=+/-11.038  allowedZ=-8.794..6.794  insideClamp=True
+R08 probe CENTRE: player=(0.000,0.000)  rig=(0.000,1.500)  orthoSize=5.493  allowedX=+/-11.038  allowedZ=-8.794..6.794  insideClamp=True
+R08 camera: orthographic=True orthographicSize=5.493 screen=1139x558 aspect=2.041 rigPos=(0.000,1.500) followTarget=BluePlayer
+R08 camera: visibleWidthPercent=0.650 -> VisibleWidth=22.425 m  VisibleDepth=13.412 m  WantedOrthographicSize=5.493 -> covers 65.000% of the 34.500 m arena width
+R08 clamp run complete.
+R08 camera: orthographic=True orthographicSize=5.493 screen=1139x558 aspect=2.041 rigPos=(0.000,1.500) followTarget=BluePlayer
+R08 camera: visibleWidthPercent=0.650 -> VisibleWidth=22.425 m  VisibleDepth=13.412 m  WantedOrthographicSize=5.493 -> covers 65.000% of the 34.500 m arena width
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R08_camera.png
+RULES ON (matchActive=true)
+R04 TIE staged: Blue_AI_1 fieldTime=4.00 at (0,0)   Red_AI_1 fieldTime=4.00 at (1,0)   tagDistance=1.200 tieIsNoCapture=True tieEpsilon=0.010
+R04 TIE after 1.5 s: blueCaptured=False redCaptured=False   (expected both False - equal fieldTime captures nobody)
+RULES ON (matchActive=true)
+R04 CAPTURE staged: Blue_AI_1 fieldTime=9.00 (staler) and Red_AI_1 fieldTime=1.00 (fresher), 1.0 m apart, both outside every base.
+R04 expected: Red_AI_1 stays free; Blue_AI_1 is teleported to the prison and frozen.
+R04 CAPTURE result after 1 ticks: blueCaptured=True redCaptured=False
+R04 CAPTURE detail: Blue_AI_1 isCaptured=True pos=(13.700,-7.200) frozen=True fieldTime=9.000 immunity=0.000
+R04 CAPTURE detail: Red_AI_1 isCaptured=False pos=(1.000,0.000) fieldTime=1.333
+R04 prisonForBlue 'PrisonForBlue' at (13.000,-6.500)
+R04 counts: blueFree=0/2 redFree=2/2 redCaptured=0
+R04(HUD at capture) state=GameOver freshnessFill=0.000 freshnessText='CAPTURED' staminaFill=1.000 staminaText='STAMINA  -' flagLabelActive=False flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  0/2 free  |  flag: AT BASE' redText='RED  2/2 free  |  flag: AT BASE' alertLabelActive=False alertText='CAPTURED - waiting for a rescue' aiDebugVisible=False showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PATROL
+RED:   Red_AI_1  DEFENDER  RESCUE   Red_AI_2  FLEX  RETREAT' playerFieldTime=23.113 playerInBase=False
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R04_capture.png
+CLICK 'Game/UI/Panel_Pause/RestartButton'  activeSelf=True interactable=True
+R02 route RESTART-from-pause: PLAYING after 0.193 s realtime  (polls=2)
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: Blue_AI_1[Blue], BluePlayer[Blue/HUMAN], Red_AI_1[Red], Red_AI_2[Red]
+RULES PARKED (matchActive=false)
+RULES ON (matchActive=true)
+R04 CAPTURE staged: Blue_AI_1 fieldTime=9.00 (staler) and Red_AI_1 fieldTime=1.00 (fresher), 1.0 m apart, both outside every base.
+R04 expected: Red_AI_1 stays free; Blue_AI_1 is teleported to the prison and frozen.
+R04 CAPTURE result after 1 ticks: blueCaptured=True redCaptured=False
+R04 CAPTURE detail: Blue_AI_1 isCaptured=True pos=(12.300,-7.200) frozen=True fieldTime=9.000 immunity=0.000
+R04 CAPTURE detail: Red_AI_1 isCaptured=False pos=(2.981,0.277) fieldTime=1.333
+R04 prisonForBlue 'PrisonForBlue' at (13.000,-6.500)
+R04 counts: blueFree=1/2 redFree=2/2 redCaptured=0
+R04(HUD at capture) state=Playing freshnessFill=1.000 freshnessText='SAFE AT BASE' staminaFill=1.000 staminaText='STAMINA  100%' flagLabelActive=False flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  1/2 free  |  flag: AT BASE' redText='RED  2/2 free  |  flag: AT BASE' alertLabelActive=False alertText='CAPTURED - waiting for a rescue' aiDebugVisible=True showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PRISON
+RED:   Red_AI_1  DEFENDER  PATROL   Red_AI_2  FLEX  RETREAT' playerFieldTime=0.000 playerInBase=True
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R04_capture.png
+RULES ON (matchActive=true)
+R04 RESCUE staged: prisoner Blue_AI_1 at (12.300,-7.200) rescueCooldownTimer=0.000   rescuer BluePlayer at (13.300,-7.200) distance=1.000 m   rescueDistance=1.500 immunitySeconds=2.000 rescueCooldown=3.000
+R04 RESCUE result after 1 ticks: Blue_AI_1 isCaptured=False pos=(10.900,-6.500) fieldTime=0.365 immunityTimer=1.635 rescueCooldownTimer=2.635 frozen=False
+R04 RESCUE detail: rescuer BluePlayer immunityTimer=0.000 fieldTime=0.375  (the rescuer gets NO immunity)
+R04 expected: freed, fieldTime 0.00, immunity 2.000, cooldown 3.000
+R04 counts: blueFree=2/2 redFree=2/2
+RULES ON (matchActive=true)
+R05 freshness: human teleported to (0,0), outside every base; sampling the bar as fieldTime climbs
+  R05 outside t=0.502 s fieldTime=0.830 Freshness01=0.959 fill=0.960 text='0.8 s in the field'
+  R05 outside t=1.004 s fieldTime=1.331 Freshness01=0.933 fill=0.935 text='1.3 s in the field'
+  R05 outside t=1.505 s fieldTime=1.830 Freshness01=0.908 fill=0.910 text='1.8 s in the field'
+  R05 outside t=2.006 s fieldTime=2.330 Freshness01=0.883 fill=0.885 text='2.3 s in the field'
+  R05 outside t=2.521 s fieldTime=2.831 Freshness01=0.858 fill=0.860 text='2.8 s in the field'
+  R05 outside t=3.023 s fieldTime=3.331 Freshness01=0.833 fill=0.835 text='3.3 s in the field'
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R05_hud_outside.png
+R05(3 s outside) state=Playing freshnessFill=0.835 freshnessText='3.3 s in the field' staminaFill=1.000 staminaText='STAMINA  100%' flagLabelActive=False flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  1/2 free  |  flag: AT BASE' redText='RED  2/2 free  |  flag: AT BASE' alertLabelActive=False alertText='CAPTURED - waiting for a rescue' aiDebugVisible=True showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PRISON
+RED:   Red_AI_1  RAIDER  CHASE   Red_AI_2  DEFENDER  PATROL' playerFieldTime=3.331 playerInBase=False
+R05 freshness: human teleported INSIDE Base_Blue at (-11.000,0.500)  isInHomeBase=True
+R05 inside: fieldTime=0.000 Freshness01=1.000 fill=1.000 text='SAFE AT BASE' isInHomeBase=True
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R05_hud_inside.png
+R05(inside base) state=Playing freshnessFill=1.000 freshnessText='SAFE AT BASE' staminaFill=1.000 staminaText='STAMINA  100%' flagLabelActive=False flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  1/2 free  |  flag: AT BASE' redText='RED  2/2 free  |  flag: AT BASE' alertLabelActive=False alertText='CAPTURED - waiting for a rescue' aiDebugVisible=True showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PRISON
+RED:   Red_AI_1  RAIDER  STEAL   Red_AI_2  DEFENDER  PATROL' playerFieldTime=0.000 playerInBase=True
+RULES PARKED (matchActive=false)
+CLICK 'Game/UI/Panel_Title/StartButton'  activeSelf=True interactable=True
+R02 route A(no-reload): teamSize=2 diff=Normal spawnedSize=2 spawnedDiff=Normal hasSpawned=True
+CLICK 'Game/UI/Panel_MatchSetup/StartButton'  activeSelf=True interactable=True
+R02 route A(no-reload): PLAYING after 0.009 s realtime  (polls=1)
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: Blue_AI_1[Blue], BluePlayer[Blue/HUMAN], Red_AI_1[Red], Red_AI_2[Red]
+RULES ON (matchActive=true)
+R06 pause: clicking the HUD pause button
+CLICK 'Game/UI/Panel_Hud/PauseButton'  activeSelf=True interactable=True
+R06 pause result: state=Paused timeScale=0.000 pausePanelActive=True hudActive=True joystickActive=False
+R06 pause freeze check over ~1 s: matchClock 24.125 -> 24.125 (delta 0.000)  playerMoved=0.000 m  timeScale=0.000  (timeScale 0 should freeze both)
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R06_pause.png
+R06 resume: clicking RESUME at timeScale=0.000
+CLICK 'Game/UI/Panel_Pause/ResumeButton'  activeSelf=True interactable=True
+R06 resume result: state=Playing timeScale=1.000 pausePanelActive=False hudActive=True
+RULES ON (matchActive=true)
+R06 VICTORY staged: human BluePlayer placed at the red flag (11.400,0.000)  flagDistance=1.500
+R06 VICTORY pickup: redFlagState=Carried carrier=BluePlayer flagLabelActive=True flagText='YOU HAVE THE FLAG!  Get back to your base!'
+R06 VICTORY: carrier BluePlayer walked into Base_Blue at (-11.000,0.000)  state before=Playing
+R06 VICTORY result: state=Victory outcome=FlagCarriedHome endPanelActive=True resultText='VICTORY! / You carried the red flag home.'
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R06_victory.png
+CLICK 'Game/UI/Panel_End/RestartButton'  activeSelf=True interactable=True
+R06 restart from the Victory screen: PLAYING after 0.191 s
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: Blue_AI_1[Blue], BluePlayer[Blue/HUMAN], Red_AI_1[Red], Red_AI_2[Red]
+RULES ON (matchActive=true)
+R06 GAMEOVER staged: Red_AI_1 placed at the blue flag (-10.600,0.000)
+R06 GAMEOVER pickup: blueFlagState=Carried carrier=Red_AI_1  alertLabelActive=True  alertText='YOUR FLAG HAS BEEN TAKEN!'
+R06 GAMEOVER: Red_AI_1 carried it into Base_Red at (11.000,0.000)
+R06 GAMEOVER result: state=GameOver outcome=FlagCarriedHome endPanelActive=True resultText='GAME OVER / The enemy carried your flag home.'
+SHOT -> C:\Users\Zedrich\AgawanBase\Docs/Evidence\R06_gameover.png
+CLICK 'Game/UI/Panel_Title/StartButton'  activeSelf=True interactable=True
+R02 route A(no-reload): teamSize=2 diff=Normal spawnedSize=2 spawnedDiff=Normal hasSpawned=True
+CLICK 'Game/UI/Panel_MatchSetup/StartButton'  activeSelf=True interactable=True
+R02 route A(no-reload): PLAYING after 0.010 s realtime  (polls=1)
+R02 contents: arenaGround=True baseBlue=True baseRed=True flagBlue=True flagRed=True hudPanel=True characters=4 (blue=2 red=2)
+R02 roster: Blue_AI_1[Blue], BluePlayer[Blue/HUMAN], Red_AI_1[Red], Red_AI_2[Red]
+R05 counters now: blueFree=2/2 redFree=2/2 blueCaptured=0 redCaptured=0
+R05 state=Playing freshnessFill=1.000 freshnessText='SAFE AT BASE' staminaFill=1.000 staminaText='STAMINA  100%' flagLabelActive=False flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  2/2 free  |  flag: AT BASE' redText='RED  2/2 free  |  flag: AT BASE' alertLabelActive=False alertText='CAPTURED - waiting for a rescue' aiDebugVisible=True showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  DEFENDER  PATROL
+RED:   Red_AI_1  RAIDER  STEAL   Red_AI_2  DEFENDER  PATROL' playerFieldTime=0.000 playerInBase=True
+RULES ON (matchActive=true)
+R04 CAPTURE staged: Blue_AI_1 fieldTime=9.00 (staler) and Red_AI_1 fieldTime=1.00 (fresher), 1.0 m apart, both outside every base.
+R04 expected: Red_AI_1 stays free; Blue_AI_1 is teleported to the prison and frozen.
+R04 CAPTURE result after 1 ticks: blueCaptured=True redCaptured=False
+R04 CAPTURE detail: Blue_AI_1 isCaptured=True pos=(12.300,-7.200) frozen=True fieldTime=9.000 immunity=0.000
+R04 CAPTURE detail: Red_AI_1 isCaptured=False pos=(1.000,0.000) fieldTime=1.333
+R04 prisonForBlue 'PrisonForBlue' at (13.000,-6.500)
+R04 counts: blueFree=1/2 redFree=2/2 redCaptured=0
+R05 counters now: blueFree=1/2 redFree=2/2 blueCaptured=1 redCaptured=0
+RULES ON (matchActive=true)
+R04 RESCUE staged: prisoner Blue_AI_1 at (12.300,-7.200) rescueCooldownTimer=0.000   rescuer BluePlayer at (13.300,-7.200) distance=1.000 m   rescueDistance=1.500 immunitySeconds=2.000 rescueCooldown=3.000
+R04 RESCUE result after 1 ticks: Blue_AI_1 isCaptured=False pos=(10.900,-6.500) fieldTime=0.364 immunityTimer=1.636 rescueCooldownTimer=2.636 frozen=False
+R04 RESCUE detail: rescuer BluePlayer immunityTimer=0.000 fieldTime=0.374  (the rescuer gets NO immunity)
+R04 expected: freed, fieldTime 0.00, immunity 2.000, cooldown 3.000
+R04 counts: blueFree=2/2 redFree=2/2
+R05 counters now: blueFree=2/2 redFree=2/2 blueCaptured=0 redCaptured=0
+R05 state=Playing freshnessFill=0.981 freshnessText='0.4 s in the field' staminaFill=1.000 staminaText='STAMINA  100%' flagLabelActive=False flagText='YOU HAVE THE FLAG!  Get back to your base!' blueText='BLUE  2/2 free  |  flag: AT BASE' redText='RED  2/2 free  |  flag: AT BASE' alertLabelActive=False alertText='CAPTURED - waiting for a rescue' aiDebugVisible=True showAiDebug=True aiDebugText='BLUE:   Blue_AI_1  FLEX  PATROL
+RED:   Red_AI_1  RAIDER  STEAL   Red_AI_2  DEFENDER  PATROL' playerFieldTime=0.374 playerInBase=False
+--------------------------------------------------------------
+--- Part D probe: row 7 build ---
+R07 BUILD result=Succeeded errors=0 apk=C:\Users\Zedrich\AgawanBase\Builds\AgawanBase.apk apkBytes=38415617 apkMB=36.64
+R07 BUILD started=15:34:27 finished=15:36:06 (about 99 s)
+R07 BUILD summary totalSize=730216659 bytes (696.39 MB) - this counts the APK PLUS the DoNotShip backup folder, it is NOT the shippable size
+R07 BUILD config target=Android scriptingBackend=IL2CPP architectures=ARM64 minSdk=AndroidApiLevel26 orientation=LandscapeLeft bundleVersion=0.1 scenes=ON Assets/Scenes/Game.unity
+R07 BUILD quality=Mobile shadowDistance=0 shadows=Disable vSync=0 targetFps=30
+R07 APK manifest package=com.UnityTechnologies.com.unity.template.urpblank versionCode=1 versionName=0.1 label=AgawanBase minSdkVersion=26 targetSdkVersion=36 compileSdk=36 glEsVersion=3.1
+R07 APK manifest native-code=arm64-v8a ONLY (aapt badging) and android:screenOrientation=0 (landscape) read from the binary AndroidManifest.xml
+R07 APK zip entries=510; lib/arm64-v8a/libil2cpp.so uncompressed 47886880 B, libunity.so 22308816 B, libmain.so 6696 B, libc++_shared.so 1292904 B, lib_burst_generated.so 377648 B; no armeabi-v7a; assets/bin/Data/Managed/Metadata/global-metadata.dat 8730380 B
