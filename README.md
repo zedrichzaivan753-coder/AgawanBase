@@ -223,16 +223,7 @@ No third-party art, models, audio, fonts or sprites were imported.
 
 A cut-paper style illustration and a photo of children playing the game were used **only as visual inspiration** and were not imported into the project.
 
-## 13. AI tools used
-
-With the instructor's permission for this project, AI assistance was used during planning, building and testing:
-
-- **Aura for Unity** (an AI agent that works inside the Unity Editor) and the **Unity MCP** package (`com.ramenvr.aura-unity`, `com.coplaydev.unity-mcp`, installed from GitHub) helped build scenes and scripts. Nothing in the game code depends on them.
-- A general AI chat assistant helped with planning prompts and documentation.
-
-The author reviewed the resulting design and is responsible for explaining it: the fieldTime rule, the tag comparison in `MatchManager.WouldWinTag`, the team roles and the AI decisions.
-
-## 14. Next development steps
+## 13. Next development steps
 
 1. Fix the open issues above (turn off the AI debug read-out and the other debug switches, set a real package name).
 2. Re-measure sprint speed to close Test 3, and add a test for the HUD "DROPPED" flag text.
