@@ -11902,9 +11902,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Fresh at your base = fieldTime 0 and unbeatable.
-
-    Stay out too long and you become the prey.'
+  m_Text: Galingan mo boss
 --- !u!222 &758854880
 CanvasRenderer:
   m_ObjectHideFlags: 0
