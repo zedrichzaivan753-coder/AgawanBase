@@ -145,9 +145,33 @@ with the optimised build, regression logs and a repository commit ID.
       `regression_gate_summary.md`). The suite ran under the same host contention as the perf runs (a
       Client-Win64-Shipping process at 4.56 GB) and still passed, so the pass is not timing-fragile -
       but nothing in the gate is quoted as a performance number.
-- [ ] 7. Write SA6, AS3 (before/after metrics, change log, trade-offs, regression, commit ID) and the
+- [x] 7. Write SA6, AS3 (before/after metrics, change log, trade-offs, regression, commit ID) and the
       reflection against the four module prompts, extend `MdToHtml.cs`, regenerate HTML + PDF, build the final
       APK/EXE, then make the single end-of-week commit and paste its id into AS3. [depends: 6]
+      Progress: done, in four parts.
+      (a) Documents. `Abrera_Zedrich_SA6.md` (10 sections), `Abrera_Zedrich_AS3.md` (9 sections) and
+      `Abrera_Zedrich_Week16_Reflection.md` (the four module prompts, first person, ending with the exact
+      required declaration) written; two hand-authored SVGs (`frame_budget.svg`, `memory_fix.svg`) inlined
+      into SA6 section 5 and AS3 section 3.2 with `<!--INLINE:...-->`; HTML regenerated with `MdToHtml` and
+      PDF printed from that HTML with headless Edge. One rendering defect (a `>` blockquote printing
+      literally in SA6 section 1) was caught by screenshotting the HTML and fixed.
+      (b) Builds. The optimised APK is `Docs/Zedrich Abrera/Week_16/Abrera_Zedrich_AS3.apk`, 68.30 MB on
+      disk, `classes.dex` at the root plus `classes2/3/4.dex` and `lib/arm64-v8a/`, 0 build errors. The
+      shipped Windows perf player is 171.41 MB and was launched once from a clean start, writing a CSV with
+      the correct `# render path:` header. The build tool's own `total_size_mb 846.81` is not the artefact
+      size and is not quoted in any document.
+      (c) Commit. **`55b043a`** - "Week 16: profile the shipping render path, cut prop texture memory, fix
+      profile error leak", 421 files, +1,648,822 / -2,421, made as the single end-of-week commit.
+      (d) Closing the loop, because a commit cannot contain its own id. Follow-up commit **`a9c26c3`** puts
+      `55b043a` into AS3 section 8 and reprints its HTML and PDF. It also repairs a real mistake made while
+      collecting evidence: `set "DST=..." & mkdir "%DST%"` on one command line does not expand, so
+      `scenario_regression.tsv`, `scenario_regression_summary.txt` and `a11y_regression.log` were copied into
+      a repo-root folder literally named `%DST%` and the first two were committed there. All three were
+      verified against the figures `regression_gate_summary.md` quotes, moved into
+      `Evidence/test_logs_regression/` (now 5 files, matching AS3), and the stray folder removed; git
+      recorded the two moves as 100 % renames. `a11y_regression.log` stays untracked because `.gitignore`
+      line 24 ignores `*.log` - the same as every earlier week's audit log - so it ships in the submitted
+      folder but not in the repository.
 
 ## Verify
 - `Evidence/raw_csv/` holds 3 baseline + 3 post-fix runs per configuration, each with the scenario definition

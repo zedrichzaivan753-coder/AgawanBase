@@ -217,8 +217,8 @@ having caught two instrument defects and one real product defect along the way.
 | Repository | `AgawanBase`, Unity `6000.6.0f1` |
 | Branch | `main` |
 | HEAD at the start of the week | `d08fc9b` - "Update README" |
-| **End-of-week commit** | **`<COMMIT_ID>`** - contains the optimisation, the instrumentation, the evidence, the regression logs and these three documents |
-| Follow-up commit | records this id inside AS3 itself (a commit cannot contain its own id) |
+| **End-of-week commit** | **`55b043a`** - "Week 16: profile the shipping render path, cut prop texture memory, fix profile error leak", 421 files, +1,648,822 / -2,421 - contains the optimisation, the instrumentation, the evidence, the regression logs and these three documents |
+| Follow-up commit | records `55b043a` inside AS3 itself and moves the three regression logs into `Evidence/test_logs_regression/` (a commit cannot contain its own id) |
 
 How to reproduce the measurement: build the perf player through
 `Tools > Week16 > Perf Build > 1` (points the PC level at `Mobile_RPAsset`), `manage_build` windows64

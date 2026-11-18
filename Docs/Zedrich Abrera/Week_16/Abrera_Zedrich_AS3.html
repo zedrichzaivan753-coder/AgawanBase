@@ -514,11 +514,11 @@ footer.docnote {
 </tr>
 <tr>
 <td><strong>End-of-week commit</strong></td>
-<td><strong><code>&lt;COMMIT_ID&gt;</code></strong> - contains the optimisation, the instrumentation, the evidence, the regression logs and these three documents</td>
+<td><strong><code>55b043a</code></strong> - "Week 16: profile the shipping render path, cut prop texture memory, fix profile error leak", 421 files, +1,648,822 / -2,421 - contains the optimisation, the instrumentation, the evidence, the regression logs and these three documents</td>
 </tr>
 <tr>
 <td>Follow-up commit</td>
-<td>records this id inside AS3 itself (a commit cannot contain its own id)</td>
+<td>records <code>55b043a</code> inside AS3 itself and moves the three regression logs into <code>Evidence/test_logs_regression/</code> (a commit cannot contain its own id)</td>
 </tr>
 </tbody></table>
 <p>How to reproduce the measurement: build the perf player through <code>Tools &gt; Week16 &gt; Perf Build &gt; 1</code> (points the PC level at <code>Mobile_RPAsset</code>), <code>manage_build</code> windows64 development to <code>Builds/Week16/AgawanBasePerf.exe</code>, then <code>2 - Restore</code>; run <code>AgawanBasePerf.exe -perf -perf-label &lt;name&gt; -perf-duration 60 -perf-out &lt;evidence folder&gt;</code>; summarise with <code>Docs/tools/PerfStats.ps1 -Pattern "&lt;label&gt;*.csv"</code>. The CSV header states the pipeline, render scale, scenario, seed and per-segment quality settings, so a file that does not match its conditions can be discarded rather than trusted.</p>
