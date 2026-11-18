@@ -1,0 +1,19 @@
+id	requirement	title	expected	actual	status
+TC-CORE-01	REQ-01	a match starts and runs	GameManager.State == Playing with a spawned roster	Playing, 4 Blue / 4 Red, 4 enemies, clock 0.0 s	PASS
+TC-CORE-02	REQ-02	the human is on the Blue roster and free to move	registered, not captured, motor not frozen	BluePlayer free, in its home base	PASS
+TC-CORE-04	REQ-05	the prison holds the prisoner	immobile while captured	moved 0.000 m in 0.4 s	PASS
+TC-CORE-05	REQ-06	walking to the prison frees the prisoner	isCaptured == false after the rescuer reaches the prison	still captured 1.2 s after the player stood at the prison - the rescue rule did not fire	FAIL
+TC-CORE-06	REQ-07	the enemy flag can be taken and the carry penalty arms	Carried + SprintStamina.IsCarryingFlag	carried by BluePlayer, IsCarryingFlag=True	PASS
+TC-CORE-07	REQ-08	a dropped flag returns home after 10 s	AtBase once the timer expires	returned home in 1.7 real s at 20x = ~35 game s	PASS
+TC-LIFE-01	REQ-18	resume continues the match	the clock runs again after Resume	clock did not advance in 0.7 s after Resume	FAIL
+TC-LIFE-03	REQ-19	sending the app to the background pauses the match	GameManager handles OnApplicationPause and pauses	GameManager has no OnApplicationPause handler, so backgrounding cannot pause anything	FAIL
+TC-LIFE-03	REQ-19	backgrounding pauses the match	State == Paused after a background event	State was GameOver	FAIL
+TC-LIFE-02	REQ-18	restart starts a clean match	clock near the full time and outcome None	clock 0.3/180, outcome None	FAIL
+TC-BND-01	REQ-04	100 rapid catches	no exception, the counter stays consistent	redsCaptured 0 -> 4, no exception	PASS
+TC-BND-03	REQ-07	50 rapid pick-up attempts	no exception, the flag ends in one consistent state	no exception; state Dropped, carried=	PASS
+TC-AUTO-20	-	phase 20 must finish inside 30 s	the phase completes	stalled in phase 20 for over 30 s	BLOCKED
+TC-CORE-10	REQ-11	the clock running out ends the match as a draw	Outcome == Draw	Outcome was Elimination after the clock expired	FAIL
+TC-CORE-08	REQ-09	carrying the enemy flag home wins the match	flag delivery ending plus a victory feedback line	outcome None, victory feedback seen = True	FAIL
+TC-CORE-09	REQ-10	the enemy carrying our flag home loses the match	flag delivery ending plus a defeat feedback line	outcome None, defeat feedback seen = True	FAIL
+TC-BUILD-01	REQ-12	the AI read-out is editor-only	showAiDebug true inside the editor, false in a player build	showAiDebug=False (editor build; source guard HudController.cs:59-63)	PASS
+TOTAL				8 passed, 8 failed, 1 blocked	

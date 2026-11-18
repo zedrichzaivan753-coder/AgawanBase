@@ -31,6 +31,16 @@ public class IndicatorController : MonoBehaviour
     public Material dangerMaterial;
     public Material neutralMaterial;
 
+    [Header("Shared materials for the overhead bars - three for the whole match")]
+    [Tooltip("Dark plate behind both bars.")]
+    public Material barBackMaterial;
+
+    [Tooltip("GREEN: the character's freshness (how long it has been out of its own base).")]
+    public Material barFreshMaterial;
+
+    [Tooltip("YELLOW: the character's stamina. Every body runs the same SprintStamina rules.")]
+    public Material barStaminaMaterial;
+
     [Header("When a tag ring is drawn")]
     [Tooltip("How far away an opponent starts showing a verdict, as a multiple of the game's " +
              "own tagDistance. 2 means the ring appears at 2.4 m, just before contact at 1.2 m.")]
@@ -172,6 +182,35 @@ public class IndicatorController : MonoBehaviour
             ind.SetVisible(live);
             ind.SetState(IndicatorState.Neutral);
         }
+
+        // ---- overhead bars: EVERY body in the match, both teams, human included --------
+        // The bars say nothing about who the player is; they are the character's own freshness
+        // and stamina, so they belong on every body on the field - mates, foes and the player.
+        DriveBars(Team.Blue, live);
+        DriveBars(Team.Red, live);
+    }
+
+    /// <summary>
+    /// Gives every member of one team its overhead bars and shows or hides them with the match
+    /// state. Runs on the same 0.15 s pass as the rings, so this costs one short walk over a
+    /// registry the characters maintain themselves - no scene searches.
+    /// </summary>
+    void DriveBars(Team team, bool live)
+    {
+        List<CharacterStatus> members = TeamManager.Members(team);
+
+        for (int i = 0; i < members.Count; i++)
+        {
+            CharacterStatus member = members[i];
+            if (member == null) continue;
+
+            CharacterBars bars = BarsFor(member);
+            if (bars != null) bars.SetVisible(live);
+
+            // Self-heal the cover hider on the same pass, so every body in the roster - human,
+            // mate and foe - disappears into a bush without a single prefab or scene edit.
+            BushHideFor(member);
+        }
     }
 
     /// <summary>
@@ -261,6 +300,41 @@ public class IndicatorController : MonoBehaviour
         }
 
         return ind;
+    }
+
+    /// <summary>
+    /// Gets a character's overhead bars, creating and configuring them if the prefab did not carry
+    /// any. Same self-heal as IndicatorFor: 1v1 through 4v4 needs no per-size setup.
+    /// </summary>
+    CharacterBars BarsFor(CharacterStatus character)
+    {
+        if (character == null) return null;
+
+        CharacterBars bars = character.GetComponent<CharacterBars>();
+        if (bars == null) bars = character.gameObject.AddComponent<CharacterBars>();
+
+        if (!bars.isConfigured)
+        {
+            bars.Configure(barBackMaterial, barFreshMaterial, barStaminaMaterial, BillboardRotation);
+        }
+
+        return bars;
+    }
+
+    /// <summary>
+    /// Ensures a character carries the component that hides its BODY while it stands under cover.
+    /// Same self-heal as IndicatorFor and BarsFor: the prefab does not have to carry it, and the
+    /// component resolves its own "Visual" child, so a hand-placed human and a spawned AI are
+    /// treated identically. The overhead bars follow the same cover state from inside CharacterBars.
+    /// </summary>
+    void BushHideFor(CharacterStatus character)
+    {
+        if (character == null) return;
+
+        if (character.GetComponent<CharacterBushHide>() == null)
+        {
+            character.gameObject.AddComponent<CharacterBushHide>();
+        }
     }
 
     /// <summary>

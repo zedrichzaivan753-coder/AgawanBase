@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SA6 - Game Performance and Resource Analysis</title>
+<style>
+
+@page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0 auto;
+    padding: 8mm 4mm 16mm 4mm;
+    max-width: 186mm;
+    background: #ffffff;
+    color: #16191d;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.52;
+}
+
+h1, h2, h3, h4 { color: #12243a; page-break-after: avoid; break-after: avoid; }
+
+h1 {
+    font-size: 19pt;
+    line-height: 1.2;
+    margin: 0 0 4pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2.5pt solid #12243a;
+}
+
+h2 {
+    font-size: 13.5pt;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.75pt solid #c9ced6;
+}
+
+h3 { font-size: 11.5pt; margin: 14pt 0 5pt 0; color: #26405c; }
+h4 { font-size: 10.5pt; margin: 11pt 0 4pt 0; color: #26405c; }
+
+p { margin: 0 0 8pt 0; orphans: 3; widows: 3; }
+
+strong { color: #101820; }
+
+hr {
+    border: none;
+    border-top: 0.75pt solid #d5dae1;
+    margin: 13pt 0;
+}
+
+ul, ol { margin: 0 0 9pt 0; padding-left: 17pt; }
+li { margin: 0 0 3.5pt 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5pt 0 12pt 0;
+    font-size: 8.9pt;
+    line-height: 1.38;
+}
+
+th, td {
+    border: 0.7pt solid #b9c0c9;
+    padding: 3.2pt 4.6pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+th { background: #e9edf3; color: #12243a; font-weight: 600; }
+
+tbody tr:nth-child(even) td { background: #f7f9fb; }
+
+tr { page-break-inside: avoid; page-break-after: auto; }
+thead { display: table-header-group; }
+
+code {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 8.7pt;
+    background: #f1f4f8;
+    border: 0.5pt solid #e0e5ec;
+    border-radius: 2pt;
+    padding: 0 2pt;
+    word-break: break-word;
+}
+
+pre {
+    background: #f6f8fa;
+    border: 0.7pt solid #d5dae1;
+    border-left: 2.5pt solid #12243a;
+    border-radius: 2pt;
+    padding: 6pt 8pt;
+    margin: 6pt 0 12pt 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 8.5pt;
+    line-height: 1.45;
+}
+
+figure.diagram {
+    margin: 8pt 0 12pt 0;
+    padding: 6pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #ffffff;
+    page-break-inside: avoid;
+}
+
+figure.diagram svg { display: block; width: 100%; height: auto; }
+
+figure.shot {
+    margin: 8pt 0 13pt 0;
+    padding: 5pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #fbfcfd;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+figure.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 0.5pt solid #c9ced6;
+    border-radius: 2pt;
+}
+
+figure.shot figcaption {
+    margin-top: 4pt;
+    font-size: 8.6pt;
+    color: #4c5661;
+    line-height: 1.4;
+}
+
+p.warn { color: #8a1f1f; font-weight: 600; }
+
+footer.docnote {
+    margin-top: 22pt;
+    padding-top: 6pt;
+    border-top: 0.75pt solid #d5dae1;
+    color: #5c6672;
+    font-size: 8pt;
+}
+
+@media print {
+    body { max-width: none; padding: 0; font-size: 10pt; }
+    a { color: inherit; text-decoration: none; }
+    h1 { font-size: 18pt; }
+    table { font-size: 8.6pt; }
+}
+
+</style>
+</head>
+<body>
+<h1>SA6 - Game Performance and Resource Analysis</h1>
+<p><strong>Abrera, Zedrich Zaivan B.</strong> · MOBILE DEV 002 - Advanced Mobile Application Development, Module 5, Week 16 <strong>Game:</strong> Agawan Base v0.2 - 3D mobile capture-the-flag, two teams of two to four <strong>Build analysed:</strong> Windows x64 development player, <code>Builds/Week16/AgawanBasePerf.exe</code>, 181.41 MB (pre-fix) <strong>Engine:</strong> Unity 6000.6.0f1, URP 17.6.0 <strong>Target:</strong> 30 fps, i.e. a <strong>33.3 ms</strong> frame budget <strong>Source of every number below:</strong> <code>Week_16/Evidence/raw_csv/</code> (per-frame CSVs), <code>Week_16/Evidence/player_logs/</code> (the same runs' log summaries), and <code>Week_16/Evidence/bottleneck_table.md</code></p>
+<hr/>
+<h2>1. The question this analysis had to answer</h2>
+<p>The Week 15 build passed its tests but had never been measured. Nobody knew whether Agawan Base ran at 60 fps or 12, and "it feels fine on my laptop" is not an answer a report can use. So the question was deliberately narrow:</p>
+<p><strong>On one fixed scenario, on one fixed machine: what is actually costing time and memory in the frame, and which of those costs is worth changing?</strong></p>
+<p>Two constraints shaped the method. First, <strong>the 30 fps cap hides spikes</strong>: <code>GameManager.Awake</code> sets <code>Application.targetFrameRate = 30</code> and <code>vSyncCount = 0</code> on every scene load, so a 60 ms frame and a 33 ms frame look identical in frame <em>interval</em>. Capture therefore reads Unity's <code>PlayerLoop</code> profiler counter, which is cap-independent, and a <code>-perf-capped</code> switch exists to keep the cap when the cap itself is the thing under test. Second, <strong>the editor lies about performance and memory</strong>, so every quoted number comes from the player, not from play mode (section 4.2 proves the memory half of that claim with a number).</p>
+<h2>2. The controlled scenario</h2>
+<p>The scenario is code, not a note in a document: <code>Assets/Scripts/Diagnostics/PerfScenario.cs</code> sets it up and <code>Assets/Scripts/Diagnostics/PerfCapture.cs</code> records it into every CSV as header lines, so a file can be checked against the conditions it claims.</p>
+<table>
+<thead><tr>
+<th>Condition</th>
+<th>Value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Scene</td>
+<td><code>Game.unity</code>, every segment</td>
+</tr>
+<tr>
+<td>Teams</td>
+<td>4v4 at HARD - 1 human + 3 Blue AI against 4 Red AI</td>
+</tr>
+<tr>
+<td>AI</td>
+<td>fully active; AI random seed <strong>20261118</strong></td>
+</tr>
+<tr>
+<td>Human input</td>
+<td>a fixed 4-waypoint loop between the two flags, walking, no sprint; the virtual stick is driven through reflection so the input path is the real one</td>
+</tr>
+<tr>
+<td>Match handling</td>
+<td>a paused match is auto-resumed; a finished match restarts as a <strong>new segment</strong></td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>60 s of live match per run, 7-8 segments per run</td>
+</tr>
+<tr>
+<td>Quality</td>
+<td>level 0 <code>PC</code> with the Mobile level's values applied by name, because the Mobile <em>level</em> excludes Standalone (see 4.1)</td>
+</tr>
+<tr>
+<td>Render path</td>
+<td><code>Mobile_RPAsset, render scale 0.80, main-light shadows off</code> - declared in each CSV's own header</td>
+</tr>
+<tr>
+<td>Frame cap</td>
+<td>uncapped, re-applied and recorded per segment</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>Windows x64, development, Mono</td>
+</tr>
+<tr>
+<td>Machine</td>
+<td>Ryzen 5 5600G (12 threads), GTX 1070, 15 GB RAM, 1920x1080, Windows</td>
+</tr>
+</tbody></table>
+<p>A segment is one live match, and a segment boundary is a scene reload. That matters because the reload re-applies the frame cap and the quality settings, so the per-segment line is evidence that the whole file ran under the same settings rather than only its first second.</p>
+<h3>2.1 Why this scenario, and what it does not cover</h3>
+<p>It is repeatable (seeded, scripted input, fixed scene) and it is the game's actual core loop: AI moving, flag states changing, the HUD updating, the human walking. What it does <strong>not</strong> cover is anything that only happens on a map transition: <code>Map_Palengke</code> and <code>Map_SchoolCampus</code> never load in this capture, and neither do the props that live in them. That limitation is not a footnote - it produced a real error in this week's analysis, recorded in section 7.2.</p>
+<h2>3. Baseline captures</h2>
+<h3>3.1 The three runs</h3>
+<p><code>perf_baseline2_run{1,2,3}_20261118_2331/2332/2333.csv</code> - 94,297 / 93,501 / 94,829 per-frame rows, 7 / 8 / 7 segments declared and 7 / 8 / 7 per-segment lines present, all three declaring the shipping render path.</p>
+<table>
+<thead><tr>
+<th>Metric</th>
+<th>run 1</th>
+<th>run 2</th>
+<th>run 3</th>
+<th>Spread</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Main thread, mean ms</td>
+<td>0.63</td>
+<td>0.63</td>
+<td>0.62</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>Main thread, p95 ms</td>
+<td>0.98</td>
+<td>0.99</td>
+<td>0.97</td>
+<td>0.02</td>
+</tr>
+<tr>
+<td>Main thread, worst ms</td>
+<td>10.67</td>
+<td>9.61</td>
+<td>9.80</td>
+<td>1.06</td>
+</tr>
+<tr>
+<td>Frame interval, mean ms</td>
+<td>0.64</td>
+<td>0.64</td>
+<td>0.63</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>Uncapped fps</td>
+<td>1,573</td>
+<td>1,560</td>
+<td>1,582</td>
+<td>22</td>
+</tr>
+<tr>
+<td>GPU ms</td>
+<td>0.49</td>
+<td>0.50</td>
+<td>0.49</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>GC bytes/frame</td>
+<td>324</td>
+<td>330</td>
+<td>324</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Total memory MB</td>
+<td>245.2</td>
+<td>245.6</td>
+<td>244.7</td>
+<td>0.9</td>
+</tr>
+<tr>
+<td>Texture memory MB</td>
+<td>44.8</td>
+<td>44.8</td>
+<td>44.8</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>Gfx memory MB</td>
+<td>62.3</td>
+<td>62.3</td>
+<td>62.3</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>Textures loaded</td>
+<td>82</td>
+<td>82</td>
+<td>82</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p><strong>Any change smaller than the spread in its row is noise.</strong> That is the rule the rest of the week is held to. Texture memory and gfx memory are deterministic to the kilobyte, so movement there is real even when it is small.</p>
+<h3>3.2 A second baseline set, and why it exists</h3>
+<p>These three runs were captured while the host machine was carrying an unrelated 5.4 GB process. Their numbers looked clean (0.62-0.63 ms, 0.01 ms spread), but "looks clean" is not the same as "measured under a controlled host". Later in the week six further runs on the same build degraded to 2.07 ms mean purely from host load, which proved the host can move this game's main-thread number by 3x.</p>
+<p>So a second baseline was captured on an idle host, in the same sitting as the post-fix set, from an <strong>A/B build</strong>: the four textures this analysis targets were returned to their original import settings and the player rebuilt (181.41 MB, exactly the pre-fix artefact size). That gives a before/after pair whose only difference is the change under test:</p>
+<p><code>perf_baselclean_run{1,2,3}_20261119_0006/0007/0009.csv</code></p>
+<table>
+<thead><tr>
+<th>Metric</th>
+<th>run 1</th>
+<th>run 2</th>
+<th>run 3</th>
+<th>Spread</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Main thread, mean ms</td>
+<td>0.59</td>
+<td>0.60</td>
+<td>0.60</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>Main thread, p95 ms</td>
+<td>0.86</td>
+<td>0.87</td>
+<td>0.86</td>
+<td>0.02</td>
+</tr>
+<tr>
+<td>Frame interval, mean ms</td>
+<td>0.60</td>
+<td>0.60</td>
+<td>0.61</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>Uncapped fps</td>
+<td>1,660</td>
+<td>1,653</td>
+<td>1,643</td>
+<td>17</td>
+</tr>
+<tr>
+<td>GPU ms</td>
+<td>0.48</td>
+<td>0.48</td>
+<td>0.49</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>GC bytes/frame</td>
+<td>316</td>
+<td>318</td>
+<td>318</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Total memory MB</td>
+<td>245.5</td>
+<td>245.7</td>
+<td>245.1</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>Texture memory MB</td>
+<td>44.8</td>
+<td>44.8</td>
+<td>44.8</td>
+<td>0.0</td>
+</tr>
+</tbody></table>
+<p>The two baselines differ by 0.03 ms of main thread while each is internally stable to 0.01. That gap is the host, not the game, and it is the reason section 8 refuses to rank a 0.03 ms change as a bottleneck.</p>
+<h3>3.3 What one CSV row contains</h3>
+<p><code>segment, frame, elapsed_s, interval_ms, main_thread_ms, gpu_ms, gc_bytes, draw_calls, batches, triangles, total_memory_mb, texture_mb, mesh_mb, gfx_mb, gc_heap_mb, reserved_mb, texture_count</code></p>
+<p>Per frame, for 60 s, from 14 <code>ProfilerRecorder</code>s (<code>Internal/PlayerLoop</code>, <code>Memory/GC Allocated In Frame</code>, <code>Memory/Total Used Memory</code>, <code>Memory/Texture Memory</code>, <code>Memory/Mesh Memory</code>, <code>Memory/Gfx Used Memory</code>, <code>Memory/GC Used Memory</code>, <code>Memory/Total Reserved Memory</code>, <code>Memory/Texture Count</code>, <code>Render/Triangles Count</code>, the three draw-call counters and the three batch counters). Two columns had to be retired or caveated before any of it could be trusted - section 6.</p>
+<h2>4. Evidence that is not a CSV: rendering and the render path</h2>
+<h3>4.1 Which render pipeline was actually running</h3>
+<p>A Windows player was not necessarily profiling what ships to a phone. <code>QualitySettings.asset</code> has two levels, <code>0 = Mobile</code> and <code>1 = PC</code>, and the Mobile level <strong>excludes Standalone</strong> - so a desktop player has exactly one level, <code>PC</code>, pointing at <code>PC_RPAsset</code> (render scale 1.0, 50 m main-light shadows). Measuring that would have measured a path heavier than the phone's.</p>
+<p>The perf player is therefore built with the <code>PC</code> level temporarily re-pointed at <code>Mobile_RPAsset</code> (menu <code>Tools &gt; Week16 &gt; Perf Build</code>, <code>Assets/Editor/PerfBuildPipeline.cs</code>), then the setting is restored immediately and the restore is confirmed on disk (<code>ProjectSettings/QualitySettings.asset</code> line 105 back to guid <code>4b83569d...</code>). Every CSV's header names the pipeline and the render scale, so the swap can be checked from the evidence rather than believed.</p>
+<h3>4.2 Editor numbers are not evidence (DEF-16-05)</h3>
+<p>Profiling the same scene in the editor reported <strong>1,355 textures and 222 MB of texture memory</strong>. The project ships <strong>nine</strong> texture assets; the player loads <strong>82</strong> for 44.8 MB. The editor's counters include editor-only and package assets. Every memory number in this report therefore comes from the player, and the editor was used only to explain a number, never to supply one.</p>
+<h3>4.3 Draw calls, from the Frame Debugger (DEF-16-04)</h3>
+<p>The harness's <code>draw_calls</code> column reported ~132 per frame. That number is wrong. The Frame Debugger enumerates a live match frame as <strong>17 render events</strong> - 6 opaque, 4 transparent, 1 blit, 5 UI - and a second capture of the same scenario gave 20. The 0.63 ms main-thread time independently rules out 132 submissions.</p>
+<p>The mechanism: the column sums three split counters and <code>SRP Batcher Draw Calls Count</code> counts <strong>renderers submitted to the batcher</strong>, not draw calls. A run's own split line reads <code>SRP 116 + standard 6 + instanced 0</code>: 116 renderers submitted, which static and SRP batching then collapse into a handful of GPU draws. Every CSV now carries a header line retiring the column so it cannot be lifted out of the evidence by mistake, and the batches column (3-4 static) corroborates the Frame Debugger's magnitude.</p>
+<h2>5. The bottleneck table</h2>
+<p>Full version with method and caveats: <code>Week_16/Evidence/bottleneck_table.md</code>. Ranked by measured cost against the 33.3 ms budget:</p>
+<table>
+<thead><tr>
+<th>#</th>
+<th>Candidate</th>
+<th>Measured</th>
+<th>% of 33.3 ms</th>
+<th>Verdict</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Main-thread CPU</td>
+<td>0.59-0.63 ms mean, 0.86-0.99 ms p95</td>
+<td><strong>1.8-1.9 % / 2.6-3.0 %</strong></td>
+<td>Already meets target, ~50x headroom</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GPU</td>
+<td>0.48-0.50 ms</td>
+<td><strong>1.5 %</strong></td>
+<td>Already meets target, ~68x headroom</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Draw calls / batches</td>
+<td>17 render events; 3-4 static batches</td>
+<td>negligible</td>
+<td>Already meets target</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Triangles</td>
+<td>~9.7 k average, 16.0 k peak</td>
+<td>negligible</td>
+<td>Already meets target</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Managed allocation</td>
+<td>316-330 B/frame</td>
+<td>~10 KB/s at 30 fps</td>
+<td>Already meets target</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Total memory</td>
+<td>245 MB: gfx 62.3 + texture 44.8 + managed ~12</td>
+<td>n/a</td>
+<td>Worth attention on a phone</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Worst frames</td>
+<td>6.9-10.7 ms, rare, not periodic</td>
+<td>21-32 % when it happens</td>
+<td>Investigated, dismissed</td>
+</tr>
+</tbody></table>
+<h3>5.1 The headline finding</h3>
+<p><strong>The scene the game actually plays on already meets the target by a wide margin.</strong> 0.6 ms of main-thread work against a 33.3 ms budget is under 2 %. That is a measured finding, not a failure to find something, and the module explicitly accepts it ("present a technically valid finding that the tested area already meets the defined target").</p>
+<p>But a table of "everything is fine" would be a lazy answer, so the analysis went one level down: the target is met on this desktop, and the thing that does not transfer to a phone is <strong>memory</strong>, not CPU time.</p>
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" role="img" aria-label="Frame budget usage: main thread 0.60 ms and GPU 0.48 ms against a 33.3 ms budget">
+  <rect x="0" y="0" width="900" height="300" fill="#ffffff"/>
+  <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#111">Where the 33.3 ms frame budget goes - 3-run mean, idle host</text>
+  <text x="20" y="52" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#555">Agawan Base v0.2 · Windows x64 dev build · Mobile_RPAsset, render scale 0.80 · Game.unity · 4v4 HARD, seed 20261118</text>
+
+  <!-- Row 1: full budget -->
+  <text x="20" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#222">1. The whole budget (0 - 33.3 ms)</text>
+  <rect x="60" y="104" width="800" height="26" fill="#e8eaed" stroke="#b8bcc2"/>
+  <rect x="60" y="104" width="14.4" height="26" fill="#c0392b"/>
+  <line x1="81.1" y1="100" x2="81.1" y2="134" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="88" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#c0392b">main thread 0.60 ms = 1.8 % of the budget (p95 0.88 ms = 2.6 %)</text>
+  <text x="60" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">0 ms</text>
+  <text x="790" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">33.3 ms</text>
+
+  <!-- Row 2: zoom to 1 ms -->
+  <text x="20" y="188" font-family="Segoe UI, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#222">2. The same marks magnified (0 - 1 ms), so the difference is visible at all</text>
+  <rect x="60" y="200" width="800" height="30" fill="#f4f6f8" stroke="#b8bcc2"/>
+  <line x1="60" y1="196" x2="60" y2="234" stroke="#888"/>
+  <line x1="860" y1="196" x2="860" y2="234" stroke="#888"/>
+  <!-- 1 ms scale: 800 px per ms -->
+  <rect x="412" y="200" width="4" height="30" fill="#2d7d46"/>
+  <text x="300" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#2d7d46">GPU 0.48 ms</text>
+  <rect x="536" y="200" width="4" height="30" fill="#c0392b"/>
+  <text x="470" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#c0392b">main mean 0.60 ms</text>
+  <rect x="760" y="200" width="4" height="30" fill="#e08a7f"/>
+  <text x="686" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#a5524a">main p95 0.88 ms</text>
+  <text x="60" y="264" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">0 ms</text>
+  <text x="836" y="264" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">1.0 ms</text>
+
+  <text x="20" y="288" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#333">Verdict: the measured scene already meets the 30 fps target with roughly 50x headroom - a finding, not a missing bottleneck.</text>
+</svg>
+</figure>
+<p><em>Figure 1 - the 33.3 ms budget with the measured marks on it: at full scale, and magnified to 1 ms so the marks are visible at all. The scene uses 1.8 % of the budget for the main thread and 1.5 % for the GPU.</em></p>
+<h3>5.2 Why the rare 10 ms frames were not the fix target</h3>
+<p>21 frames over 3 ms in 92,997, scattered, only 3 of them near a segment boundary, no periodic spacing. A spike that fires twice a minute inside a 60 s capture cannot be distinguished from noise, and no code change could be shown to have fixed it. Chasing it would have produced a claim the data cannot support, so it was dismissed on evidence rather than ignored.</p>
+<h2>6. Instrumentation defects found before the numbers could be trusted</h2>
+<p>A measurement tool that lies is worse than no tool, because it produces confident wrong decisions. Five defects were found and fixed or retired this week:</p>
+<table>
+<thead><tr>
+<th>ID</th>
+<th>Defect</th>
+<th>Consequence</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>DEF-16-01</td>
+<td><code>GameFeedback.cs</code> called <code>Handheld.Vibrate()</code> unguarded; the project had never compiled for Windows</td>
+<td>no player could be built at all until it was behind `#if UNITY_ANDROID \</td>
+<td>\</td>
+<td>UNITY_IOS`</td>
+</tr>
+<tr>
+<td>DEF-16-02</td>
+<td>Unity 6 publishes no <code>Render/Draw Calls Count</code>; the columns read <code>-1</code></td>
+<td>draw calls and batches are now summed from the three split counters; marker names were read out with <code>Tools/Week16/Dump Render Markers</code></td>
+</tr>
+<tr>
+<td>DEF-16-03</td>
+<td><code>FrameTiming.gpuFrameTime</code> occasionally returns an uninitialised value (one run averaged 64,049,859 ms of "GPU" time)</td>
+<td>anything over 1000 ms is now written as <code>-1</code></td>
+</tr>
+<tr>
+<td>DEF-16-04</td>
+<td><code>draw_calls</code> over-reports ~8x (section 4.3)</td>
+<td>column retired in every CSV header</td>
+</tr>
+<tr>
+<td>DEF-16-05</td>
+<td>editor memory counters are editor/package data (section 4.2)</td>
+<td>editor memory figures are never quoted</td>
+</tr>
+</tbody></table>
+<p>The editor-side profiler frame buffer was also abandoned: <code>ProfilerDriver.enabled</code> read <code>False</code> after the tool reported success, <code>firstFrameIndex</code> / <code>lastFrameIndex</code> stayed <code>-1</code> with or without an open Profiler window, and both call-stack queries returned "No valid frame data found in profiler." The call-stack half of the planned method was replaced by the Frame Debugger plus six new memory recorders, which produced better evidence than the editor would have. That is a deviation from the plan and is recorded as one in AS3.</p>
+<h2>7. Where the real waste is</h2>
+<h3>7.1 A texture budget spent where nobody can see it</h3>
+<p>The project ships <strong>nine</strong> texture assets. Five are 2048x2048 JPEG BaseColor maps belonging to the generated props in <code>Assets/Generated_Models/</code>. Measured with <code>Profiler.GetRuntimeMemorySizeLong</code>, four of them cost <strong>21,849 KB (21.3 MB)</strong> of runtime texture memory - about 5.4 MB each once mipmaps are counted - for a school bench, a tricycle, a palengke stall and a crate stack. These are low-poly objects a few metres across, seen from a third-person camera on a phone screen.</p>
+<p>That is the only finding in this analysis that can be fixed with <strong>no visual trade-off</strong>, which is what makes it priority 1 (section 8).</p>
+<h3>7.2 The error I made, and kept on record</h3>
+<p>The first version of the bottleneck table ranked "texture memory 44.8 MB" as the top item and implied those four textures were part of it. The post-fix measurement disproved it: after removing 20 MB of textures the player still reported 44.8 MB and 82 textures. Checked per scene with <code>AssetDatabase.GetDependencies</code>, <code>CrateStack</code>, <code>PalengkeStall</code> and <code>Tricycle</code> are used by <code>Map_Palengke</code>, <code>SchoolBench</code> by <code>Map_SchoolCampus</code>, and <strong>none of the four by <code>Game.unity</code></strong> - because the capture only ever loads <code>Game.unity</code>, it never loads them.</p>
+<p>So the 44.8 MB belongs to <code>Game.unity</code>'s own resources - engine and URP defaults, font atlases, and the handful of project textures that scene uses - and the props' 21.3 MB only exists when a map scene loads. Attributing one scene's footprint to another scene's assets is exactly the mistake a single-scene capture invites; it is in section 6 of the bottleneck table because a report that hides its own correction teaches nothing.</p>
+<h2>8. Optimisation priorities, and why each one was ranked where it is</h2>
+<table>
+<thead><tr>
+<th>Priority</th>
+<th>Candidate</th>
+<th>Decision</th>
+<th>Justification</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>The four 2048 prop BaseColor maps to 512</td>
+<td><strong>implemented</strong></td>
+<td>-20.0 MB of runtime texture memory and -10.0 MB of shipped artefact on textures nobody can resolve at gameplay distance; no visual trade-off at the scales the game presents them; no code change, so no new bug surface</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Gfx memory, 62.3 MB</td>
+<td><strong>not attempted</strong></td>
+<td>reaching it means HDR off or render scale below 0.8 - both are visible quality losses taken to buy time the game does not need, since it already runs at 1.8 % of budget</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Managed allocation, ~320 B/frame</td>
+<td><strong>not attempted</strong></td>
+<td>~10 KB/s at 30 fps. A pooling change here would be a large refactor of code that Week 15's 16-case suite covers, to remove GC pressure that is already negligible</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Draw calls, 17 events/frame</td>
+<td><strong>not attempted</strong></td>
+<td>already batched; the remaining events are opaque/transparent/UI passes that cannot be merged without changing how the game draws</td>
+</tr>
+<tr>
+<td>5</td>
+<td>The rare 10 ms frames</td>
+<td><strong>not attempted</strong></td>
+<td>not reproducible inside a 60 s window (5.2)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Loading time</td>
+<td><strong>not measured</strong></td>
+<td>out of this scenario's scope; listed as a gap, not as a pass</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Standing risk on a phone</td>
+<td><strong>documented</strong></td>
+<td>nothing here can be measured on hardware this week (section 9)</td>
+</tr>
+</tbody></table>
+<p>The ranking rule was: <em>a change is only worth making if the number that justifies it is bigger than the noise band of the metric it improves, and the change costs nothing the player can see.</em> Exactly one candidate passed that test, which is why there is one fix rather than five.</p>
+<h2>9. What this analysis does not prove</h2>
+<ul>
+<li><strong>It is not a phone measurement.</strong> Every number is a desktop number on a GTX 1070. A mid-range Android device will show a main-thread time several times larger and a GPU time an order of magnitude larger. The 50x headroom found here is what absorbs that difference; it is not evidence that a specific phone hits 30 fps.</li>
+<li><strong>It covers one scene.</strong> Map transitions, the other two maps and their props are outside the capture - which is precisely what produced the section 7.2 error.</li>
+<li><strong>Host state moved the main thread by 3x</strong> in this week's measurements. That is why the final before/after comparison was taken on an idle host with an A/B build (AS3, section 3).</li>
+<li><strong>GC bytes are only comparable between identically instrumented builds.</strong> Adding six recorders this week raised the measured figure from ~240 B to ~324 B per frame; the instrumentation is part of the measurement.</li>
+<li><strong>Loading time and battery use are not measured at all.</strong> The module lists them as relevant metrics.</li>
+</ul>
+<h2>10. Evidence index</h2>
+<table>
+<thead><tr>
+<th>File</th>
+<th>What it is</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>Evidence/bottleneck_table.md</code></td>
+<td>the ranked table with method, caveats and the correction</td>
+</tr>
+<tr>
+<td><code>Evidence/raw_csv/perf_baseline2_run{1,2,3}_20261118_2331*.csv</code></td>
+<td>first baseline set, 60 s each</td>
+</tr>
+<tr>
+<td><code>Evidence/raw_csv/perf_baselclean_run{1,2,3}_20261119_0006*.csv</code></td>
+<td>baseline from the A/B build, idle host</td>
+</tr>
+<tr>
+<td><code>Evidence/raw_csv/perf_fix1clean_run{1,2,3}_20261119_0000*.csv</code></td>
+<td>the shipped build, idle host</td>
+</tr>
+<tr>
+<td><code>Evidence/raw_csv/perf_fix1*_/fix1b*/fix1c*</code></td>
+<td>the contaminated sets, kept as the record of a failed method</td>
+</tr>
+<tr>
+<td><code>Evidence/raw_csv/perf_shipcheck_20261119_001031.csv</code></td>
+<td>the shipped <code>.exe</code> launched clean and wrote a CSV</td>
+</tr>
+<tr>
+<td><code>Evidence/player_logs/*.log</code></td>
+<td>each run's own summary: main thread, GPU, draw split, memory breakdown</td>
+</tr>
+<tr>
+<td><code>Evidence/test_logs_regression/</code></td>
+<td>the Week 16 regression gate (see AS3)</td>
+</tr>
+<tr>
+<td><code>Assets/Scripts/Diagnostics/PerfCapture.cs</code>, <code>PerfScenario.cs</code></td>
+<td>the recorder and the scenario</td>
+</tr>
+<tr>
+<td><code>Assets/Editor/ProfilerRun.cs</code>, <code>PerfBuildPipeline.cs</code>, <code>PerfMarkerProbe.cs</code></td>
+<td>menus: run the scenario, build the perf player with the right pipeline, dump recorder names</td>
+</tr>
+</tbody></table>
+<p><em>SA6 · Agawan Base v0.2 · Zedrich Zaivan B. Abrera · Week 16</em></p>
+<footer class="docnote">AgawanBase &middot; Zedrich Zaivan B. Abrera &middot; MOBILE DEV 002, Module 5, Week 16 &middot; source: Abrera_Zedrich_SA6.md</footer>
+</body>
+</html>

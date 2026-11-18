@@ -1,0 +1,1950 @@
+﻿
+
+
+
+
+Module 5
+Individual Thematic Mobile Game Development Laboratory
+MOBILE DEV 002 Advanced Mobile Application Development
+Prepared byJayson S. Nacorda, MIT
+AI Disclaimer
+This module may contain content developed or enhanced using AI tools. All AI-assisted content has been reviewed and validated by the module developer for accuracy, relevance, and alignment with the approved curriculum. AI use in completing student activities and assessments must comply with institutional policies on academic integrity and responsible AI use.
+Copyright Notice
+© 2026 University of La Salette, Inc. All rights reserved.
+This material is intended for academic and instructional use. Reproduction, distribution, modification, or commercial use without prior written permission is prohibited, except as permitted by applicable copyright law. Third-party materials remain the property of their respective copyright owners and are appropriately acknowledged.
+Table of Contents
+ TOC \o "1-3" \h \z \u MOBILE DEV 002 Advanced Mobile Application Development PAGEREF _Toc244625474 \h 1
+AI Disclaimer PAGEREF _Toc244625475 \h 2
+Copyright Notice PAGEREF _Toc244625476 \h 2
+© 2026 University of La Salette, Inc. All rights reserved. PAGEREF _Toc244625477 \h 2
+Table of Contents PAGEREF _Toc244625478 \h 2
+Introduction PAGEREF _Toc244625479 \h 13
+Project Overview PAGEREF _Toc244625480 \h 13
+Google Drive Submission Instructions PAGEREF _Toc244625481 \h 13
+Required Personal Folder Naming Convention PAGEREF _Toc244625482 \h 14
+Required Folder Contents PAGEREF _Toc244625483 \h 14
+Master Assessment and Deadline Schedule PAGEREF _Toc244625484 \h 15
+Learning Objectives PAGEREF _Toc244625485 \h 16
+Project Theme and Individual Work Requirement PAGEREF _Toc244625486 \h 16
+Resources PAGEREF _Toc244625487 \h 17
+Minimum Acceptable Game Requirements PAGEREF _Toc244625488 \h 17
+Technical Glossary PAGEREF _Toc244625489 \h 18
+Weekly Submission Folder Structure PAGEREF _Toc244625490 \h 18
+File Naming Convention PAGEREF _Toc244625491 \h 19
+Acceptable Evidence PAGEREF _Toc244625492 \h 19
+Responsible AI Use PAGEREF _Toc244625493 \h 19
+Weekly Self-Assessment and Reflection Guide PAGEREF _Toc244625494 \h 20
+Recommended Written Structure PAGEREF _Toc244625495 \h 20
+PDF Preparation and Authenticity Rules PAGEREF _Toc244625496 \h 20
+Submission and Deadline Rules PAGEREF _Toc244625497 \h 21
+Week 13 Laboratory PAGEREF _Toc244625498 \h 22
+Secure Player Data and Responsible Development PAGEREF _Toc244625499 \h 22
+Laboratory Purpose PAGEREF _Toc244625500 \h 22
+Guided Laboratory Procedure PAGEREF _Toc244625501 \h 22
+Expected Output and Deadlines PAGEREF _Toc244625502 \h 23
+Completion Checkpoint PAGEREF _Toc244625503 \h 23
+What You Need Before Starting PAGEREF _Toc244625504 \h 23
+Submission Instructions PAGEREF _Toc244625505 \h 23
+How Your Work Will Be Assessed PAGEREF _Toc244625506 \h 23
+Common Mistakes to Avoid PAGEREF _Toc244625507 \h 23
+Completion Checklist PAGEREF _Toc244625508 \h 24
+Required Weekly Self-Assessment and Reflection PDF PAGEREF _Toc244625509 \h 24
+Week 14 Laboratory PAGEREF _Toc244625510 \h 25
+Game Usability Accessibility and Playtesting PAGEREF _Toc244625511 \h 25
+Laboratory Purpose PAGEREF _Toc244625512 \h 25
+Guided Laboratory Procedure PAGEREF _Toc244625513 \h 25
+Expected Output and Deadlines PAGEREF _Toc244625514 \h 25
+Completion Checkpoint PAGEREF _Toc244625515 \h 26
+What You Need Before Starting PAGEREF _Toc244625516 \h 26
+Submission Instructions PAGEREF _Toc244625517 \h 26
+How Your Work Will Be Assessed PAGEREF _Toc244625518 \h 26
+Common Mistakes to Avoid PAGEREF _Toc244625519 \h 26
+Completion Checklist PAGEREF _Toc244625520 \h 27
+Required Weekly Self-Assessment and Reflection PDF PAGEREF _Toc244625521 \h 27
+Week 15 Laboratory PAGEREF _Toc244625522 \h 28
+Game Testing Defect Correction and Quality Evidence PAGEREF _Toc244625523 \h 28
+Laboratory Purpose PAGEREF _Toc244625524 \h 28
+Guided Laboratory Procedure PAGEREF _Toc244625525 \h 28
+Expected Output and Deadlines PAGEREF _Toc244625526 \h 29
+Completion Checkpoint PAGEREF _Toc244625527 \h 29
+What You Need Before Starting PAGEREF _Toc244625528 \h 29
+Submission Instructions PAGEREF _Toc244625529 \h 29
+How Your Work Will Be Assessed PAGEREF _Toc244625530 \h 29
+Common Mistakes to Avoid PAGEREF _Toc244625531 \h 29
+Completion Checklist PAGEREF _Toc244625532 \h 30
+Required Weekly Self-Assessment and Reflection PDF PAGEREF _Toc244625533 \h 30
+Week 16 Laboratory PAGEREF _Toc244625534 \h 31
+Mobile Game Profiling and Performance Optimization PAGEREF _Toc244625535 \h 31
+Laboratory Purpose PAGEREF _Toc244625536 \h 31
+Guided Laboratory Procedure PAGEREF _Toc244625537 \h 31
+Expected Output and Deadlines PAGEREF _Toc244625538 \h 31
+Completion Checkpoint PAGEREF _Toc244625539 \h 32
+What You Need Before Starting PAGEREF _Toc244625540 \h 32
+Submission Instructions PAGEREF _Toc244625541 \h 32
+How Your Work Will Be Assessed PAGEREF _Toc244625542 \h 32
+Common Mistakes to Avoid PAGEREF _Toc244625543 \h 32
+Completion Checklist PAGEREF _Toc244625544 \h 32
+Required Weekly Self-Assessment and Reflection PDF PAGEREF _Toc244625545 \h 33
+Week 17 Laboratory PAGEREF _Toc244625546 \h 34
+Final Integration Documentation and Release Readiness PAGEREF _Toc244625547 \h 34
+Laboratory Purpose PAGEREF _Toc244625548 \h 34
+Guided Laboratory Procedure PAGEREF _Toc244625549 \h 34
+Expected Output and Deadlines PAGEREF _Toc244625550 \h 34
+Completion Checkpoint PAGEREF _Toc244625551 \h 35
+What You Need Before Starting PAGEREF _Toc244625552 \h 35
+Submission Instructions PAGEREF _Toc244625553 \h 35
+How Your Work Will Be Assessed PAGEREF _Toc244625554 \h 35
+Common Mistakes to Avoid PAGEREF _Toc244625555 \h 35
+Completion Checklist PAGEREF _Toc244625556 \h 35
+Required Weekly Self-Assessment and Reflection PDF PAGEREF _Toc244625557 \h 36
+Week 18 Laboratory PAGEREF _Toc244625558 \h 37
+Final Practical Demonstration and Individual Defense PAGEREF _Toc244625559 \h 37
+Laboratory Purpose PAGEREF _Toc244625560 \h 37
+Final Laboratory Procedure PAGEREF _Toc244625561 \h 37
+Expected Output and Deadlines PAGEREF _Toc244625562 \h 37
+Completion Checkpoint PAGEREF _Toc244625563 \h 38
+What You Need Before Starting PAGEREF _Toc244625564 \h 38
+Submission Instructions PAGEREF _Toc244625565 \h 38
+How Your Work Will Be Assessed PAGEREF _Toc244625566 \h 38
+Common Mistakes to Avoid PAGEREF _Toc244625567 \h 38
+Completion Checklist PAGEREF _Toc244625568 \h 39
+Required Weekly Self-Assessment and Reflection PDF PAGEREF _Toc244625569 \h 39
+Detailed Student Laboratory Workbook PAGEREF _Toc244625570 \h 40
+Week 13 Detailed Student Guide PAGEREF _Toc244625571 \h 41
+Concept Guide PAGEREF _Toc244625572 \h 41
+Week 13 Detailed Student Guide PAGEREF _Toc244625573 \h 42
+Pre-Laboratory Preparation and Planning PAGEREF _Toc244625574 \h 42
+Week 13 Detailed Student Guide PAGEREF _Toc244625575 \h 43
+Guided Implementation Part 1 PAGEREF _Toc244625576 \h 43
+Week 13 Detailed Student Guide PAGEREF _Toc244625577 \h 44
+Guided Implementation Part 2 PAGEREF _Toc244625578 \h 44
+Week 13 Detailed Student Guide PAGEREF _Toc244625579 \h 45
+Verification Testing and Evidence PAGEREF _Toc244625580 \h 45
+Week 13 Detailed Student Guide PAGEREF _Toc244625581 \h 46
+Troubleshooting Guide PAGEREF _Toc244625582 \h 46
+Week 13 Detailed Student Guide PAGEREF _Toc244625583 \h 47
+Quality Review and Submission Packaging PAGEREF _Toc244625584 \h 47
+Week 13 Detailed Student Guide PAGEREF _Toc244625585 \h 48
+Self-Assessment and Reflection PAGEREF _Toc244625586 \h 48
+Week 14 Detailed Student Guide PAGEREF _Toc244625587 \h 49
+Concept Guide PAGEREF _Toc244625588 \h 49
+Week 14 Detailed Student Guide PAGEREF _Toc244625589 \h 50
+Pre-Laboratory Preparation and Planning PAGEREF _Toc244625590 \h 50
+Week 14 Detailed Student Guide PAGEREF _Toc244625591 \h 51
+Guided Implementation Part 1 PAGEREF _Toc244625592 \h 51
+Week 14 Detailed Student Guide PAGEREF _Toc244625593 \h 52
+Guided Implementation Part 2 PAGEREF _Toc244625594 \h 52
+Week 14 Detailed Student Guide PAGEREF _Toc244625595 \h 53
+Verification Testing and Evidence PAGEREF _Toc244625596 \h 53
+Week 14 Detailed Student Guide PAGEREF _Toc244625597 \h 54
+Troubleshooting Guide PAGEREF _Toc244625598 \h 54
+Week 14 Detailed Student Guide PAGEREF _Toc244625599 \h 55
+Quality Review and Submission Packaging PAGEREF _Toc244625600 \h 55
+Week 14 Detailed Student Guide PAGEREF _Toc244625601 \h 56
+Self-Assessment and Reflection PAGEREF _Toc244625602 \h 56
+Week 15 Detailed Student Guide PAGEREF _Toc244625603 \h 57
+Concept Guide PAGEREF _Toc244625604 \h 57
+Week 15 Detailed Student Guide PAGEREF _Toc244625605 \h 58
+Pre-Laboratory Preparation and Planning PAGEREF _Toc244625606 \h 58
+Week 15 Detailed Student Guide PAGEREF _Toc244625607 \h 59
+Guided Implementation Part 1 PAGEREF _Toc244625608 \h 59
+Week 15 Detailed Student Guide PAGEREF _Toc244625609 \h 60
+Guided Implementation Part 2 PAGEREF _Toc244625610 \h 60
+Week 15 Detailed Student Guide PAGEREF _Toc244625611 \h 61
+Verification Testing and Evidence PAGEREF _Toc244625612 \h 61
+Week 15 Detailed Student Guide PAGEREF _Toc244625613 \h 62
+Troubleshooting Guide PAGEREF _Toc244625614 \h 62
+Week 15 Detailed Student Guide PAGEREF _Toc244625615 \h 63
+Quality Review and Submission Packaging PAGEREF _Toc244625616 \h 63
+Week 15 Detailed Student Guide PAGEREF _Toc244625617 \h 64
+Self-Assessment and Reflection PAGEREF _Toc244625618 \h 64
+Week 16 Detailed Student Guide PAGEREF _Toc244625619 \h 65
+Concept Guide PAGEREF _Toc244625620 \h 65
+Week 16 Detailed Student Guide PAGEREF _Toc244625621 \h 66
+Pre-Laboratory Preparation and Planning PAGEREF _Toc244625622 \h 66
+Week 16 Detailed Student Guide PAGEREF _Toc244625623 \h 67
+Guided Implementation Part 1 PAGEREF _Toc244625624 \h 67
+Week 16 Detailed Student Guide PAGEREF _Toc244625625 \h 68
+Guided Implementation Part 2 PAGEREF _Toc244625626 \h 68
+Week 16 Detailed Student Guide PAGEREF _Toc244625627 \h 69
+Verification Testing and Evidence PAGEREF _Toc244625628 \h 69
+Week 16 Detailed Student Guide PAGEREF _Toc244625629 \h 70
+Troubleshooting Guide PAGEREF _Toc244625630 \h 70
+Week 16 Detailed Student Guide PAGEREF _Toc244625631 \h 71
+Quality Review and Submission Packaging PAGEREF _Toc244625632 \h 71
+Week 16 Detailed Student Guide PAGEREF _Toc244625633 \h 72
+Self-Assessment and Reflection PAGEREF _Toc244625634 \h 72
+Week 17 Detailed Student Guide PAGEREF _Toc244625635 \h 73
+Concept Guide PAGEREF _Toc244625636 \h 73
+Week 17 Detailed Student Guide PAGEREF _Toc244625637 \h 74
+Pre-Laboratory Preparation and Planning PAGEREF _Toc244625638 \h 74
+Week 17 Detailed Student Guide PAGEREF _Toc244625639 \h 75
+Guided Implementation Part 1 PAGEREF _Toc244625640 \h 75
+Week 17 Detailed Student Guide PAGEREF _Toc244625641 \h 76
+Guided Implementation Part 2 PAGEREF _Toc244625642 \h 76
+Week 17 Detailed Student Guide PAGEREF _Toc244625643 \h 77
+Verification Testing and Evidence PAGEREF _Toc244625644 \h 77
+Week 17 Detailed Student Guide PAGEREF _Toc244625645 \h 78
+Troubleshooting Guide PAGEREF _Toc244625646 \h 78
+Week 17 Detailed Student Guide PAGEREF _Toc244625647 \h 79
+Quality Review and Submission Packaging PAGEREF _Toc244625648 \h 79
+Week 17 Detailed Student Guide PAGEREF _Toc244625649 \h 80
+Self-Assessment and Reflection PAGEREF _Toc244625650 \h 80
+Week 18 Detailed Student Guide PAGEREF _Toc244625651 \h 81
+Concept Guide PAGEREF _Toc244625652 \h 81
+Week 18 Detailed Student Guide PAGEREF _Toc244625653 \h 82
+Pre-Laboratory Preparation and Planning PAGEREF _Toc244625654 \h 82
+Week 18 Detailed Student Guide PAGEREF _Toc244625655 \h 83
+Guided Implementation Part 1 PAGEREF _Toc244625656 \h 83
+Week 18 Detailed Student Guide PAGEREF _Toc244625657 \h 84
+Guided Implementation Part 2 PAGEREF _Toc244625658 \h 84
+Week 18 Detailed Student Guide PAGEREF _Toc244625659 \h 85
+Verification Testing and Evidence PAGEREF _Toc244625660 \h 85
+Week 18 Detailed Student Guide PAGEREF _Toc244625661 \h 86
+Troubleshooting Guide PAGEREF _Toc244625662 \h 86
+Week 18 Detailed Student Guide PAGEREF _Toc244625663 \h 87
+Quality Review and Submission Packaging PAGEREF _Toc244625664 \h 87
+Week 18 Detailed Student Guide PAGEREF _Toc244625665 \h 88
+Self-Assessment and Reflection PAGEREF _Toc244625666 \h 88
+Activities PAGEREF _Toc244625667 \h 88
+Assessments PAGEREF _Toc244625668 \h 89
+Laboratory Evaluation Criteria PAGEREF _Toc244625669 \h 91
+References PAGEREF _Toc244625670 \h 91
+
+
+Introduction
+This laboratory module guides each student through the final six weeks of an individual mobile game development project. Every student will design, implement, test, optimize, document, and defend an original game based on one approved theme. The laboratory emphasizes independent technical decision-making, measurable evidence, responsible use of services and data, and a complete playable build rather than a concept-only submission.
+The selected theme must affect the game mechanics, player decisions, goals, content, and feedback. A generic game with only a themed title, background, or set of images will not satisfy the requirement. All source code, assets, documentation, test evidence, repository history, and demonstrations must represent the individual student's work, with third-party and AI-assisted materials properly acknowledged.
+Project Overview
+• This is an individual mobile game development project.
+• Each student must select one approved theme and create one original game.
+• The selected theme must influence the gameplay, goals, decisions, feedback, and player experience.
+• All weekly outputs must be produced from the same individual game project.
+• Each student must maintain an individual Git repository with meaningful commits.
+• The final output must be installable, playable, documented, tested, optimized, and independently defended.
+Google Drive Submission Instructions
+All weekly assessment files, reflection PDFs, evidence, and final submission materials must be uploaded to the official course submission folder.
+Official submission folder: Open the MOBILE DEV 002 Google Drive submission folder
+Required Personal Folder Naming Convention
+Each student must create exactly one personal folder inside the official submission folder. Use the following naming convention:
+LASTNAME_FirstName_StudentNumber_GameTitle
+• Write the family name in uppercase so folders are easy to sort alphabetically.
+• Use the student's official first name and student number.
+• Use a short game title without special characters.
+• Replace spaces with underscores. Do not use slashes, quotation marks, emojis, or unnecessary punctuation.
+• Example: DELACRUZ_Juan_2026-00123_EcoQuest
+• Do not create a new personal folder every week. Reuse the same personal folder and add the required numbered assessment folders inside it.
+Required Folder Contents
+• Week_13 – SA5 analysis, PT5 service component, required evidence, and Week 13 reflection PDF.
+• Week_14 – PT6 cross-platform, usability and accessibility work, required evidence, and Week 14 reflection PDF.
+• Week_15 – AS3 testing milestone, defect and regression evidence, and Week 15 reflection PDF.
+• Week_16 – SA6 performance analysis, completed AS3 report, optimization evidence, and Week 16 reflection PDF.
+• Week_17 – PT7 release candidate, documentation, readiness evidence, and Week 17 reflection PDF.
+• Week_18 – PA2 final game package, E3-related required records, final evidence, and Week 18 reflection PDF.
+Weekly submission requirement: Complete the entire weekly task and place all required outputs inside the corresponding Week_13, Week_14, Week_15, Week_16, Week_17, or Week_18 folder before the Friday 11:59 PM deadline. Do not upload partial work to another week's folder. A weekly submission is complete only when the required task, expected output, evidence, repository or commit information, and weekly reflection PDF are present and readable.
+After uploading, reopen every submitted file from Google Drive to confirm that it is complete, readable, and accessible. The student is responsible for checking the upload, correcting missing or corrupted files before the deadline, and retaining a local backup.
+Weekly completion flow: Understand the requirement → Complete the weekly task → Test and verify the output → Organize the evidence → Write the authentic reflection → Upload and confirm the submission
+Master Assessment and Deadline Schedule
+Use this table as the official submission schedule. Detailed requirements remain in the corresponding weekly sections.
+Week
+Code
+Required Output
+Deadline
+13
+SA5
+Theme, player, and advanced game-integration analysis
+October 30, 2026, 11:59 PM
+13
+PT5
+Player profile, cloud save, leaderboard, or service component
+October 30, 2026, 11:59 PM
+14
+PT6
+Cross-platform gameplay and usability/accessibility evaluation
+November 6, 2026, 11:59 PM
+15
+AS3 Milestone
+Testing evidence, defect correction, and acceptance results
+November 13, 2026, 11:59 PM
+16
+SA6
+Game performance and resource analysis
+November 20, 2026, 11:59 PM
+16
+AS3
+Testing, optimization, and evaluation report
+November 20, 2026, 11:59 PM
+17
+PT7
+Final game refinement and release candidate
+November 27, 2026, 11:59 PM
+18
+PA2
+Complete thematic mobile-game demonstration and defense
+December 4, 2026, 11:59 PM
+18
+E3
+Architecture, integration, optimization, security, and game-development examination
+December 4, 2026, 11:59 PM
+Learning Objectives
+Upon completing this laboratory module, the student should be able to:
+• Implement secure player data handling, authentication or profile management, and responsible AI-assisted development practices appropriate to the game.
+• Plan and conduct an ethical usability and accessibility evaluation using observable player tasks and documented evidence.
+• Design and execute functional, compatibility, regression, and acceptance tests and use the results to correct defects.
+• Profile CPU, GPU, memory, rendering, loading, and responsiveness and verify measurable improvements after optimization.
+• Integrate gameplay, user interface, services, security, testing, optimization, deployment, and documentation into a stable release candidate.
+• Demonstrate and independently defend the completed mobile game using technical evidence and reflective evaluation.
+Project Theme and Individual Work Requirement
+Each student must select one theme and develop an original game independently:
+• Smart City
+• Disaster Risk Reduction and Management
+• Climate Change
+• Education
+• Circular Economy
+• Philippine Games and Sports
+• Board Games or Brain Games
+The student must submit a Theme-to-Mechanics Justification explaining the target player, intended experience, core gameplay loop, theme-related decisions, and the way the mechanics communicate the selected theme. Collaboration may be limited to peer testing and instructor-approved feedback. Sharing project files, source code, substantial game logic, or completed assets is not permitted.
+Resources
+• A development computer with the approved Unity editor and required mobile build support installed.
+• An Android or other approved mobile test device, compatible cable, and required device drivers.
+• A personal Git repository with meaningful commits and version history.
+• Firebase or another instructor-approved service when authentication, cloud save, or leaderboard features are included.
+• Unity Profiler, Frame Debugger, Memory Profiler or equivalent approved profiling tools.
+• Accessibility, usability, security, deployment, and platform documentation listed in the References section.
+• A weekday laboratory schedule. No required checkpoint or final deadline in this module falls on Saturday or Sunday.
+Approximate laboratory time: 30 supervised hours across Weeks 13–18, plus independent development time needed to complete the individual game.
+Minimum Acceptable Game Requirements
+• Title or start screen and clear instructions or tutorial.
+• A complete core gameplay loop with an understandable player goal.
+• Mobile-compatible player input and immediate visual, audio, or haptic feedback where appropriate.
+• Win, loss, completion, scoring, or progression conditions appropriate to the game.
+• Pause or settings function and a restart, retry, or reset function.
+• Credits and acknowledgements for third-party and AI-assisted resources.
+• A working player-data or approved service component.
+• Error handling and a stable installable mobile build.
+Technical Glossary
+Build: A packaged version of the game that can be installed or run for testing.
+Release candidate: A complete version intended for final testing and demonstration, with no unfinished experimental features.
+Repository: The student's individual version-controlled project containing source files and development history.
+Commit ID: The unique identifier of a saved repository revision used to verify the submitted version.
+Core gameplay loop: The actions the player repeatedly performs to progress in the game.
+Regression testing: Retesting existing features after a change to confirm that previously working behavior remains correct.
+Traceability matrix: A table linking requirements or features to the test cases that verify them.
+Baseline: The controlled measurement recorded before an optimization is applied.
+Profiler: A tool that measures CPU, GPU, memory, rendering, loading, and related performance behavior.
+Bottleneck: A verified component or process that limits performance or responsiveness.
+Evidence portfolio: An organized collection of diagrams, tests, screenshots, recordings, commits, profiler captures, and evaluation findings.
+Weekly Submission Folder Structure
+• Week_13 – complete Week 13 task, SA5, PT5, evidence, repository information, and reflection PDF.
+• Week_14 – complete Week 14 task, PT6, evidence, repository information, and reflection PDF.
+• Week_15 – complete Week 15 task, AS3 milestone, evidence, repository information, and reflection PDF.
+• Week_16 – complete Week 16 task, SA6, AS3, evidence, repository information, and reflection PDF.
+• Week_17 – complete Week 17 task, PT7, release candidate, documentation, evidence, and reflection PDF.
+• Week_18 – complete Week 18 task, PA2 package, required E3 records, evidence, and reflection PDF.
+• README.md – student name, game title, theme, platform, engine version, installation instructions, controls, repository link, current commit ID, and known limitations. Update it weekly.
+File Naming Convention
+Use the format Lastname_Firstname_AssessmentCode followed by the appropriate extension. Examples include DelaCruz_Juan_SA5.pdf, DelaCruz_Juan_PT7.apk, and DelaCruz_Juan_PA2.pdf.
+Acceptable Evidence
+• Captioned screenshots or short screen recordings that show the relevant result.
+• Test-result tables, traceability matrices, and defect records with actual outcomes.
+• Profiler captures and controlled before-and-after measurements.
+• Repository commits, tags, branch history, and recorded commit identifiers.
+• Architecture, gameplay-loop, data-flow, and service-integration diagrams.
+• Ethically collected participant observation records and usability findings.
+Screenshots without captions or explanations are insufficient. Each evidence item must state what was examined, the result, and why the result matters.
+Responsible AI Use
+Allowed with disclosure:
+• Brainstorming, explaining errors, suggesting test cases, improving grammar, and producing reference code that the student verifies, modifies, understands, and acknowledges.
+Restricted:
+• AI-generated assets or substantial code used without acknowledgement, or generated components the student cannot explain and defend.
+Prohibited:
+• Using AI during E3 or the individual defense; submitting AI-generated work as entirely original; or generating fake test data, participant feedback, profiler results, sources, or development evidence.
+Weekly Self-Assessment and Reflection Guide
+A Self-Assessment and Reflection PDF is required every week from Week 13 through Week 18. Its purpose is to document the student's authentic development experience, not to repeat the module instructions or summarize a topic. The writing must explain what the student personally attempted, observed, changed, learned, and still needs to improve.
+Recommended Written Structure
+• Project identification: game title, theme, week, build version, repository branch or tag, and commit ID.
+• Work completed: describe the specific feature, analysis, test, optimization, or documentation completed during the week.
+• Evidence from experience: identify the exact file, scene, script, test case, defect, commit, measurement, or player observation that supports the reflection.
+• Challenge encountered: explain one real technical or design difficulty, how it was diagnosed, and what was attempted.
+• Decision and result: explain one decision made because of evidence and describe its effect on the game.
+• Self-assessment: identify what was done well and what remains incomplete or weak.
+• Next action: state one specific improvement for the following week and explain its priority.
+• Authenticity declaration and disclosure of any assistance received.
+PDF Preparation and Authenticity Rules
+• Write the reflection in the student's own words before exporting it to PDF.
+• Use first-person statements such as I implemented, I tested, I observed, I changed, and I learned when they accurately describe the student's experience.
+• Do not submit a generic topic summary, copied laboratory instructions, or a list of activities without explanation.
+• Repository commits, build versions, screenshots, tests, defects, and measurements may be checked against the reflection.
+• AI may assist with grammar only when disclosed; it must not invent experiences, decisions, evidence, results, or personal reflection.
+• Export the final document as PDF and reopen the PDF to verify readability before submission.
+Submission and Deadline Rules
+• All required weekly outputs are due on Friday at 11:59 PM on the date stated in this module.
+• The six submission dates are October 30, November 6, November 13, November 20, November 27, and December 4, 2026.
+• December 5, 2026 is the end of the stated period but is not used as a deadline because it falls on Saturday.
+• If a declared university holiday or class suspension affects a deadline, the revised deadline must be the next official weekday class day, never Saturday or Sunday.
+• Every submission must include the repository commit identifier, the required evidence files, and a runnable build when specified.
+• Late, incomplete, corrupted, or unverifiable submissions are handled according to the approved course and institutional policies.
+Week 13 Laboratory
+Secure Player Data and Responsible Development
+Laboratory Purpose
+The student will identify the data used by the game, implement an appropriate player-profile or authentication flow, protect sensitive configuration values, and document responsible use of AI and third-party resources. The security requirement must be proportionate to the game: an offline game may use a local profile and protected save design, while an online game may require authentication, authorization, and cloud data rules.
+Guided Laboratory Procedure
+1. Create a data inventory identifying every player, device, gameplay, analytics, and service-related data item collected, generated, stored, or transmitted by the game.
+2. Draw a concise data-flow diagram showing where each data item originates, where it is stored, who or what can access it, and when it is deleted or reset.
+3. Choose and justify the required identity model: no account, local profile, anonymous authentication, email authentication, or another instructor-approved approach.
+4. Implement the player-profile or authentication flow. Validate inputs, provide useful error messages, and prevent unauthorized access to another player's records.
+5. Remove secrets from source code. Store keys, configuration values, and service credentials using an appropriate configuration method, and verify that sensitive files are excluded from the repository.
+6. Test successful access, invalid input, failed network access where applicable, sign-out or profile reset, and recovery from interrupted service communication.
+7. Complete a responsible-development record listing AI tools, external assets, code references, generated content, licenses, modifications, and verification performed by the student.
+8. Commit the working security and player-data changes with a meaningful commit message and record the commit identifier.
+Expected Output and Deadlines
+Checkpoint
+Expected Output
+Deadline
+SA5
+Theme, player, and advanced game-integration analysis; Theme-to-Mechanics Justification; data inventory; data-flow diagram; integration plan.
+Friday, October 30, 2026, 11:59 PM
+PT5
+Working player profile, cloud save, leaderboard, or approved service component; security tests; disclosure record; repository commit ID.
+Friday, October 30, 2026, 11:59 PM
+Completion Checkpoint
+The game must open without exposed secrets, handle the selected identity or profile flow correctly, protect player records from obvious unauthorized access, and include evidence that the student understands and can explain the implemented controls.
+What You Need Before Starting
+• Approved game theme and current playable prototype.
+• Individual repository with no exposed secrets.
+• Selected service or local-data approach and access to its official documentation.
+Submission Instructions
+• Submit SA5 and PT5 using the required file names and folders.
+• Include the repository link and exact commit ID.
+• Include a runnable build or demonstration recording and captioned test evidence.
+How Your Work Will Be Assessed
+• Theme and player analysis, integration reasoning, working service component, security, testing evidence, and independent explanation.
+Common Mistakes to Avoid
+• Using a theme only as decoration.
+• Placing keys or credentials in source code.
+• Submitting screenshots without test results or explanations.
+Completion Checklist
+• ☐ SA5 analysis is complete.
+• ☐ PT5 component works in success and failure cases.
+• ☐ Secrets are excluded from the repository.
+• ☐ Evidence and disclosure records are included.
+Required Weekly Self-Assessment and Reflection PDF
+Submit one individually written reflection PDF for Week 13. The reflection must describe the student's actual development experience and must be supported by project-specific evidence. Deadline: Friday, October 30, 2026, 11:59 PM.
+Required reflection prompts:
+• What did I personally implement or analyze this week?
+• Which security, data, or service decision was most difficult, and why?
+• What evidence changed or confirmed my integration decision?
+• What must I improve before usability testing?
+Authenticity evidence:
+• Identify the game title, selected theme, build version, repository branch or tag, and relevant commit ID.
+• Refer to at least one specific file, script, scene, test, diagram, profiler capture, defect, or implementation decision produced during the week.
+• Include one captioned screenshot or evidence excerpt only when it directly supports the written reflection.
+• End with the declaration: I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.
+Submission format: 1–2 pages, written in the student's own words, exported as PDF, and named Lastname_Firstname_Week##_Reflection.pdf. Generic summaries, copied descriptions, fabricated experiences, or reflections that cannot be connected to the submitted repository and evidence will not be accepted.
+Week 14 Laboratory
+Game Usability Accessibility and Playtesting
+Laboratory Purpose
+The student will evaluate whether a first-time player can understand, control, and complete core game tasks. The evaluation must use observable evidence and must include accessibility considerations relevant to the interface, input method, feedback, text, color, audio, and game pace.
+Guided Laboratory Procedure
+1. Define three to five representative player tasks covering onboarding, core gameplay, pause or settings, recovery from failure, and completion or progress review.
+2. Prepare a playtesting protocol containing the participant briefing, consent statement, task script, observation sheet, metrics, and closing questions.
+3. Recruit at least three appropriate testers who did not develop the game. Do not collect unnecessary personal or sensitive information.
+4. Conduct individual playtesting without coaching the participant through the interface. Record completion, errors, hesitation, requests for help, task time where useful, and direct feedback.
+5. Audit the game for readable text, sufficient contrast, understandable icons, touch-target size, alternative feedback, volume control, pause behavior, and avoidance of input that excludes intended players without justification.
+6. Summarize findings by severity and frequency. Distinguish observed evidence from personal opinion.
+7. Implement at least three justified usability or accessibility improvements, then repeat the affected tasks to verify the corrections.
+8. Commit the revised interface and playability changes and record before-and-after screenshots or short clips.
+Expected Output and Deadlines
+Checkpoint
+Expected Output
+Deadline
+PT6
+Cross-platform gameplay evidence; playtesting protocol; evidence from at least three testers; accessibility checklist; findings matrix; implemented improvements; repository commit ID.
+Friday, November 6, 2026, 11:59 PM
+Completion Checkpoint
+A first-time player must be able to identify the goal, use the primary controls, receive clear feedback, and complete the core gameplay loop without developer coaching. Remaining limitations must be documented and prioritized.
+What You Need Before Starting
+• A playable build with the core gameplay loop.
+• At least three appropriate testers who did not develop the game.
+• A prepared task script, observation sheet, and accessibility checklist.
+Submission Instructions
+• Submit PT6 with build evidence, protocol, participant results, findings, corrections, and repository commit ID.
+• Remove unnecessary personal information from participant records.
+How Your Work Will Be Assessed
+• Cross-platform operation, ethical testing, quality of evidence, accessibility review, justified corrections, and verification.
+Common Mistakes to Avoid
+• Coaching testers through the interface.
+• Collecting unnecessary personal data.
+• Listing opinions without observable evidence.
+• Claiming accessibility without checking controls, text, color, audio, and feedback.
+Completion Checklist
+• ☐ Cross-platform build evidence is included.
+• ☐ At least three tests were completed.
+• ☐ Findings are ranked by severity.
+• ☐ Corrections and before-and-after evidence are included.
+Required Weekly Self-Assessment and Reflection PDF
+Submit one individually written reflection PDF for Week 14. The reflection must describe the student's actual development experience and must be supported by project-specific evidence. Deadline: Friday, November 6, 2026, 11:59 PM.
+Required reflection prompts:
+• What did real players do differently from what I expected?
+• Which usability or accessibility finding was most important?
+• What change did I implement because of observation rather than personal preference?
+• What limitation remains for the next build?
+Authenticity evidence:
+• Identify the game title, selected theme, build version, repository branch or tag, and relevant commit ID.
+• Refer to at least one specific file, script, scene, test, diagram, profiler capture, defect, or implementation decision produced during the week.
+• Include one captioned screenshot or evidence excerpt only when it directly supports the written reflection.
+• End with the declaration: I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.
+Submission format: 1–2 pages, written in the student's own words, exported as PDF, and named Lastname_Firstname_Week##_Reflection.pdf. Generic summaries, copied descriptions, fabricated experiences, or reflections that cannot be connected to the submitted repository and evidence will not be accepted.
+Week 15 Laboratory
+Game Testing Defect Correction and Quality Evidence
+Laboratory Purpose
+The student will build a reproducible quality-assurance record for the individual game. Testing must cover normal gameplay, boundary conditions, failure states, supported devices or configurations, corrected defects, and the acceptance conditions for the release candidate.
+Guided Laboratory Procedure
+1. Define the build identifier, supported device or platform range, test environment, and acceptance criteria.
+2. Create a traceability matrix linking the major game requirements and mechanics to one or more test cases.
+3. Write functional tests for navigation, player input, scoring or progression, win and loss conditions, saving or services, audio, pause or resume, and reset behavior as applicable.
+4. Add negative and boundary tests, including rapid repeated input, missing data, interrupted network access, invalid values, low-resource conditions, and app backgrounding where relevant.
+5. Execute compatibility tests on at least two approved device or configuration profiles when resources permit; otherwise use one physical device and one instructor-approved emulator or configuration.
+6. Record defects with a unique ID, severity, reproduction steps, expected result, actual result, evidence, status, and related commit.
+7. Correct high-priority defects, rerun the failed test cases, and perform regression testing on affected features.
+8. Prepare an acceptance summary identifying passed, failed, blocked, and deferred items and explaining whether the build is ready for optimization.
+Expected Output and Deadlines
+Checkpoint
+Expected Output
+Deadline
+AS3 Milestone
+Test plan; environment definition; requirements-to-test traceability matrix; executed initial tests; defect log; corrected build; regression and acceptance evidence.
+Friday, November 13, 2026, 11:59 PM
+Completion Checkpoint
+All critical gameplay paths must pass. No unresolved defect may cause data loss, prevent completion of the core gameplay loop, expose another player's information, or repeatedly crash the application.
+What You Need Before Starting
+• The Week 14 corrected build.
+• Defined requirements and acceptance criteria.
+• Target device or approved emulator configurations.
+Submission Instructions
+• Submit the AS3 milestone with the traceability matrix, executed tests, defect log, corrected build evidence, regression results, and commit ID.
+How Your Work Will Be Assessed
+• Test coverage, reproducibility, defect quality, correction evidence, regression testing, and acceptance reasoning.
+Common Mistakes to Avoid
+• Writing tests without executing them.
+• Recording defects without reproduction steps.
+• Marking a defect fixed without regression testing.
+• Testing a different build from the submitted version.
+Completion Checklist
+• ☐ Major requirements are linked to tests.
+• ☐ Actual results are recorded.
+• ☐ Critical defects are resolved.
+• ☐ The tested build and commit are identified.
+Required Weekly Self-Assessment and Reflection PDF
+Submit one individually written reflection PDF for Week 15. The reflection must describe the student's actual development experience and must be supported by project-specific evidence. Deadline: Friday, November 13, 2026, 11:59 PM.
+Required reflection prompts:
+• Which defect or failed test taught me the most about my game?
+• How did I reproduce and correct the problem?
+• What regression risk did I discover?
+• How confident am I in the build, and what evidence supports that judgment?
+Authenticity evidence:
+• Identify the game title, selected theme, build version, repository branch or tag, and relevant commit ID.
+• Refer to at least one specific file, script, scene, test, diagram, profiler capture, defect, or implementation decision produced during the week.
+• Include one captioned screenshot or evidence excerpt only when it directly supports the written reflection.
+• End with the declaration: I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.
+Submission format: 1–2 pages, written in the student's own words, exported as PDF, and named Lastname_Firstname_Week##_Reflection.pdf. Generic summaries, copied descriptions, fabricated experiences, or reflections that cannot be connected to the submitted repository and evidence will not be accepted.
+Week 16 Laboratory
+Mobile Game Profiling and Performance Optimization
+Laboratory Purpose
+The student will collect a controlled performance baseline, identify verified bottlenecks, implement targeted improvements, and compare the results under the same conditions. Optimization claims must be supported by measurements rather than impression alone.
+Guided Laboratory Procedure
+1. Choose a repeatable gameplay scenario lasting at least 60 seconds and record the device, build settings, resolution, quality level, scene, and input sequence.
+2. Capture baseline frame rate or frame time, CPU usage, GPU or rendering evidence, memory use, loading time, build size, and other metrics relevant to the game.
+3. Use profiler evidence to identify at least two significant bottlenecks or resource risks. Do not optimize solely by guessing.
+4. Plan changes such as object pooling, reduced allocations, asset compression, texture or audio adjustments, batching, draw-call reduction, physics tuning, update-loop changes, loading improvements, or service-call reduction.
+5. Implement one change at a time in a dedicated branch or clearly separated commits so its effect can be examined.
+6. Repeat the same test scenario and record the post-change measurements.
+7. Compare baseline and optimized results, calculate meaningful differences, and note trade-offs in quality, maintainability, battery use, storage, or gameplay.
+8. Retain only changes that produce a defensible benefit without breaking required behavior, then rerun the relevant regression tests.
+Expected Output and Deadlines
+Checkpoint
+Expected Output
+Deadline
+SA6
+Game performance and resource analysis using controlled scenarios, baseline profiler captures, bottleneck findings, and justified optimization priorities.
+Friday, November 20, 2026, 11:59 PM
+AS3
+Completed testing, optimization, and evaluation report; optimized build; before-and-after metrics; change log; regression results; repository commit ID.
+Friday, November 20, 2026, 11:59 PM
+Completion Checkpoint
+The student must demonstrate at least one measurable improvement or present a technically valid finding that the tested area already meets the defined target. Any visual or gameplay trade-off must be explicitly justified.
+What You Need Before Starting
+• The accepted Week 15 build and test results.
+• A physical device or approved profiling environment.
+• One repeatable gameplay scenario and recorded build settings.
+Submission Instructions
+• Submit SA6 and the completed AS3 report with raw measurements, profiler captures, before-and-after comparison, optimized build, regression evidence, and commit ID.
+How Your Work Will Be Assessed
+• Controlled measurement, bottleneck identification, technical reasoning, measurable improvement, trade-off analysis, and regression safety.
+Common Mistakes to Avoid
+• Optimizing by guesswork.
+• Comparing different scenes, devices, or settings.
+• Reporting percentages without raw measurements.
+• Reducing quality without explaining the trade-off.
+Completion Checklist
+• ☐ Baseline conditions are recorded.
+• ☐ Bottlenecks are supported by profiler evidence.
+• ☐ Optimized results use the same conditions.
+• ☐ Regression tests pass.
+Required Weekly Self-Assessment and Reflection PDF
+Submit one individually written reflection PDF for Week 16. The reflection must describe the student's actual development experience and must be supported by project-specific evidence. Deadline: Friday, November 20, 2026, 11:59 PM.
+Required reflection prompts:
+• Which measured bottleneck was most significant?
+• What optimization did I attempt, and what changed in the measurements?
+• What trade-off did I accept or reject?
+• What performance limitation still needs attention?
+Authenticity evidence:
+• Identify the game title, selected theme, build version, repository branch or tag, and relevant commit ID.
+• Refer to at least one specific file, script, scene, test, diagram, profiler capture, defect, or implementation decision produced during the week.
+• Include one captioned screenshot or evidence excerpt only when it directly supports the written reflection.
+• End with the declaration: I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.
+Submission format: 1–2 pages, written in the student's own words, exported as PDF, and named Lastname_Firstname_Week##_Reflection.pdf. Generic summaries, copied descriptions, fabricated experiences, or reflections that cannot be connected to the submitted repository and evidence will not be accepted.
+Week 17 Laboratory
+Final Integration Documentation and Release Readiness
+Laboratory Purpose
+The student will integrate the final gameplay, interface, services, security, testing, and optimization work into a stable release candidate. The week is a readiness gate: major new features should not be introduced after the progress checkpoint unless the instructor approves a corrective change.
+Guided Laboratory Procedure
+1. Review the Theme-to-Mechanics Justification and verify that the final mechanics still communicate the selected theme meaningfully.
+2. Complete the core gameplay loop, menus, instructions, feedback, progression, win or loss conditions, settings, credits, and exit or restart behavior.
+3. Integrate and verify the player-data, service, security, usability, accessibility, testing, and optimization changes from Weeks 13–16.
+4. Clean the repository by removing secrets, unused files, temporary builds, duplicate assets, and generated files that should not be versioned.
+5. Prepare a release candidate with a unique version number and build identifier. Install and run it on the target mobile device from a clean state.
+6. Create technical documentation covering the concept, theme, architecture, important scripts, data and service flow, controls, setup, testing, performance, known limitations, credits, and licenses.
+7. Prepare a concise user guide and a defense evidence index that points to repository commits, diagrams, tests, profiler captures, and evaluation findings.
+8. Conduct a timed mock demonstration and answer questions about architecture, mechanics, services, security, testing, performance, and maintainability.
+Expected Output and Deadlines
+Checkpoint
+Expected Output
+Deadline
+PT7
+Final game refinement and release candidate: feature-freeze checklist, installable build, repository, technical documentation, user guide, evidence index, and readiness results.
+Friday, November 27, 2026, 11:59 PM
+Completion Checkpoint
+The release candidate must install, launch, complete the core gameplay loop, preserve or reset data correctly, display credits and instructions, and remain stable during the full demonstration sequence.
+What You Need Before Starting
+• Completed outputs from Weeks 13–16.
+• Resolved critical defects and accepted optimization changes.
+• Technical-documentation and user-guide outlines.
+Submission Instructions
+• Submit PT7 as one organized release package containing the installable build, repository link, release tag, documentation, user guide, evidence index, and readiness checklist.
+How Your Work Will Be Assessed
+• Stability, completeness, installation, theme-to-gameplay coherence, repository hygiene, documentation, and release readiness.
+Common Mistakes to Avoid
+• Adding major untested features after feature freeze.
+• Submitting an editor-only project without an installable build.
+• Omitting credits, licenses, known limitations, or installation instructions.
+Completion Checklist
+• ☐ The release candidate installs from a clean state.
+• ☐ The full gameplay loop works.
+• ☐ Documentation matches the submitted version.
+• ☐ The release tag and commit ID are recorded.
+Required Weekly Self-Assessment and Reflection PDF
+Submit one individually written reflection PDF for Week 17. The reflection must describe the student's actual development experience and must be supported by project-specific evidence. Deadline: Friday, November 27, 2026, 11:59 PM.
+Required reflection prompts:
+• What changed when I treated the game as a release candidate rather than a prototype?
+• Which issue was hardest to resolve before feature freeze?
+• What evidence shows that the build is ready for demonstration?
+• What known limitation will I disclose during the defense?
+Authenticity evidence:
+• Identify the game title, selected theme, build version, repository branch or tag, and relevant commit ID.
+• Refer to at least one specific file, script, scene, test, diagram, profiler capture, defect, or implementation decision produced during the week.
+• Include one captioned screenshot or evidence excerpt only when it directly supports the written reflection.
+• End with the declaration: I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.
+Submission format: 1–2 pages, written in the student's own words, exported as PDF, and named Lastname_Firstname_Week##_Reflection.pdf. Generic summaries, copied descriptions, fabricated experiences, or reflections that cannot be connected to the submitted repository and evidence will not be accepted.
+Week 18 Laboratory
+Final Practical Demonstration and Individual Defense
+Laboratory Purpose
+The student will submit, demonstrate, and independently defend the completed thematic mobile game. The demonstration must show the final build and evidence produced throughout the module. The student must be able to explain the code and decisions without relying on another person or an AI-generated response during the defense.
+Final Laboratory Procedure
+1. Run the final pre-submission checklist and verify that the repository, build, documentation, evidence, credits, licenses, and disclosure records are complete.
+2. Create the final tagged repository version and record the tag and commit identifier in the documentation.
+3. Submit the installable build, source code or repository access required by the instructor, technical report, user guide, evidence portfolio, presentation, and signed originality declaration.
+4. Install or launch the submitted build using the same package provided to the instructor; do not replace it with an unsubmitted local build.
+5. Deliver a concise presentation covering the selected theme, target player, core mechanics, architecture, services, security, usability findings, testing, optimization, and limitations.
+6. Demonstrate onboarding, the core gameplay loop, theme-related mechanics, settings, data or service features, error handling, and completion or progression.
+7. Complete the individual technical defense and identify specific files, classes, commits, test records, and profiling evidence when answering questions.
+8. Submit a brief reflection describing the strongest technical result, the most important limitation, and the next improvement that should be implemented.
+Expected Output and Deadlines
+Checkpoint
+Expected Output
+Deadline
+PA2
+Complete thematic mobile-game demonstration and defense: playable game, final repository, technical documentation, evidence portfolio, presentation, viva, and reflection.
+Friday, December 4, 2026, 11:59 PM
+E3
+Architecture, integration, optimization, security, and game-development examination completed under the approved examination conditions.
+Friday, December 4, 2026, 11:59 PM
+Completion Checkpoint
+The module is complete only when the submitted build is playable, the required documentation and evidence can be verified, and the student independently explains the implementation and development decisions.
+What You Need Before Starting
+• The approved PT7 release candidate.
+• Complete evidence portfolio and final documentation.
+• A rehearsed presentation and demonstration sequence.
+Submission Instructions
+• Submit PA2 materials before the deadline and complete E3 under approved conditions.
+• Demonstrate the same build that was submitted.
+• Bring the repository, evidence index, and required device or installation package.
+How Your Work Will Be Assessed
+• Complete game quality, thematic coherence, architecture, integration, security, testing, performance, documentation, demonstration, and independent defense.
+Common Mistakes to Avoid
+• Demonstrating a different build from the submission.
+• Reading an AI-generated defense response.
+• Being unable to identify or explain important files and commits.
+• Submitting unverifiable or fabricated evidence.
+Completion Checklist
+• ☐ Final build and repository are submitted.
+• ☐ Documentation and evidence portfolio are complete.
+• ☐ The demonstration sequence has been tested.
+• ☐ The student can explain the architecture, code, tests, optimization, security, and limitations.
+Required Weekly Self-Assessment and Reflection PDF
+Submit one individually written reflection PDF for Week 18. The reflection must describe the student's actual development experience and must be supported by project-specific evidence. Deadline: Friday, December 4, 2026, 11:59 PM.
+Required reflection prompts:
+• What is the strongest result in my completed game, and what evidence proves it?
+• Which technical decision would I change if I restarted the project?
+• What limitation is most important to acknowledge?
+• What did I learn about my own development process across Weeks 13–18?
+Authenticity evidence:
+• Identify the game title, selected theme, build version, repository branch or tag, and relevant commit ID.
+• Refer to at least one specific file, script, scene, test, diagram, profiler capture, defect, or implementation decision produced during the week.
+• Include one captioned screenshot or evidence excerpt only when it directly supports the written reflection.
+• End with the declaration: I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.
+Submission format: 1–2 pages, written in the student's own words, exported as PDF, and named Lastname_Firstname_Week##_Reflection.pdf. Generic summaries, copied descriptions, fabricated experiences, or reflections that cannot be connected to the submitted repository and evidence will not be accepted.
+Detailed Student Laboratory Workbook
+The following guided pages expand the weekly laboratory requirements into smaller, verifiable tasks. Complete the pages in order. Keep the evidence identified on each page because the same records will support the weekly assessment, final evidence portfolio, and individual defense.
+Week 13 Detailed Student Guide
+Concept Guide
+Review the essential ideas before changing the project. Connect every concept to a feature or decision in your own game.
+What You Need to Understand
+• Player and stakeholder needs must be understood well enough to apply and explain in the individual game.
+• Data inventory and data-flow diagrams must be understood well enough to apply and explain in the individual game.
+• Authentication and authorization must be understood well enough to apply and explain in the individual game.
+• Secure configuration and secret handling must be understood well enough to apply and explain in the individual game.
+• Service failure and recovery must be understood well enough to apply and explain in the individual game.
+• Ai and third-party disclosure must be understood well enough to apply and explain in the individual game.
+What You Must Do
+1. Write a short game-specific explanation of player and stakeholder needs.
+2. Write a short game-specific explanation of data inventory and data-flow diagrams.
+3. Write a short game-specific explanation of authentication and authorization.
+4. Write a short game-specific explanation of secure configuration and secret handling.
+Evidence to Keep
+• Written game-specific concept explanations
+• Relevant architecture or flow sketch
+Student Check
+☐ I can explain the concepts without reading a generated response.
+☐ Every explanation refers to my own game.
+Week 13 Detailed Student Guide
+Pre-Laboratory Preparation and Planning
+Prepare the project, tools, files, evidence folders, and implementation plan before beginning technical work.
+What You Need to Understand
+• Required resource: Unity editor and target mobile build support.
+• Required resource: individual Git repository.
+• Required resource: Firebase or another approved service.
+• Required resource: diagramming tool.
+• Required resource: test device.
+• Planned task: define the target player and theme-related requirements.
+• Planned task: map every collected, stored, and transmitted data item.
+• Planned task: select a proportionate identity and service model.
+• Planned task: implement one approved service component.
+• Planned task: test successful and failed operations.
+• Planned task: remove secrets and document external assistance.
+What You Must Do
+1. Open the project and confirm that the current accepted build runs.
+2. Record and protect the starting repository commit.
+3. Confirm that the required tools and accounts are available.
+4. Divide the work into separately testable tasks.
+5. For each task, state its expected result, evidence, dependency, and likely failure point.
+Evidence to Keep
+• Starting build and commit ID
+• Task plan with dependencies, expected results, and evidence
+Student Check
+☐ The accepted starting build runs.
+☐ My tasks are small enough to test and commit separately.
+Week 13 Detailed Student Guide
+Guided Implementation Part 1
+Complete the first half of the weekly technical work in controlled, verifiable steps.
+What You Need to Understand
+• The first implementation stage covers: define the target player and theme-related requirements.
+• The first implementation stage covers: map every collected, stored, and transmitted data item.
+• The first implementation stage covers: select a proportionate identity and service model.
+What You Must Do
+1. Complete and commit the task: define the target player and theme-related requirements.
+2. Complete and commit the task: map every collected, stored, and transmitted data item.
+3. Complete and commit the task: select a proportionate identity and service model.
+4. Run a focused test after each change before proceeding.
+Evidence to Keep
+• Theme-to-Mechanics Justification
+• player profile and integration analysis
+• data inventory and data-flow diagram
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 13 Detailed Student Guide
+Guided Implementation Part 2
+Complete and integrate the remaining weekly technical work without losing previously working behavior.
+What You Need to Understand
+• The second implementation stage covers: implement one approved service component.
+• The second implementation stage covers: test successful and failed operations.
+• The second implementation stage covers: remove secrets and document external assistance.
+What You Must Do
+1. Complete and commit the task: implement one approved service component.
+2. Complete and commit the task: test successful and failed operations.
+3. Complete and commit the task: remove secrets and document external assistance.
+4. Integrate the changes and confirm that the full core gameplay loop still works.
+Evidence to Keep
+• Theme-to-Mechanics Justification
+• player profile and integration analysis
+• data inventory and data-flow diagram
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 13 Detailed Student Guide
+Verification Testing and Evidence
+Verify the weekly output and organize evidence so another person can reproduce and evaluate the result.
+What You Need to Understand
+• Verification must identify the build, device or environment, steps, expected result, actual result, and status.
+• A screenshot is not sufficient without conditions and explanation.
+• Failed checks must lead to a defect record, correction, or documented limitation.
+• Required evidence: Theme-to-Mechanics Justification.
+• Required evidence: player profile and integration analysis.
+• Required evidence: data inventory and data-flow diagram.
+• Required evidence: service screenshots or recording.
+• Required evidence: test results and failure evidence.
+• Required evidence: repository commit ID and disclosure record.
+What You Must Do
+1. Identify the exact build and commit being tested.
+2. Execute normal, failure, and boundary cases appropriate to the weekly output.
+3. Record actual results and attach captioned evidence.
+4. Correct high-priority failures and rerun affected tests.
+5. Name and index each evidence file so the instructor can locate it quickly.
+Evidence to Keep
+• Theme-to-Mechanics Justification
+• player profile and integration analysis
+• data inventory and data-flow diagram
+• service screenshots or recording
+• test results and failure evidence
+• repository commit ID and disclosure record
+Student Check
+☐ Results identify the exact build and environment.
+☐ Actual results and failures are recorded.
+☐ Evidence is captioned and indexed.
+Week 13 Detailed Student Guide
+Troubleshooting Guide
+Use systematic diagnosis when the implementation, build, service, test, or measurement does not behave as expected.
+What You Need to Understand
+• Known risk: exposed keys or credentials.
+• Known risk: unclear ownership of player records.
+• Known risk: weak or missing error handling.
+• Known risk: service dependence without offline or retry behavior.
+• Known risk: unacknowledged generated or third-party material.
+What You Must Do
+1. Reproduce the problem consistently before changing the code.
+2. Read the exact console, build, service, test, or profiler message.
+3. Isolate the smallest relevant component and compare it with official documentation.
+4. Change one cause at a time, test again, and record the result.
+5. Restore the last working commit if the attempted fix creates additional failures.
+Evidence to Keep
+• Reproduction steps
+• Console or tool messages
+• Attempted fixes and outcomes
+• Final corrective commit or documented limitation
+Student Check
+☐ I reproduced the problem before changing code.
+☐ I changed one likely cause at a time.
+☐ The correction was retested.
+Week 13 Detailed Student Guide
+Quality Review and Submission Packaging
+Review the output against the expected standard and package the correct files, build, repository revision, and evidence.
+What You Need to Understand
+• Quality review checks completeness, correctness, evidence, clarity, stability, and independent understanding.
+• The submitted version must match the version described by the documentation.
+• The weekly package must contain SA5 analysis and a working PT5 player profile, cloud save, leaderboard, or approved service component.
+• The official deadline is the Friday stated in the master schedule at 11:59 PM.
+What You Must Do
+1. Compare the output with every requirement.
+2. Open every submitted file and verify that it is readable.
+3. Install or run the packaged build.
+4. Use the required file names and numbered folders.
+5. Record and verify the repository URL, tag, and commit ID.
+6. Upload early enough to confirm that every file completed successfully.
+Evidence to Keep
+• Completed requirement review
+• Verified build
+• Repository tag and commit ID
+• Submission confirmation
+Student Check
+☐ The build installs or runs from the package.
+☐ All links and files open correctly.
+☐ The submission matches the documented version.
+Week 13 Detailed Student Guide
+Self-Assessment and Reflection
+Evaluate your own work honestly and prepare to explain decisions, limitations, and next steps.
+What You Need to Understand
+• Self-assessment must be based on observable evidence rather than effort alone.
+• The reflection should identify both strengths and limitations.
+• The student must be able to explain the final choices without relying on another person or generated response.
+What You Must Do
+1. List the strongest verified result from the week.
+2. Identify the most important unresolved limitation.
+3. Explain one decision that changed because of evidence.
+4. Identify the next improvement and justify its priority.
+5. Practice explaining one important file, commit, test, and result aloud.
+Evidence to Keep
+• Evidence-based reflection
+• Identified limitation
+• Prioritized next improvement
+• Defense preparation notes
+Student Check
+☐ My reflection discusses evidence, not effort alone.
+☐ I can explain one file, commit, test, and result.
+☐ I stated a realistic limitation and next step.
+Week 14 Detailed Student Guide
+Concept Guide
+Review the essential ideas before changing the project. Connect every concept to a feature or decision in your own game.
+What You Need to Understand
+• First-time player experience must be understood well enough to apply and explain in the individual game.
+• Task-based usability testing must be understood well enough to apply and explain in the individual game.
+• Ethical participant handling must be understood well enough to apply and explain in the individual game.
+• Observable behavior versus opinion must be understood well enough to apply and explain in the individual game.
+• Mobile accessibility must be understood well enough to apply and explain in the individual game.
+• Severity and priority of findings must be understood well enough to apply and explain in the individual game.
+What You Must Do
+1. Write a short game-specific explanation of first-time player experience.
+2. Write a short game-specific explanation of task-based usability testing.
+3. Write a short game-specific explanation of ethical participant handling.
+4. Write a short game-specific explanation of observable behavior versus opinion.
+Evidence to Keep
+• Written game-specific concept explanations
+• Relevant architecture or flow sketch
+Student Check
+☐ I can explain the concepts without reading a generated response.
+☐ Every explanation refers to my own game.
+Week 14 Detailed Student Guide
+Pre-Laboratory Preparation and Planning
+Prepare the project, tools, files, evidence folders, and implementation plan before beginning technical work.
+What You Need to Understand
+• Required resource: current playable build.
+• Required resource: at least three appropriate testers.
+• Required resource: task script.
+• Required resource: observation sheet.
+• Required resource: accessibility checklist.
+• Required resource: approved devices or configurations.
+• Planned task: define representative gameplay tasks.
+• Planned task: prepare a consistent testing protocol.
+• Planned task: test cross-platform behavior.
+• Planned task: observe at least three testers without coaching.
+• Planned task: audit accessibility and interface feedback.
+• Planned task: implement and verify prioritized corrections.
+What You Must Do
+1. Open the project and confirm that the current accepted build runs.
+2. Record and protect the starting repository commit.
+3. Confirm that the required tools and accounts are available.
+4. Divide the work into separately testable tasks.
+5. For each task, state its expected result, evidence, dependency, and likely failure point.
+Evidence to Keep
+• Starting build and commit ID
+• Task plan with dependencies, expected results, and evidence
+Student Check
+☐ The accepted starting build runs.
+☐ My tasks are small enough to test and commit separately.
+Week 14 Detailed Student Guide
+Guided Implementation Part 1
+Complete the first half of the weekly technical work in controlled, verifiable steps.
+What You Need to Understand
+• The first implementation stage covers: define representative gameplay tasks.
+• The first implementation stage covers: prepare a consistent testing protocol.
+• The first implementation stage covers: test cross-platform behavior.
+What You Must Do
+1. Complete and commit the task: define representative gameplay tasks.
+2. Complete and commit the task: prepare a consistent testing protocol.
+3. Complete and commit the task: test cross-platform behavior.
+4. Run a focused test after each change before proceeding.
+Evidence to Keep
+• build and platform information
+• participant criteria and consent statement
+• task script and observation sheets
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 14 Detailed Student Guide
+Guided Implementation Part 2
+Complete and integrate the remaining weekly technical work without losing previously working behavior.
+What You Need to Understand
+• The second implementation stage covers: observe at least three testers without coaching.
+• The second implementation stage covers: audit accessibility and interface feedback.
+• The second implementation stage covers: implement and verify prioritized corrections.
+What You Must Do
+1. Complete and commit the task: observe at least three testers without coaching.
+2. Complete and commit the task: audit accessibility and interface feedback.
+3. Complete and commit the task: implement and verify prioritized corrections.
+4. Integrate the changes and confirm that the full core gameplay loop still works.
+Evidence to Keep
+• build and platform information
+• participant criteria and consent statement
+• task script and observation sheets
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 14 Detailed Student Guide
+Verification Testing and Evidence
+Verify the weekly output and organize evidence so another person can reproduce and evaluate the result.
+What You Need to Understand
+• Verification must identify the build, device or environment, steps, expected result, actual result, and status.
+• A screenshot is not sufficient without conditions and explanation.
+• Failed checks must lead to a defect record, correction, or documented limitation.
+• Required evidence: build and platform information.
+• Required evidence: participant criteria and consent statement.
+• Required evidence: task script and observation sheets.
+• Required evidence: accessibility checklist.
+• Required evidence: findings and severity matrix.
+• Required evidence: before-and-after evidence and commit ID.
+What You Must Do
+1. Identify the exact build and commit being tested.
+2. Execute normal, failure, and boundary cases appropriate to the weekly output.
+3. Record actual results and attach captioned evidence.
+4. Correct high-priority failures and rerun affected tests.
+5. Name and index each evidence file so the instructor can locate it quickly.
+Evidence to Keep
+• build and platform information
+• participant criteria and consent statement
+• task script and observation sheets
+• accessibility checklist
+• findings and severity matrix
+• before-and-after evidence and commit ID
+Student Check
+☐ Results identify the exact build and environment.
+☐ Actual results and failures are recorded.
+☐ Evidence is captioned and indexed.
+Week 14 Detailed Student Guide
+Troubleshooting Guide
+Use systematic diagnosis when the implementation, build, service, test, or measurement does not behave as expected.
+What You Need to Understand
+• Known risk: coaching participants.
+• Known risk: collecting unnecessary personal information.
+• Known risk: using only friends who already know the game.
+• Known risk: treating opinions as measured findings.
+• Known risk: claiming accessibility without verification.
+What You Must Do
+1. Reproduce the problem consistently before changing the code.
+2. Read the exact console, build, service, test, or profiler message.
+3. Isolate the smallest relevant component and compare it with official documentation.
+4. Change one cause at a time, test again, and record the result.
+5. Restore the last working commit if the attempted fix creates additional failures.
+Evidence to Keep
+• Reproduction steps
+• Console or tool messages
+• Attempted fixes and outcomes
+• Final corrective commit or documented limitation
+Student Check
+☐ I reproduced the problem before changing code.
+☐ I changed one likely cause at a time.
+☐ The correction was retested.
+Week 14 Detailed Student Guide
+Quality Review and Submission Packaging
+Review the output against the expected standard and package the correct files, build, repository revision, and evidence.
+What You Need to Understand
+• Quality review checks completeness, correctness, evidence, clarity, stability, and independent understanding.
+• The submitted version must match the version described by the documentation.
+• The weekly package must contain PT6 cross-platform build evidence and a usability/accessibility evaluation with implemented corrections.
+• The official deadline is the Friday stated in the master schedule at 11:59 PM.
+What You Must Do
+1. Compare the output with every requirement.
+2. Open every submitted file and verify that it is readable.
+3. Install or run the packaged build.
+4. Use the required file names and numbered folders.
+5. Record and verify the repository URL, tag, and commit ID.
+6. Upload early enough to confirm that every file completed successfully.
+Evidence to Keep
+• Completed requirement review
+• Verified build
+• Repository tag and commit ID
+• Submission confirmation
+Student Check
+☐ The build installs or runs from the package.
+☐ All links and files open correctly.
+☐ The submission matches the documented version.
+Week 14 Detailed Student Guide
+Self-Assessment and Reflection
+Evaluate your own work honestly and prepare to explain decisions, limitations, and next steps.
+What You Need to Understand
+• Self-assessment must be based on observable evidence rather than effort alone.
+• The reflection should identify both strengths and limitations.
+• The student must be able to explain the final choices without relying on another person or generated response.
+What You Must Do
+1. List the strongest verified result from the week.
+2. Identify the most important unresolved limitation.
+3. Explain one decision that changed because of evidence.
+4. Identify the next improvement and justify its priority.
+5. Practice explaining one important file, commit, test, and result aloud.
+Evidence to Keep
+• Evidence-based reflection
+• Identified limitation
+• Prioritized next improvement
+• Defense preparation notes
+Student Check
+☐ My reflection discusses evidence, not effort alone.
+☐ I can explain one file, commit, test, and result.
+☐ I stated a realistic limitation and next step.
+Week 15 Detailed Student Guide
+Concept Guide
+Review the essential ideas before changing the project. Connect every concept to a feature or decision in your own game.
+What You Need to Understand
+• Testable requirements must be understood well enough to apply and explain in the individual game.
+• Positive, negative, and boundary tests must be understood well enough to apply and explain in the individual game.
+• Reproducible defect reports must be understood well enough to apply and explain in the individual game.
+• Severity and priority must be understood well enough to apply and explain in the individual game.
+• Regression testing must be understood well enough to apply and explain in the individual game.
+• Acceptance criteria must be understood well enough to apply and explain in the individual game.
+What You Must Do
+1. Write a short game-specific explanation of testable requirements.
+2. Write a short game-specific explanation of positive, negative, and boundary tests.
+3. Write a short game-specific explanation of reproducible defect reports.
+4. Write a short game-specific explanation of severity and priority.
+Evidence to Keep
+• Written game-specific concept explanations
+• Relevant architecture or flow sketch
+Student Check
+☐ I can explain the concepts without reading a generated response.
+☐ Every explanation refers to my own game.
+Week 15 Detailed Student Guide
+Pre-Laboratory Preparation and Planning
+Prepare the project, tools, files, evidence folders, and implementation plan before beginning technical work.
+What You Need to Understand
+• Required resource: identified build and commit.
+• Required resource: requirements list.
+• Required resource: test-case template.
+• Required resource: defect-log template.
+• Required resource: target device and approved emulator.
+• Required resource: screen-capture tool.
+• Planned task: identify test environments and acceptance criteria.
+• Planned task: link requirements to test cases.
+• Planned task: execute functional and boundary tests.
+• Planned task: record reproducible defects.
+• Planned task: correct high-priority failures.
+• Planned task: rerun failed and affected tests.
+What You Must Do
+1. Open the project and confirm that the current accepted build runs.
+2. Record and protect the starting repository commit.
+3. Confirm that the required tools and accounts are available.
+4. Divide the work into separately testable tasks.
+5. For each task, state its expected result, evidence, dependency, and likely failure point.
+Evidence to Keep
+• Starting build and commit ID
+• Task plan with dependencies, expected results, and evidence
+Student Check
+☐ The accepted starting build runs.
+☐ My tasks are small enough to test and commit separately.
+Week 15 Detailed Student Guide
+Guided Implementation Part 1
+Complete the first half of the weekly technical work in controlled, verifiable steps.
+What You Need to Understand
+• The first implementation stage covers: identify test environments and acceptance criteria.
+• The first implementation stage covers: link requirements to test cases.
+• The first implementation stage covers: execute functional and boundary tests.
+What You Must Do
+1. Complete and commit the task: identify test environments and acceptance criteria.
+2. Complete and commit the task: link requirements to test cases.
+3. Complete and commit the task: execute functional and boundary tests.
+4. Run a focused test after each change before proceeding.
+Evidence to Keep
+• requirements-to-test traceability matrix
+• executed test cases with actual results
+• defect log with evidence
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 15 Detailed Student Guide
+Guided Implementation Part 2
+Complete and integrate the remaining weekly technical work without losing previously working behavior.
+What You Need to Understand
+• The second implementation stage covers: record reproducible defects.
+• The second implementation stage covers: correct high-priority failures.
+• The second implementation stage covers: rerun failed and affected tests.
+What You Must Do
+1. Complete and commit the task: record reproducible defects.
+2. Complete and commit the task: correct high-priority failures.
+3. Complete and commit the task: rerun failed and affected tests.
+4. Integrate the changes and confirm that the full core gameplay loop still works.
+Evidence to Keep
+• requirements-to-test traceability matrix
+• executed test cases with actual results
+• defect log with evidence
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 15 Detailed Student Guide
+Verification Testing and Evidence
+Verify the weekly output and organize evidence so another person can reproduce and evaluate the result.
+What You Need to Understand
+• Verification must identify the build, device or environment, steps, expected result, actual result, and status.
+• A screenshot is not sufficient without conditions and explanation.
+• Failed checks must lead to a defect record, correction, or documented limitation.
+• Required evidence: requirements-to-test traceability matrix.
+• Required evidence: executed test cases with actual results.
+• Required evidence: defect log with evidence.
+• Required evidence: correction commits.
+• Required evidence: regression results.
+• Required evidence: acceptance summary.
+What You Must Do
+1. Identify the exact build and commit being tested.
+2. Execute normal, failure, and boundary cases appropriate to the weekly output.
+3. Record actual results and attach captioned evidence.
+4. Correct high-priority failures and rerun affected tests.
+5. Name and index each evidence file so the instructor can locate it quickly.
+Evidence to Keep
+• requirements-to-test traceability matrix
+• executed test cases with actual results
+• defect log with evidence
+• correction commits
+• regression results
+• acceptance summary
+Student Check
+☐ Results identify the exact build and environment.
+☐ Actual results and failures are recorded.
+☐ Evidence is captioned and indexed.
+Week 15 Detailed Student Guide
+Troubleshooting Guide
+Use systematic diagnosis when the implementation, build, service, test, or measurement does not behave as expected.
+What You Need to Understand
+• Known risk: tests written but not executed.
+• Known risk: missing actual results.
+• Known risk: defects without reproduction steps.
+• Known risk: changing several unrelated features in one fix.
+• Known risk: testing a build other than the submitted version.
+What You Must Do
+1. Reproduce the problem consistently before changing the code.
+2. Read the exact console, build, service, test, or profiler message.
+3. Isolate the smallest relevant component and compare it with official documentation.
+4. Change one cause at a time, test again, and record the result.
+5. Restore the last working commit if the attempted fix creates additional failures.
+Evidence to Keep
+• Reproduction steps
+• Console or tool messages
+• Attempted fixes and outcomes
+• Final corrective commit or documented limitation
+Student Check
+☐ I reproduced the problem before changing code.
+☐ I changed one likely cause at a time.
+☐ The correction was retested.
+Week 15 Detailed Student Guide
+Quality Review and Submission Packaging
+Review the output against the expected standard and package the correct files, build, repository revision, and evidence.
+What You Need to Understand
+• Quality review checks completeness, correctness, evidence, clarity, stability, and independent understanding.
+• The submitted version must match the version described by the documentation.
+• The weekly package must contain the AS3 testing milestone containing traceability, executed tests, defects, corrections, and acceptance evidence.
+• The official deadline is the Friday stated in the master schedule at 11:59 PM.
+What You Must Do
+1. Compare the output with every requirement.
+2. Open every submitted file and verify that it is readable.
+3. Install or run the packaged build.
+4. Use the required file names and numbered folders.
+5. Record and verify the repository URL, tag, and commit ID.
+6. Upload early enough to confirm that every file completed successfully.
+Evidence to Keep
+• Completed requirement review
+• Verified build
+• Repository tag and commit ID
+• Submission confirmation
+Student Check
+☐ The build installs or runs from the package.
+☐ All links and files open correctly.
+☐ The submission matches the documented version.
+Week 15 Detailed Student Guide
+Self-Assessment and Reflection
+Evaluate your own work honestly and prepare to explain decisions, limitations, and next steps.
+What You Need to Understand
+• Self-assessment must be based on observable evidence rather than effort alone.
+• The reflection should identify both strengths and limitations.
+• The student must be able to explain the final choices without relying on another person or generated response.
+What You Must Do
+1. List the strongest verified result from the week.
+2. Identify the most important unresolved limitation.
+3. Explain one decision that changed because of evidence.
+4. Identify the next improvement and justify its priority.
+5. Practice explaining one important file, commit, test, and result aloud.
+Evidence to Keep
+• Evidence-based reflection
+• Identified limitation
+• Prioritized next improvement
+• Defense preparation notes
+Student Check
+☐ My reflection discusses evidence, not effort alone.
+☐ I can explain one file, commit, test, and result.
+☐ I stated a realistic limitation and next step.
+Week 16 Detailed Student Guide
+Concept Guide
+Review the essential ideas before changing the project. Connect every concept to a feature or decision in your own game.
+What You Need to Understand
+• Baseline and controlled comparison must be understood well enough to apply and explain in the individual game.
+• Frame time and frame rate must be understood well enough to apply and explain in the individual game.
+• Cpu, gpu, memory, loading, and rendering must be understood well enough to apply and explain in the individual game.
+• Bottleneck identification must be understood well enough to apply and explain in the individual game.
+• Optimization trade-offs must be understood well enough to apply and explain in the individual game.
+• Post-optimization regression must be understood well enough to apply and explain in the individual game.
+What You Must Do
+1. Write a short game-specific explanation of baseline and controlled comparison.
+2. Write a short game-specific explanation of frame time and frame rate.
+3. Write a short game-specific explanation of CPU, GPU, memory, loading, and rendering.
+4. Write a short game-specific explanation of bottleneck identification.
+Evidence to Keep
+• Written game-specific concept explanations
+• Relevant architecture or flow sketch
+Student Check
+☐ I can explain the concepts without reading a generated response.
+☐ Every explanation refers to my own game.
+Week 16 Detailed Student Guide
+Pre-Laboratory Preparation and Planning
+Prepare the project, tools, files, evidence folders, and implementation plan before beginning technical work.
+What You Need to Understand
+• Required resource: accepted Week 15 build.
+• Required resource: physical device or approved profiling environment.
+• Required resource: Unity Profiler.
+• Required resource: Frame Debugger or rendering tool.
+• Required resource: repeatable gameplay scenario.
+• Required resource: spreadsheet or results table.
+• Planned task: define a repeatable test scenario.
+• Planned task: capture baseline measurements.
+• Planned task: identify verified bottlenecks.
+• Planned task: prioritize changes.
+• Planned task: implement changes separately.
+• Planned task: repeat measurements and evaluate trade-offs.
+What You Must Do
+1. Open the project and confirm that the current accepted build runs.
+2. Record and protect the starting repository commit.
+3. Confirm that the required tools and accounts are available.
+4. Divide the work into separately testable tasks.
+5. For each task, state its expected result, evidence, dependency, and likely failure point.
+Evidence to Keep
+• Starting build and commit ID
+• Task plan with dependencies, expected results, and evidence
+Student Check
+☐ The accepted starting build runs.
+☐ My tasks are small enough to test and commit separately.
+Week 16 Detailed Student Guide
+Guided Implementation Part 1
+Complete the first half of the weekly technical work in controlled, verifiable steps.
+What You Need to Understand
+• The first implementation stage covers: define a repeatable test scenario.
+• The first implementation stage covers: capture baseline measurements.
+• The first implementation stage covers: identify verified bottlenecks.
+What You Must Do
+1. Complete and commit the task: define a repeatable test scenario.
+2. Complete and commit the task: capture baseline measurements.
+3. Complete and commit the task: identify verified bottlenecks.
+4. Run a focused test after each change before proceeding.
+Evidence to Keep
+• device and build configuration
+• baseline profiler captures
+• bottleneck analysis
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 16 Detailed Student Guide
+Guided Implementation Part 2
+Complete and integrate the remaining weekly technical work without losing previously working behavior.
+What You Need to Understand
+• The second implementation stage covers: prioritize changes.
+• The second implementation stage covers: implement changes separately.
+• The second implementation stage covers: repeat measurements and evaluate trade-offs.
+What You Must Do
+1. Complete and commit the task: prioritize changes.
+2. Complete and commit the task: implement changes separately.
+3. Complete and commit the task: repeat measurements and evaluate trade-offs.
+4. Integrate the changes and confirm that the full core gameplay loop still works.
+Evidence to Keep
+• device and build configuration
+• baseline profiler captures
+• bottleneck analysis
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 16 Detailed Student Guide
+Verification Testing and Evidence
+Verify the weekly output and organize evidence so another person can reproduce and evaluate the result.
+What You Need to Understand
+• Verification must identify the build, device or environment, steps, expected result, actual result, and status.
+• A screenshot is not sufficient without conditions and explanation.
+• Failed checks must lead to a defect record, correction, or documented limitation.
+• Required evidence: device and build configuration.
+• Required evidence: baseline profiler captures.
+• Required evidence: bottleneck analysis.
+• Required evidence: optimization change log.
+• Required evidence: before-and-after table.
+• Required evidence: regression results and commit ID.
+What You Must Do
+1. Identify the exact build and commit being tested.
+2. Execute normal, failure, and boundary cases appropriate to the weekly output.
+3. Record actual results and attach captioned evidence.
+4. Correct high-priority failures and rerun affected tests.
+5. Name and index each evidence file so the instructor can locate it quickly.
+Evidence to Keep
+• device and build configuration
+• baseline profiler captures
+• bottleneck analysis
+• optimization change log
+• before-and-after table
+• regression results and commit ID
+Student Check
+☐ Results identify the exact build and environment.
+☐ Actual results and failures are recorded.
+☐ Evidence is captioned and indexed.
+Week 16 Detailed Student Guide
+Troubleshooting Guide
+Use systematic diagnosis when the implementation, build, service, test, or measurement does not behave as expected.
+What You Need to Understand
+• Known risk: optimizing by guesswork.
+• Known risk: changing test conditions.
+• Known risk: reporting percentages without raw values.
+• Known risk: sacrificing gameplay or visual quality without justification.
+• Known risk: keeping an optimization that causes regressions.
+What You Must Do
+1. Reproduce the problem consistently before changing the code.
+2. Read the exact console, build, service, test, or profiler message.
+3. Isolate the smallest relevant component and compare it with official documentation.
+4. Change one cause at a time, test again, and record the result.
+5. Restore the last working commit if the attempted fix creates additional failures.
+Evidence to Keep
+• Reproduction steps
+• Console or tool messages
+• Attempted fixes and outcomes
+• Final corrective commit or documented limitation
+Student Check
+☐ I reproduced the problem before changing code.
+☐ I changed one likely cause at a time.
+☐ The correction was retested.
+Week 16 Detailed Student Guide
+Quality Review and Submission Packaging
+Review the output against the expected standard and package the correct files, build, repository revision, and evidence.
+What You Need to Understand
+• Quality review checks completeness, correctness, evidence, clarity, stability, and independent understanding.
+• The submitted version must match the version described by the documentation.
+• The weekly package must contain SA6 performance analysis and the completed AS3 testing, optimization, and evaluation report.
+• The official deadline is the Friday stated in the master schedule at 11:59 PM.
+What You Must Do
+1. Compare the output with every requirement.
+2. Open every submitted file and verify that it is readable.
+3. Install or run the packaged build.
+4. Use the required file names and numbered folders.
+5. Record and verify the repository URL, tag, and commit ID.
+6. Upload early enough to confirm that every file completed successfully.
+Evidence to Keep
+• Completed requirement review
+• Verified build
+• Repository tag and commit ID
+• Submission confirmation
+Student Check
+☐ The build installs or runs from the package.
+☐ All links and files open correctly.
+☐ The submission matches the documented version.
+Week 16 Detailed Student Guide
+Self-Assessment and Reflection
+Evaluate your own work honestly and prepare to explain decisions, limitations, and next steps.
+What You Need to Understand
+• Self-assessment must be based on observable evidence rather than effort alone.
+• The reflection should identify both strengths and limitations.
+• The student must be able to explain the final choices without relying on another person or generated response.
+What You Must Do
+1. List the strongest verified result from the week.
+2. Identify the most important unresolved limitation.
+3. Explain one decision that changed because of evidence.
+4. Identify the next improvement and justify its priority.
+5. Practice explaining one important file, commit, test, and result aloud.
+Evidence to Keep
+• Evidence-based reflection
+• Identified limitation
+• Prioritized next improvement
+• Defense preparation notes
+Student Check
+☐ My reflection discusses evidence, not effort alone.
+☐ I can explain one file, commit, test, and result.
+☐ I stated a realistic limitation and next step.
+Week 17 Detailed Student Guide
+Concept Guide
+Review the essential ideas before changing the project. Connect every concept to a feature or decision in your own game.
+What You Need to Understand
+• Feature freeze must be understood well enough to apply and explain in the individual game.
+• Release candidate must be understood well enough to apply and explain in the individual game.
+• Clean installation must be understood well enough to apply and explain in the individual game.
+• Repository hygiene must be understood well enough to apply and explain in the individual game.
+• Technical and user documentation must be understood well enough to apply and explain in the individual game.
+• Known limitations and release evidence must be understood well enough to apply and explain in the individual game.
+What You Must Do
+1. Write a short game-specific explanation of feature freeze.
+2. Write a short game-specific explanation of release candidate.
+3. Write a short game-specific explanation of clean installation.
+4. Write a short game-specific explanation of repository hygiene.
+Evidence to Keep
+• Written game-specific concept explanations
+• Relevant architecture or flow sketch
+Student Check
+☐ I can explain the concepts without reading a generated response.
+☐ Every explanation refers to my own game.
+Week 17 Detailed Student Guide
+Pre-Laboratory Preparation and Planning
+Prepare the project, tools, files, evidence folders, and implementation plan before beginning technical work.
+What You Need to Understand
+• Required resource: completed outputs from Weeks 13–16.
+• Required resource: clean individual repository.
+• Required resource: target mobile device.
+• Required resource: release-readiness checklist.
+• Required resource: documentation template.
+• Required resource: presentation and recording tools.
+• Planned task: verify theme-to-gameplay coherence.
+• Planned task: integrate accepted changes.
+• Planned task: remove secrets and unused files.
+• Planned task: create and install the release candidate.
+• Planned task: complete documentation and evidence index.
+• Planned task: perform a timed readiness demonstration.
+What You Must Do
+1. Open the project and confirm that the current accepted build runs.
+2. Record and protect the starting repository commit.
+3. Confirm that the required tools and accounts are available.
+4. Divide the work into separately testable tasks.
+5. For each task, state its expected result, evidence, dependency, and likely failure point.
+Evidence to Keep
+• Starting build and commit ID
+• Task plan with dependencies, expected results, and evidence
+Student Check
+☐ The accepted starting build runs.
+☐ My tasks are small enough to test and commit separately.
+Week 17 Detailed Student Guide
+Guided Implementation Part 1
+Complete the first half of the weekly technical work in controlled, verifiable steps.
+What You Need to Understand
+• The first implementation stage covers: verify theme-to-gameplay coherence.
+• The first implementation stage covers: integrate accepted changes.
+• The first implementation stage covers: remove secrets and unused files.
+What You Must Do
+1. Complete and commit the task: verify theme-to-gameplay coherence.
+2. Complete and commit the task: integrate accepted changes.
+3. Complete and commit the task: remove secrets and unused files.
+4. Run a focused test after each change before proceeding.
+Evidence to Keep
+• feature-freeze checklist
+• release tag and commit ID
+• installable build
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 17 Detailed Student Guide
+Guided Implementation Part 2
+Complete and integrate the remaining weekly technical work without losing previously working behavior.
+What You Need to Understand
+• The second implementation stage covers: create and install the release candidate.
+• The second implementation stage covers: complete documentation and evidence index.
+• The second implementation stage covers: perform a timed readiness demonstration.
+What You Must Do
+1. Complete and commit the task: create and install the release candidate.
+2. Complete and commit the task: complete documentation and evidence index.
+3. Complete and commit the task: perform a timed readiness demonstration.
+4. Integrate the changes and confirm that the full core gameplay loop still works.
+Evidence to Keep
+• feature-freeze checklist
+• release tag and commit ID
+• installable build
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 17 Detailed Student Guide
+Verification Testing and Evidence
+Verify the weekly output and organize evidence so another person can reproduce and evaluate the result.
+What You Need to Understand
+• Verification must identify the build, device or environment, steps, expected result, actual result, and status.
+• A screenshot is not sufficient without conditions and explanation.
+• Failed checks must lead to a defect record, correction, or documented limitation.
+• Required evidence: feature-freeze checklist.
+• Required evidence: release tag and commit ID.
+• Required evidence: installable build.
+• Required evidence: clean-install evidence.
+• Required evidence: technical documentation and user guide.
+• Required evidence: readiness results and issue disposition.
+What You Must Do
+1. Identify the exact build and commit being tested.
+2. Execute normal, failure, and boundary cases appropriate to the weekly output.
+3. Record actual results and attach captioned evidence.
+4. Correct high-priority failures and rerun affected tests.
+5. Name and index each evidence file so the instructor can locate it quickly.
+Evidence to Keep
+• feature-freeze checklist
+• release tag and commit ID
+• installable build
+• clean-install evidence
+• technical documentation and user guide
+• readiness results and issue disposition
+Student Check
+☐ Results identify the exact build and environment.
+☐ Actual results and failures are recorded.
+☐ Evidence is captioned and indexed.
+Week 17 Detailed Student Guide
+Troubleshooting Guide
+Use systematic diagnosis when the implementation, build, service, test, or measurement does not behave as expected.
+What You Need to Understand
+• Known risk: adding major features after freeze.
+• Known risk: submitting an editor-only project.
+• Known risk: missing installation instructions.
+• Known risk: documentation that describes an older build.
+• Known risk: unresolved critical defects.
+What You Must Do
+1. Reproduce the problem consistently before changing the code.
+2. Read the exact console, build, service, test, or profiler message.
+3. Isolate the smallest relevant component and compare it with official documentation.
+4. Change one cause at a time, test again, and record the result.
+5. Restore the last working commit if the attempted fix creates additional failures.
+Evidence to Keep
+• Reproduction steps
+• Console or tool messages
+• Attempted fixes and outcomes
+• Final corrective commit or documented limitation
+Student Check
+☐ I reproduced the problem before changing code.
+☐ I changed one likely cause at a time.
+☐ The correction was retested.
+Week 17 Detailed Student Guide
+Quality Review and Submission Packaging
+Review the output against the expected standard and package the correct files, build, repository revision, and evidence.
+What You Need to Understand
+• Quality review checks completeness, correctness, evidence, clarity, stability, and independent understanding.
+• The submitted version must match the version described by the documentation.
+• The weekly package must contain PT7 final game refinement and an installable, documented release candidate.
+• The official deadline is the Friday stated in the master schedule at 11:59 PM.
+What You Must Do
+1. Compare the output with every requirement.
+2. Open every submitted file and verify that it is readable.
+3. Install or run the packaged build.
+4. Use the required file names and numbered folders.
+5. Record and verify the repository URL, tag, and commit ID.
+6. Upload early enough to confirm that every file completed successfully.
+Evidence to Keep
+• Completed requirement review
+• Verified build
+• Repository tag and commit ID
+• Submission confirmation
+Student Check
+☐ The build installs or runs from the package.
+☐ All links and files open correctly.
+☐ The submission matches the documented version.
+Week 17 Detailed Student Guide
+Self-Assessment and Reflection
+Evaluate your own work honestly and prepare to explain decisions, limitations, and next steps.
+What You Need to Understand
+• Self-assessment must be based on observable evidence rather than effort alone.
+• The reflection should identify both strengths and limitations.
+• The student must be able to explain the final choices without relying on another person or generated response.
+What You Must Do
+1. List the strongest verified result from the week.
+2. Identify the most important unresolved limitation.
+3. Explain one decision that changed because of evidence.
+4. Identify the next improvement and justify its priority.
+5. Practice explaining one important file, commit, test, and result aloud.
+Evidence to Keep
+• Evidence-based reflection
+• Identified limitation
+• Prioritized next improvement
+• Defense preparation notes
+Student Check
+☐ My reflection discusses evidence, not effort alone.
+☐ I can explain one file, commit, test, and result.
+☐ I stated a realistic limitation and next step.
+Week 18 Detailed Student Guide
+Concept Guide
+Review the essential ideas before changing the project. Connect every concept to a feature or decision in your own game.
+What You Need to Understand
+• Submission integrity must be understood well enough to apply and explain in the individual game.
+• Demonstration planning must be understood well enough to apply and explain in the individual game.
+• Evidence-based defense must be understood well enough to apply and explain in the individual game.
+• Architecture and integration explanation must be understood well enough to apply and explain in the individual game.
+• Security, testing, and optimization justification must be understood well enough to apply and explain in the individual game.
+• Professional reflection must be understood well enough to apply and explain in the individual game.
+What You Must Do
+1. Write a short game-specific explanation of submission integrity.
+2. Write a short game-specific explanation of demonstration planning.
+3. Write a short game-specific explanation of evidence-based defense.
+4. Write a short game-specific explanation of architecture and integration explanation.
+Evidence to Keep
+• Written game-specific concept explanations
+• Relevant architecture or flow sketch
+Student Check
+☐ I can explain the concepts without reading a generated response.
+☐ Every explanation refers to my own game.
+Week 18 Detailed Student Guide
+Pre-Laboratory Preparation and Planning
+Prepare the project, tools, files, evidence folders, and implementation plan before beginning technical work.
+What You Need to Understand
+• Required resource: approved PT7 release candidate.
+• Required resource: target device and backup installation package.
+• Required resource: final repository and release tag.
+• Required resource: evidence portfolio.
+• Required resource: presentation.
+• Required resource: originality and disclosure records.
+• Planned task: verify the final submission package.
+• Planned task: tag and record the final repository version.
+• Planned task: rehearse the exact demonstration sequence.
+• Planned task: prepare evidence for likely defense questions.
+• Planned task: complete PA2 independently.
+• Planned task: complete E3 under approved conditions.
+What You Must Do
+1. Open the project and confirm that the current accepted build runs.
+2. Record and protect the starting repository commit.
+3. Confirm that the required tools and accounts are available.
+4. Divide the work into separately testable tasks.
+5. For each task, state its expected result, evidence, dependency, and likely failure point.
+Evidence to Keep
+• Starting build and commit ID
+• Task plan with dependencies, expected results, and evidence
+Student Check
+☐ The accepted starting build runs.
+☐ My tasks are small enough to test and commit separately.
+Week 18 Detailed Student Guide
+Guided Implementation Part 1
+Complete the first half of the weekly technical work in controlled, verifiable steps.
+What You Need to Understand
+• The first implementation stage covers: verify the final submission package.
+• The first implementation stage covers: tag and record the final repository version.
+• The first implementation stage covers: rehearse the exact demonstration sequence.
+What You Must Do
+1. Complete and commit the task: verify the final submission package.
+2. Complete and commit the task: tag and record the final repository version.
+3. Complete and commit the task: rehearse the exact demonstration sequence.
+4. Run a focused test after each change before proceeding.
+Evidence to Keep
+• final build and repository tag
+• technical report and user guide
+• evidence portfolio
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 18 Detailed Student Guide
+Guided Implementation Part 2
+Complete and integrate the remaining weekly technical work without losing previously working behavior.
+What You Need to Understand
+• The second implementation stage covers: prepare evidence for likely defense questions.
+• The second implementation stage covers: complete PA2 independently.
+• The second implementation stage covers: complete E3 under approved conditions.
+What You Must Do
+1. Complete and commit the task: prepare evidence for likely defense questions.
+2. Complete and commit the task: complete PA2 independently.
+3. Complete and commit the task: complete E3 under approved conditions.
+4. Integrate the changes and confirm that the full core gameplay loop still works.
+Evidence to Keep
+• final build and repository tag
+• technical report and user guide
+• evidence portfolio
+• Meaningful implementation commits
+Student Check
+☐ Each completed task has a focused commit.
+☐ I tested after each significant change.
+☐ The core gameplay loop still works.
+Week 18 Detailed Student Guide
+Verification Testing and Evidence
+Verify the weekly output and organize evidence so another person can reproduce and evaluate the result.
+What You Need to Understand
+• Verification must identify the build, device or environment, steps, expected result, actual result, and status.
+• A screenshot is not sufficient without conditions and explanation.
+• Failed checks must lead to a defect record, correction, or documented limitation.
+• Required evidence: final build and repository tag.
+• Required evidence: technical report and user guide.
+• Required evidence: evidence portfolio.
+• Required evidence: presentation.
+• Required evidence: demonstration and viva record.
+• Required evidence: reflection and completed examination.
+What You Must Do
+1. Identify the exact build and commit being tested.
+2. Execute normal, failure, and boundary cases appropriate to the weekly output.
+3. Record actual results and attach captioned evidence.
+4. Correct high-priority failures and rerun affected tests.
+5. Name and index each evidence file so the instructor can locate it quickly.
+Evidence to Keep
+• final build and repository tag
+• technical report and user guide
+• evidence portfolio
+• presentation
+• demonstration and viva record
+• reflection and completed examination
+Student Check
+☐ Results identify the exact build and environment.
+☐ Actual results and failures are recorded.
+☐ Evidence is captioned and indexed.
+Week 18 Detailed Student Guide
+Troubleshooting Guide
+Use systematic diagnosis when the implementation, build, service, test, or measurement does not behave as expected.
+What You Need to Understand
+• Known risk: demonstrating a different build.
+• Known risk: missing repository access.
+• Known risk: unverifiable or fabricated evidence.
+• Known risk: reading generated answers during the defense.
+• Known risk: being unable to explain important code and decisions.
+What You Must Do
+1. Reproduce the problem consistently before changing the code.
+2. Read the exact console, build, service, test, or profiler message.
+3. Isolate the smallest relevant component and compare it with official documentation.
+4. Change one cause at a time, test again, and record the result.
+5. Restore the last working commit if the attempted fix creates additional failures.
+Evidence to Keep
+• Reproduction steps
+• Console or tool messages
+• Attempted fixes and outcomes
+• Final corrective commit or documented limitation
+Student Check
+☐ I reproduced the problem before changing code.
+☐ I changed one likely cause at a time.
+☐ The correction was retested.
+Week 18 Detailed Student Guide
+Quality Review and Submission Packaging
+Review the output against the expected standard and package the correct files, build, repository revision, and evidence.
+What You Need to Understand
+• Quality review checks completeness, correctness, evidence, clarity, stability, and independent understanding.
+• The submitted version must match the version described by the documentation.
+• The weekly package must contain PA2 complete thematic mobile-game demonstration and defense plus E3 examination.
+• The official deadline is the Friday stated in the master schedule at 11:59 PM.
+What You Must Do
+1. Compare the output with every requirement.
+2. Open every submitted file and verify that it is readable.
+3. Install or run the packaged build.
+4. Use the required file names and numbered folders.
+5. Record and verify the repository URL, tag, and commit ID.
+6. Upload early enough to confirm that every file completed successfully.
+Evidence to Keep
+• Completed requirement review
+• Verified build
+• Repository tag and commit ID
+• Submission confirmation
+Student Check
+☐ The build installs or runs from the package.
+☐ All links and files open correctly.
+☐ The submission matches the documented version.
+Week 18 Detailed Student Guide
+Self-Assessment and Reflection
+Evaluate your own work honestly and prepare to explain decisions, limitations, and next steps.
+What You Need to Understand
+• Self-assessment must be based on observable evidence rather than effort alone.
+• The reflection should identify both strengths and limitations.
+• The student must be able to explain the final choices without relying on another person or generated response.
+What You Must Do
+1. List the strongest verified result from the week.
+2. Identify the most important unresolved limitation.
+3. Explain one decision that changed because of evidence.
+4. Identify the next improvement and justify its priority.
+5. Practice explaining one important file, commit, test, and result aloud.
+Evidence to Keep
+• Evidence-based reflection
+• Identified limitation
+• Prioritized next improvement
+• Defense preparation notes
+Student Check
+☐ My reflection discusses evidence, not effort alone.
+☐ I can explain one file, commit, test, and result.
+☐ I stated a realistic limitation and next step.
+Activities
+Activity 1 – Theme-to-Mechanics Validation
+• Problem or Scenario: Evaluate whether the selected theme is expressed through player goals, decisions, rules, feedback, and consequences.
+• Task: Revise the game concept and mechanics so that the chosen theme is meaningful rather than decorative.
+• Expected Output: A one-page justification, updated gameplay-loop diagram, and supporting prototype evidence.
+Activity 2 – Evidence-Driven Game Refinement
+• Problem or Scenario: Use security, usability, test, and profiling evidence to identify the highest-priority improvement.
+• Task: Implement the improvement, verify that it solves the documented problem, and confirm that it does not introduce a regression.
+• Expected Output: Before-and-after evidence, related test results, and repository commit identifier.
+Activity 3 – Release Readiness Review
+• Problem or Scenario: Assess whether the game can be installed, understood, played, evaluated, and defended using the submitted package.
+• Task: Run the complete readiness checklist and resolve all critical issues before the final submission.
+• Expected Output: Signed checklist, release candidate, issue disposition, and final evidence index.
+Assessments
+The following laboratory assessments provide evidence of independent achievement. Detailed scoring should use the approved course rubric and the specific evidence requirements stated in this module.
+Assessment
+Type
+Description
+Expected Output
+Deadline
+SA5 – Theme, Player, and Advanced Game-Integration Analysis
+Summative Assessment
+Analyze the theme, target player, gameplay requirements, data flow, services, and advanced integration decisions.
+Theme-to-Mechanics Justification, player analysis, diagrams, integration plan, and risk considerations.
+October 30, 2026, 11:59 PM
+PT5 – Player Profile, Cloud Save, Leaderboard, or Service Component
+Practical Test
+Implement and explain one approved player-data or service component appropriate to the individual game.
+Working component, security evidence, test results, disclosure record, and repository commit.
+October 30, 2026, 11:59 PM
+PT6 – Cross-Platform Gameplay and Usability/Accessibility Evaluation
+Practical Test
+Demonstrate cross-platform gameplay and conduct an ethical, evidence-based usability and accessibility evaluation.
+Build evidence, test protocol, participant results, findings, corrections, and repository commit.
+November 6, 2026, 11:59 PM
+AS3 Milestone – Testing Evidence
+Assessment Milestone
+Begin the testing, optimization, and evaluation report through systematic quality-assurance work.
+Traceability matrix, executed tests, defect log, corrected build, regression results, and acceptance evidence.
+November 13, 2026, 11:59 PM
+SA6 – Game Performance and Resource Analysis
+Summative Assessment
+Analyze CPU, GPU, memory, rendering, loading, build size, and responsiveness using controlled measurements.
+Baseline profile, bottleneck analysis, prioritized recommendations, and supporting profiler captures.
+November 20, 2026, 11:59 PM
+AS3 – Testing, Optimization, and Evaluation Report
+Technical Report
+Integrate testing, defect correction, profiling, optimization, and regression evidence into a defensible evaluation.
+Completed report, optimized build, before-and-after metrics, change log, and verification evidence.
+November 20, 2026, 11:59 PM
+PT7 – Final Game Refinement and Release Candidate
+Practical Test
+Produce a stable, installable, documented, and review-ready release candidate.
+Release candidate, repository, technical documentation, user guide, evidence index, and readiness checklist.
+November 27, 2026, 11:59 PM
+PA2 – Complete Thematic Mobile-Game Demonstration and Defense
+Performance Assessment
+Demonstrate and independently defend the complete individual thematic mobile game.
+Final build, repository, documentation, evidence portfolio, presentation, viva, and reflection.
+December 4, 2026, 11:59 PM
+E3 – Architecture, Integration, Optimization, Security, and Game-Development Examination
+Examination
+Assess individual understanding of the architecture, integration, optimization, security, testing, and development decisions used in the game.
+Completed examination under the approved examination conditions.
+December 4, 2026, 11:59 PM
+Laboratory Evaluation Criteria
+• Theme and gameplay coherence: The selected theme is meaningfully expressed through mechanics, goals, decisions, feedback, and player experience.
+• Technical implementation: The game is functional, appropriately structured, maintainable, and demonstrates individual programming and integration work.
+• Security and responsible development: Player data, credentials, services, third-party resources, and AI assistance are handled responsibly and transparently.
+• Usability and accessibility: The interface and controls are evaluated with real player evidence, and significant findings are addressed.
+• Testing and reliability: Requirements are traceable to tests; defects are reproducible, prioritized, corrected, and regression-tested.
+• Performance optimization: Profiling is controlled and repeatable; improvements and trade-offs are supported by measurements.
+• Documentation and repository evidence: Documentation, commits, credits, licenses, diagrams, and evidence are complete and verifiable.
+• Demonstration and individual defense: The student operates the final build confidently and independently explains the code, architecture, decisions, evidence, and limitations.
+References
+Apple Inc. (2024). Accessibility. Apple Developer Documentation. https://developer.apple.com/design/human-interface-guidelines/accessibility
+Firebase. (2024). Add Firebase to your Unity project. Google. https://firebase.google.com/docs/unity/setup
+Firebase. (2024). Get started with Firebase Authentication in Unity. Google. https://firebase.google.com/docs/auth/unity/start
+GitHub. (2024). What is version control? https://github.com/resources/articles/what-is-version-control
+Google Play. (2024). Prepare and roll out a release. Google Play Console Help. https://support.google.com/googleplay/android-developer/answer/9859348
+Huang, Z., & Benyoucef, M. (2023). A systematic literature review of mobile application usability: Addressing the design perspective. Universal Access in the Information Society, 22, 715–735. https://doi.org/10.1007/s10209-022-00903-w
+OWASP Foundation. (2024). OWASP Mobile Application Security. https://mas.owasp.org/
+Unity Technologies. (2023). Optimize your mobile game performance: Expert tips on graphics and assets, programming, and more in Unity 2022 LTS. https://unity.com/resources/optimize-mobile-game-performance-unity-2022lts
+Unity Technologies. (2024). Unity Profiler documentation. https://docs.unity3d.com/Manual/Profiler.html
+Weichbroth, P. (2024). Usability testing of mobile applications: A methodological framework. Applied Sciences, 14(5), Article 1792. https://doi.org/10.3390/app14051792
+World Wide Web Consortium. (2024). Web Content Accessibility Guidelines 2.2. https://www.w3.org/TR/WCAG22/
+

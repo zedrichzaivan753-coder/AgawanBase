@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -150,8 +151,18 @@ public class Flag : MonoBehaviour
         if (carrierStamina != null) carrierStamina.IsCarryingFlag = true;
 
         SetState(FlagState.Carried);
+
+        // The one place a pick-up is decided, so the one place it is announced.
+        if (PickedUp != null) PickedUp(who);
+
         return true;
     }
+
+    /// <summary>
+    /// Raised with the carrier when this flag is successfully taken. MatchManager owns the rule;
+    /// this event exists so a listener does not have to poll Flag.state to notice the moment.
+    /// </summary>
+    public event Action<Transform> PickedUp;
 
     /// <summary>
     /// Drops the flag at <paramref name="where"/>, lying on the ground.

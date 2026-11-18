@@ -159,6 +159,20 @@ public class MatchManager : MonoBehaviour
     /// <summary>Raised whenever the number of captured RED characters changes.</summary>
     public event Action<int> CaptureCountChanged;
 
+    /// <summary>
+    /// Raised with the character that was just caught, whichever team it is on.
+    ///
+    /// CaptureCountChanged cannot stand in for this: it only fires for RED captures and it carries
+    /// a running count, so a listener cannot tell a catch from a rescue or one catch from the next.
+    /// Week 14's feedback layer needs both edges, so both are raised here - at the END of Capture()
+    /// and Rescue(), after the rules have finished, so a listener can never see a half-applied
+    /// capture.
+    /// </summary>
+    public event Action<CharacterStatus> CharacterCaptured;
+
+    /// <summary>Raised with the character that was just freed from prison.</summary>
+    public event Action<CharacterStatus> CharacterRescued;
+
     /// <summary>Raised on every capture AND every rescue, so a HUD can repaint both teams'
     /// counters without polling. Carries no numbers: the live counts live in TeamManager.</summary>
     public event Action TeamStateChanged;
@@ -252,6 +266,10 @@ public class MatchManager : MonoBehaviour
                 // re-captured on the prison doorstep. The rescuer gets no such protection.
                 if (blue.IsImmune || red.IsImmune) continue;
 
+                // A hidden character is simply not part of the tag game: it can neither capture
+                // nor be captured. Hiding is cover, not just a lost chase.
+                if (blue.isHidden || red.isHidden) continue;
+
                 float distance = FlatDistance(blue.transform.position, red.transform.position);
                 if (distance > tagDistance) continue;
 
@@ -287,6 +305,10 @@ public class MatchManager : MonoBehaviour
         // seconds. In both cases nobody wins anything.
         if (a.isCaptured || b.isCaptured) return false;
         if (a.IsImmune || b.IsImmune) return false;
+
+        // A hidden character cannot be tagged, so the on-screen indicator must not promise a
+        // capture that CheckCharacterTouches is going to refuse.
+        if (a.isHidden || b.isHidden) return false;
 
         // Equal fieldTime is a draw, and a draw captures nobody.
         if (tieIsNoCapture && Mathf.Abs(a.fieldTime - b.fieldTime) <= tieEpsilon) return false;
@@ -359,6 +381,9 @@ public class MatchManager : MonoBehaviour
         }
 
         if (TeamStateChanged != null) TeamStateChanged();
+
+        // Last, so nothing below can observe a character that is only half in prison.
+        if (CharacterCaptured != null) CharacterCaptured(loser);
     }
 
     // ------------------------------------------------------------------- rescue
@@ -422,6 +447,10 @@ public class MatchManager : MonoBehaviour
         }
 
         if (TeamStateChanged != null) TeamStateChanged();
+
+        // After Release(), so the freed character is already standing outside the cage when a
+        // listener reacts - a feedback sound must not describe a prisoner who is still inside.
+        if (CharacterRescued != null) CharacterRescued(prisoner);
     }
 
     /// <summary>
@@ -535,11 +564,12 @@ public class MatchManager : MonoBehaviour
     /// <summary>
     /// Testing hook. A real capture always ends the match, so there is no way to watch the
     /// drop, return and timeout rules during normal play - SPACE puts the flag on the ground
-    /// instead. Stripped out of a release build by the #if, which costs nothing at runtime.
+    /// instead. Stripped out of a release build by the #if (UNITY_ENABLE_CHECKS covers Development
+    /// builds), which costs nothing at runtime.
     /// </summary>
     void HandleDebugDrop()
     {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || UNITY_ENABLE_CHECKS
         if (!allowDebugDrop) return;
         if (player == null) return;
         if (Keyboard.current == null) return;

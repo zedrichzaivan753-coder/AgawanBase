@@ -40,6 +40,22 @@ public class CharacterStatus : MonoBehaviour
              "rescued, so the same prisoner cannot be freed over and over in a chain.")]
     public float rescueCooldownTimer;
 
+    [Header("Hiding")]
+    [Tooltip("True while this character is standing in a bush: no enemy can pick it as a target " +
+             "and no touch can capture it. Never true while it carries a flag.")]
+    public bool isHidden;
+
+    [Tooltip("Log every time this character hides or is revealed. Turn off for the final build.")]
+    public bool logHiding = true;
+
+    // The bush this body is standing in, or null in the open. Kept only so the leave message can
+    // name the bush it left.
+    HideSpot currentSpot;
+
+    // Cached: a flag carrier can never hide, and the flag already reports that here.
+    SprintStamina stamina;
+    bool loggedCarrierInBush;
+
     /// <summary>True while this character must not be tagged. Only ever set by a rescue.</summary>
     public bool IsImmune
     {
@@ -58,6 +74,13 @@ public class CharacterStatus : MonoBehaviour
         get { return Mathf.Clamp01(1f - (fieldTime / MaxFieldTimeSeconds)); }
     }
 
+    void Awake()
+    {
+        // Cached here because the flag's carry penalty is what decides whether a bush may hide
+        // this body, and that is read every frame.
+        stamina = GetComponent<SprintStamina>();
+    }
+
     void Update()
     {
         // Both timers tick whether the character is free or imprisoned. The rescue cooldown is a
@@ -69,6 +92,8 @@ public class CharacterStatus : MonoBehaviour
         // A captured character is frozen in the enemy prison, so it never gets fresher.
         if (isCaptured) return;
 
+        UpdateHiding();
+
         if (IsInHomeBase)
         {
             fieldTime = 0f;              // safe at home: fully fresh
@@ -77,6 +102,59 @@ public class CharacterStatus : MonoBehaviour
         {
             fieldTime += Time.deltaTime; // in the field: getting staler every second
         }
+    }
+
+    /// <summary>
+    /// Keeps isHidden up to date, once a frame.
+    ///
+    /// The rule: standing in a bush hides you from the enemy. Carrying a flag cancels it - an
+    /// untaggable carrier could simply walk the flag home, so a bush refuses to cover a thief.
+    /// Being captured also cancels it, which is harmless (a prison is not a bush) but keeps the
+    /// flag honest for anything that reads it.
+    /// </summary>
+    void UpdateHiding()
+    {
+        bool carrying = stamina != null && stamina.IsCarryingFlag;
+        HideSpot spot = carrying ? null : HideSpot.SpotFor(this);
+
+        if (carrying && !loggedCarrierInBush && HideSpot.SpotFor(this) != null)
+        {
+            loggedCarrierInBush = true;
+            if (logHiding)
+            {
+                Debug.Log("[Hide] " + name + " is carrying a flag, so the bush does not hide it.");
+            }
+        }
+        else if (!carrying)
+        {
+            loggedCarrierInBush = false;
+        }
+
+        bool hidden = spot != null;
+        if (hidden == isHidden)
+        {
+            currentSpot = spot;
+            return;
+        }
+
+        isHidden = hidden;
+
+        if (logHiding)
+        {
+            if (hidden)
+            {
+                Debug.Log("[Hide] " + name + " entered bush " + spot.name + " at " +
+                          transform.position.ToString("F1") + " - enemies cannot see it.");
+            }
+            else
+            {
+                Debug.Log("[Hide] " + name + " left bush " +
+                          (currentSpot != null ? currentSpot.name : "?") + " at " +
+                          transform.position.ToString("F1") + " - enemies can see it again.");
+            }
+        }
+
+        currentSpot = spot;
     }
 
     /// <summary>

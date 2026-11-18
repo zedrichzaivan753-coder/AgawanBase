@@ -1,0 +1,22 @@
+test_bot_difficulty	0	8
+test_bot_parity	0	8
+test_bots	0	19
+test_canopy	0	1
+test_canopy_local_player	0	6
+test_canopy_team	0	6
+test_discovery	0	1
+test_endgame	0	6
+test_endgame_roster	0	7
+test_feed_and_disconnect	0	6
+test_heat	0	1
+test_leaderboard_and_audio	0	6
+test_loading_screen	0	1
+test_maps	0	6
+test_mobile_controls	0	1
+test_reconnect	1	1
+test_replay_loading	0	6
+test_scenes	0	7
+test_series	0	0
+test_title_screen	0	1
+test_ui	0	6
+DONE

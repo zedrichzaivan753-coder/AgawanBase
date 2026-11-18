@@ -1,0 +1,80 @@
+Week 15 play-mode scenario suite
+Unity 6000.6.0f1
+Finished: 2026-11-18 15:55:08 UTC
+Stopped because: the suite ran every case
+Cases: 16 (16 passed, 0 failed, 0 blocked)
+Exceptions and errors raised during the run: 0
+[Feedback] lines captured: 71
+
+--- every [Feedback] line, in order ---
+[Feedback] catch - Red_AI_1 (Red) is locked up -> Catch
+[Feedback] catch - Red_AI_2 (Red) is locked up -> Catch
+[Feedback] rescue - Red_AI_1 (Red) is free -> Rescue
+[Feedback] rescue - Red_AI_2 (Red) is free -> Rescue
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] catch - Red_AI_1 (Red) is locked up -> Catch
+[Feedback] catch - Red_AI_2 (Red) is locked up -> Catch
+[Feedback] catch - Red_AI_3 (Red) is locked up -> Catch
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] catch - Blue_AI_3 (Blue) is locked up -> Catch
+[Feedback] catch - Red_AI_3 (Red) is locked up -> Catch
+[Feedback] catch - Red_AI_2 (Red) is locked up -> Catch
+[Feedback] victory - your flag reached home -> Victory
+[Feedback] catch - Blue_AI_3 (Blue) is locked up -> Catch
+[Feedback] catch - Red_AI_3 (Red) is locked up -> Catch
+[Feedback] catch - Red_AI_4 (Red) is locked up -> Catch
+[Feedback] flag picked up by BluePlayer -> FlagPickup
+[Feedback] victory - your flag reached home -> Victory
+[Feedback] catch - Blue_AI_3 (Blue) is locked up -> Catch
+[Feedback] catch - Red_AI_3 (Red) is locked up -> Catch
+[Feedback] flag picked up by Red_AI_1 -> FlagPickup
+[Feedback] defeat - your flag was carried home -> Defeat

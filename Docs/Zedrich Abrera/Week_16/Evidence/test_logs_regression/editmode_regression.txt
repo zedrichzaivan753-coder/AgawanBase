@@ -1,0 +1,108 @@
+EDITMODE REGRESSION - AgawanBase, Week 16 optimisation tree
+Unity 6000.6.0f1   Unity Test Framework 1.8.0
+Runner: Unity Test Runner, EditMode, batch run from the Aura bridge (run_tests / get_test_job)
+Assembly: Assets/Tests/EditMode/AgawanBase.Tests.EditMode.asmdef
+Author: Zedrich Zaivan B. Abrera
+
+RESULT OF THE GATED RUN: 17 passed / 0 failed / 0 skipped  (17 of 17)
+
+=====================================================================
+ 1. RUN LOG - gated run, 2026-11-18 15:54 UTC (23:54 local)
+=====================================================================
+
+summary: total 17, passed 17, failed 0, skipped 0, durationSeconds 0.571, resultState Passed
+
+state    test                                                                     seconds
+-------  -----------------------------------------------------------------------  --------
+Passed   MatchSettingsTests.DerivedCounts_FollowTheTeamSize                         0.0405
+Passed   MatchSettingsTests.RememberedChoices_RoundTripThroughPlayerPrefs           0.0042
+Passed   MatchSettingsTests.SetDifficulty_ClampsAnOutOfRangeValue                  0.0065
+Passed   MatchSettingsTests.SetTeamSize_ClampsToTheLegalRange                       0.0030
+Passed   PlayerProfileTests.BestWins_OrdersFastestFirst_AndDuplicateMatchIds...     0.0385
+Passed   PlayerProfileTests.CorruptSave_LoadsDefaultProfile_AndKeepsTheBrokenFile   0.0088
+Passed   PlayerProfileTests.EmptySave_LoadsDefaultProfile                           0.0043
+Passed   PlayerProfileTests.MissingSave_LoadsDefaultProfile_WithoutAnError          0.0024
+Passed   PlayerProfileTests.RecordMatch_PersistsCountersAcrossAReload               0.0171
+Passed   PlayerProfileTests.ResetProfile_ClearsTheProfileAndTheFile                 0.0173
+Passed   PlayerProfileTests.Save_WhenTheFolderCannotBeCreated...                     0.0052
+Passed   PlayerProfileTests.SetName_PersistsAcrossAReload                            0.0047
+Passed   SprintConfigTests.CarryPenalty_IsAStaminaPenalty_NotASpeedPenalty          0.0044
+Passed   SprintConfigTests.SprintNumbers_AllowSprintingToStartAgainAfterRunningOut   0.0014
+Passed   TeamRulesTests.All_IsBlueThenRed                                           0.0004
+Passed   TeamRulesTests.Freshness_StaysInsideZeroToOne                                0.0007
+Passed   TeamRulesTests.Opponent_IsItsOwnInverse                                     0.0003
+
+=====================================================================
+ 2. THE FAILURE THIS GATE FOUND, AND WHAT WAS DONE ABOUT IT
+=====================================================================
+
+The FIRST run of the gate was NOT 17/17. It was 16 passed / 1 failed:
+
+  2026-11-18 15:51 UTC (23:51 local)
+  PlayerProfileTests.MissingSave_LoadsDefaultProfile_WithoutAnError  FAILED
+  message: "  a missing save is normal on a first run, not an error
+             Expected: <empty>
+             But was:  \"the file is empty\""
+
+That is not a Week 16 regression - the optimisation change touched four texture import
+settings and nothing else. It is an ORDER-DEPENDENT failure in the product code, and it
+was proved to be one before anything was changed:
+
+  isolation run, 2026-11-18 15:51 UTC: the same test, run alone -> PASSED (1/1, 0.31 s).
+  full-suite run:                      the same test, run after its siblings -> FAILED.
+
+Cause, read off the source rather than guessed:
+
+  Assets/Scripts/Core/PlayerProfile.cs, Load():
+    loaded = false;
+    state  = new ProfileState();
+    ...
+    if (!File.Exists(path)) { loaded = true; ...; return; }   // <- no lastError reset
+
+  Load() reset the state and the loaded flag but never cleared lastError. The missing-file
+  branch returns before anything writes an error, so LastError still held the reason the
+  PREVIOUS load rejected a file. NUnit runs the fixture in name order, so
+  EmptySave_LoadsDefaultProfile ("the file is empty", PlayerProfile.cs:494) always ran
+  immediately before it and handed it a stale message. In isolation there is no previous
+  load, so the assertion held.
+
+Fix applied - PRODUCT code, one line plus a comment, at PlayerProfile.cs Load():
+
+    // A load reports only its OWN outcome. Clearing this first matters because the
+    // missing-file branch returns before anything sets an error: without this line a first
+    // run would inherit the reason a previous load rejected a file, and LastError would say
+    // "the file is empty" about a file that does not exist. (Week 16 regression gate found
+    // this as an order-dependent EditMode failure; the test was left untouched.)
+    lastError = "";
+
+No test file was touched to make this pass. Proof, not assertion:
+
+  dir /T:W Assets\Tests\EditMode
+    11/18/2026  01:51 PM   AgawanBase.Tests.EditMode.asmdef
+    11/18/2026  09:26 PM   MatchSettingsTests.cs         4,549 bytes
+    11/18/2026  09:26 PM   PlayerProfileTests.cs        7,385 bytes
+    11/18/2026  09:27 PM   SprintConfigTests.cs          2,829 bytes
+    11/18/2026  01:51 PM   TeamRulesTests.cs             2,813 bytes
+
+  Every one of those timestamps is from the Week 15 session. The gate and the fix ran at
+  23:51-23:54 local, and no test file carries a timestamp from that window.
+
+Why it matters for the build rather than only for the test: the stale value was reachable
+in the game too. Anything that loads, sees a rejected save, then loads again through the
+SetDataDirectory seam (PT5 checks, the reset path) could read an error that described a
+different file. The profile now reports only its own load outcome.
+
+=====================================================================
+ 3. CONDITIONS THE RUN SATISFIED
+=====================================================================
+
+- Compile check before the gated run: "No compile errors".
+- The editor was in edit mode, no other test run active, Game.unity open.
+- Host load at the time was heavy but EditMode tests do not measure time: a stray
+  Client-Win64-Shipping.exe (Unreal) held 4,564,004 K alongside Unity 31432, so no
+  number in this file is a performance measurement and none is quoted as one.
+- Domain reload is disabled in this project, so the static state leak above is exactly the
+  kind of defect that only a full-suite run can expose. The gate is worth running as a
+  suite, not test by test.
+
+Evidence produced by: Aura run_tests (EditMode) + get_test_job on the two runs cited above.

@@ -1,0 +1,23 @@
+{
+  "task_id": "0bc25fcc-a75b-4567-a3ed-91eceebe41ed",
+  "original_generation_task_id": "965a0cc4-fbfc-4352-90fb-4eda077a24ad",
+  "original_model_url": "https://openapi-dl.data.tripo3d.com/tcli_af214df3136f4037b860bb82d8a79830/20261118/965a0cc4-fbfc-4352-90fb-4eda077a24ad/tripo_model_965a0cc4-fbfc-4352-90fb-4eda077a24ad.glb?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV9hZjIxNGRmMzEzNmY0MDM3Yjg2MGJiODJkOGE3OTgzMC8yMDI2MTExOC85NjVhMGNjNC1mYmZjLTQzNTItOTBmYi00ZWRhMDc3YTI0YWQvdHJpcG9fbW9kZWxfOTY1YTBjYzQtZmJmYy00MzUyLTkwZmItNGVkYTA3N2EyNGFkLmdsYiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5NTA3NDQ3OH19fV19&Signature=cyUn-WL5JhK2zvQ4hIcgBUgM9oug0C5-AUX4PFL0TEpepXryUfbfrkLtuZm4W02GmCSEv8KtMZcgx83gsfGq3Yw8Eo~L8IdAvK835xJkCeLqYDutCtBkNQXClFjPF4vOo1qhl~93XPtSZeWXNasV2DqI4Fz5wTKba0O77taz1PnqpCJst0IMY~JfRZ9cg1UELEHeeagLmNe9HV4w-p0zZZZ4saownEw8fYXoE2dV8-qRh0mC-Pb9qgogL3tMiSvN-55X~esbNE5U4bOyKmM5anOW3B0jhx27HqXCGjr2vZNLiWt~TzJlC~qkpaY3HM-2qUmGdLCG5fdNGpoVI1E~Og__&Key-Pair-Id=K1676C64NMVM2J",
+  "generation_type": "text_to_model",
+  "generation_date": "2026-11-18T15:48:07.056334",
+  "description": "Small stack of three weathered wooden market crates, two on the bottom and one on top, each with slatted sides, holding a few round fruits and leafy vegetables. Low-poly stylized game prop, standing on its own, no ground plane.",
+  "negative_prompt": "ground plane, floor, people, text, photorealistic, complex geometry",
+  "pose_type": "Default",
+  "model_version": "P1-20260311",
+  "pbr": false,
+  "face_limit": 3000,
+  "quad": false,
+  "convert_to_fbx": true,
+  "texture_files": [
+    {
+      "role": "BaseColor",
+      "path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\CrateStack\\CrateStack_BaseColor.jpg",
+      "mime_type": "image/jpeg"
+    }
+  ],
+  "file_path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\CrateStack\\CrateStack.fbx"
+}

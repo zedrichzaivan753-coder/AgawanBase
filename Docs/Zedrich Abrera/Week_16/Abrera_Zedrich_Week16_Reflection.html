@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Week 16 Reflection - Profiling and Performance Optimisation</title>
+<style>
+
+@page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0 auto;
+    padding: 8mm 4mm 16mm 4mm;
+    max-width: 186mm;
+    background: #ffffff;
+    color: #16191d;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.52;
+}
+
+h1, h2, h3, h4 { color: #12243a; page-break-after: avoid; break-after: avoid; }
+
+h1 {
+    font-size: 19pt;
+    line-height: 1.2;
+    margin: 0 0 4pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2.5pt solid #12243a;
+}
+
+h2 {
+    font-size: 13.5pt;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.75pt solid #c9ced6;
+}
+
+h3 { font-size: 11.5pt; margin: 14pt 0 5pt 0; color: #26405c; }
+h4 { font-size: 10.5pt; margin: 11pt 0 4pt 0; color: #26405c; }
+
+p { margin: 0 0 8pt 0; orphans: 3; widows: 3; }
+
+strong { color: #101820; }
+
+hr {
+    border: none;
+    border-top: 0.75pt solid #d5dae1;
+    margin: 13pt 0;
+}
+
+ul, ol { margin: 0 0 9pt 0; padding-left: 17pt; }
+li { margin: 0 0 3.5pt 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5pt 0 12pt 0;
+    font-size: 8.9pt;
+    line-height: 1.38;
+}
+
+th, td {
+    border: 0.7pt solid #b9c0c9;
+    padding: 3.2pt 4.6pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+th { background: #e9edf3; color: #12243a; font-weight: 600; }
+
+tbody tr:nth-child(even) td { background: #f7f9fb; }
+
+tr { page-break-inside: avoid; page-break-after: auto; }
+thead { display: table-header-group; }
+
+code {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 8.7pt;
+    background: #f1f4f8;
+    border: 0.5pt solid #e0e5ec;
+    border-radius: 2pt;
+    padding: 0 2pt;
+    word-break: break-word;
+}
+
+pre {
+    background: #f6f8fa;
+    border: 0.7pt solid #d5dae1;
+    border-left: 2.5pt solid #12243a;
+    border-radius: 2pt;
+    padding: 6pt 8pt;
+    margin: 6pt 0 12pt 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 8.5pt;
+    line-height: 1.45;
+}
+
+figure.diagram {
+    margin: 8pt 0 12pt 0;
+    padding: 6pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #ffffff;
+    page-break-inside: avoid;
+}
+
+figure.diagram svg { display: block; width: 100%; height: auto; }
+
+figure.shot {
+    margin: 8pt 0 13pt 0;
+    padding: 5pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #fbfcfd;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+figure.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 0.5pt solid #c9ced6;
+    border-radius: 2pt;
+}
+
+figure.shot figcaption {
+    margin-top: 4pt;
+    font-size: 8.6pt;
+    color: #4c5661;
+    line-height: 1.4;
+}
+
+p.warn { color: #8a1f1f; font-weight: 600; }
+
+footer.docnote {
+    margin-top: 22pt;
+    padding-top: 6pt;
+    border-top: 0.75pt solid #d5dae1;
+    color: #5c6672;
+    font-size: 8pt;
+}
+
+@media print {
+    body { max-width: none; padding: 0; font-size: 10pt; }
+    a { color: inherit; text-decoration: none; }
+    h1 { font-size: 18pt; }
+    table { font-size: 8.6pt; }
+}
+
+</style>
+</head>
+<body>
+<h1>Week 16 Reflection - Profiling and Performance Optimisation</h1>
+<p><strong>Abrera, Zedrich Zaivan B.</strong> · MOBILE DEV 002, Module 5 <strong>Game:</strong> Agawan Base v0.2 - 3D mobile capture-the-flag, theme: traditional Filipino street games <strong>Build version:</strong> 0.2, branch <code>main</code>, HEAD at the start of the week <code>d08fc9b</code>; the end-of-week commit is recorded in <code>Abrera_Zedrich_AS3.md</code>, section 8 <strong>Evidence this reflection leans on:</strong> <code>Week_16/Evidence/raw_csv/perf_baselclean_run1_20261119_000633.csv</code>, <code>perf_fix1clean_run1_20261119_000043.csv</code>, <code>Assets/Scripts/Diagnostics/PerfCapture.cs</code>, <code>Assets/Scripts/Core/PlayerProfile.cs</code>, <code>Week_16/Evidence/bottleneck_table.md</code></p>
+<hr/>
+<h2>Which measured bottleneck was most significant?</h2>
+<p>The one that was most significant turned out to be the one I did not expect: <strong>there wasn't one.</strong> I went into this week expecting the frame to be dominated by something - the eight characters with procedural animation, the AI, the per-character world bars, the 200-odd mesh renderers in <code>Game.unity</code>, the court lines, the 16-segment rings. I built a harness that measures the <code>PlayerLoop</code> counter rather than frame interval, because <code>GameManager</code> pins the game to 30 fps and a 60 ms frame would have looked exactly like a 33 ms one. Then I ran 60 seconds of 4v4 on HARD, three times, and the main thread came back at <strong>0.59-0.63 ms</strong> with a <strong>0.01 ms</strong> spread, GPU at 0.48 ms, 17 render events per frame.</p>
+<p>That is 1.8 % of a 33.3 ms budget. The most significant measured bottleneck was that the scene the game actually plays on already meets the target by roughly fifty times, and the honest thing to write in the report was that, not a manufactured list of micro-optimisations.</p>
+<p>The one cost that <em>is</em> real is not in the frame at all: memory. The project ships nine texture assets and five of them are 2048x2048 BaseColor maps on generated props, four of which cost <strong>21,849 KB</strong> of runtime texture memory for a bench, a tricycle, a stall and a crate stack - objects a few metres across on a phone screen.</p>
+<h2>What optimisation did I attempt, and what changed in the measurements?</h2>
+<p>I dropped those four maps from 2048 to 512, leaving compression and mipmaps alone. What changed:</p>
+<ul>
+<li>their runtime memory went <strong>21,849 KB to 1,369 KB</strong> (-20.0 MB), same <code>Profiler.GetRuntimeMemorySizeLong</code> call both times;</li>
+<li>the Windows player went <strong>181.41 MB to 171.41 MB</strong> (-10.00 MB);</li>
+<li><strong>frame time did not move at all</strong>, and I only know that because the second attempt at measuring it was built properly.</li>
+</ul>
+<p>The first post-fix measurement looked like a catastrophe: three runs at 0.68, 0.70, then 2.07 ms where the baseline had been 0.62, with GPU time drifting the same way. I spent a while looking at my own change before looking at the machine, which was the actual cause - an unrelated <code>Client-Win64-Shipping</code> process holding 5.4 GB. A texture downsample cannot triple main-thread time, and I should have suspected that sooner than I did.</p>
+<p>So I did the thing I should have done first: I reverted the four imports, rebuilt the player to the exact pre-fix size (181.41 MB), and measured <strong>both builds minutes apart on an idle host</strong>. Both came back at 0.60 ms mean and 0.61 ms frame interval. The earlier 0.63 -&gt; 0.60 difference was the host, not my code. That A/B pair is the reason AS3 says the change has no frame-time effect - not because I could not measure it, but because I measured it both ways and it is not there.</p>
+<h2>What trade-off did I accept or reject?</h2>
+<p><strong>Accepted:</strong> a real reduction in the resolution of four prop textures. I justified it rather than hid it: the shipping render path is <code>Mobile_RPAsset</code> at render scale 0.8, so the screen is already below 1080p; the props are seen at a distance where 512 and 2048 are hard to tell apart; and leaving 21.3 MB resident on four minor props costs a mid-range phone something real in exchange for detail nobody resolves.</p>
+<p><strong>Rejected:</strong> turning HDR off and pushing render scale below 0.8. Both would have produced a cleaner before/after table, and both would have been a visible quality loss across the whole screen bought with frame time the game does not need. I also rejected object pooling and allocation work: the game allocates about <strong>320 B per frame</strong>, roughly 10 KB/s at 30 fps, and refactoring gameplay code covered by sixteen regression cases to remove GC pressure that is not there would have been activity in place of improvement.</p>
+<h2>What performance limitation still needs attention?</h2>
+<p><strong>Nothing in this week's numbers was measured on a phone.</strong> Every figure comes from a Windows standalone development build on a GTX 1070, because that was the approved profiling environment and no Android device was attached. The APK is built and verified - IL2CPP, ARM64, <code>classes.dex</code> at the root - but it has never run under a profiler, and a mid-range Android device will show a main-thread time several times larger and a GPU time an order of magnitude larger. The 50x headroom I measured is exactly what is supposed to absorb that difference; it is not proof that a specific phone hits 30 fps.</p>
+<p>The second limitation is coverage. The scenario loads <code>Game.unity</code> and nothing else, so the other two maps never appear in any capture. That is not a footnote - it is how I made my worst mistake this week. My first bottleneck table ranked the 44.8 MB of texture memory as the top item and implied my four props were part of it. After the fix the player still reported 44.8 MB, because those props live in <code>Map_Palengke</code> and <code>Map_SchoolCampus</code> and my scenario never loads either. I left the correction in section 6 of the bottleneck table instead of quietly fixing the number, because a single-scene capture invites exactly that error and the next person to read it should know.</p>
+<p>One more thing worth recording: the regression gate caught a defect that had nothing to do with performance. <code>PlayerProfile.Load()</code> was not clearing <code>lastError</code>, so a missing save file could report the previous load's rejection reason - an order-dependent failure that passes when you run the test alone and fails in the suite. I fixed the product, not the test. A week spent making the game faster would have been worth much less if it had shipped a profile that lies about its own state.</p>
+<hr/>
+<p>I confirm that this reflection describes my own development experience and that all assistance, including AI assistance, has been disclosed.</p>
+<p><em>Zedrich Zaivan B. Abrera · Week 16</em></p>
+<footer class="docnote">AgawanBase &middot; Zedrich Zaivan B. Abrera &middot; MOBILE DEV 002, Module 5, Week 16 &middot; source: Abrera_Zedrich_Week16_Reflection.md</footer>
+</body>
+</html>

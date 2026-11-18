@@ -181,7 +181,21 @@ public static class MatchSettings
     public static void SetDifficulty(MatchDifficulty value)
     {
         EnsureLoaded();
-        difficulty = value;
+
+        // Clamped for the same reason SetTeamSize clamps, and because Load() already clamps this
+        // very field on the way back in. Without it a bad value reaches ProfileFor(), whose else
+        // branch silently behaves as Normal while DifficultyName() also answers NORMAL - so the
+        // screen and the AI would disagree about which preset is in use.
+        int raw = (int)value;
+        int clamped = Mathf.Clamp(raw, 0, 2);
+
+        if (clamped != raw)
+        {
+            Debug.LogWarning("[Settings] difficulty " + raw + " is not a preset - clamped to " +
+                             DifficultyName((MatchDifficulty)clamped) + ".");
+        }
+
+        difficulty = (MatchDifficulty)clamped;
         Save();
 
         Debug.Log("[Settings] difficulty = " + DifficultyName(difficulty));

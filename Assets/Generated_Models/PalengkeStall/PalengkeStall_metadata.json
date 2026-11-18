@@ -1,0 +1,23 @@
+{
+  "task_id": "14b43224-4aad-4ab7-952b-03e7702723c5",
+  "original_generation_task_id": "c95debec-fdb5-4d6d-ad52-9a1382be2f3f",
+  "original_model_url": "https://openapi-dl.data.tripo3d.com/tcli_af214df3136f4037b860bb82d8a79830/20261118/c95debec-fdb5-4d6d-ad52-9a1382be2f3f/tripo_model_c95debec-fdb5-4d6d-ad52-9a1382be2f3f.glb?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV9hZjIxNGRmMzEzNmY0MDM3Yjg2MGJiODJkOGE3OTgzMC8yMDI2MTExOC9jOTVkZWJlYy1mZGI1LTRkNmQtYWQ1Mi05YTEzODJiZTJmM2YvdHJpcG9fbW9kZWxfYzk1ZGViZWMtZmRiNS00ZDZkLWFkNTItOWExMzgyYmUyZjNmLmdsYiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5NTA3NDQ3OH19fV19&Signature=D-nNOUKQCQIZa2V80y6OUMmN-fwTAyMSPdCmPxKDW~cm8hj6MQ1iX7DC0UPnmpwUIm~ulgVGP3kRkYp7KK8BLenZQy-OGBd~~kB~I4aucB~L~w6~ew2Kv9L8L~1~IAU9SJ0Gttw2BaFY8xXlMEC50T9QRw28R7OnsIZOfeL5M5-pp-~jFRicll69zc8loLVDqSFNZoU076F6Lqc~F4yTJPU548VqmkZWqcQkO15yt1CWPVRTqWJI~oJ8jizAB81eCnrTtaR3aNew6KM~9VFee1vLp4i8-hiHXvc333EGvD-xTgN0D-Mb6Ufq3uEVJNH~4d1oU8AW7EpbI0nci1lDNg__&Key-Pair-Id=K1676C64NMVM2J",
+  "generation_type": "text_to_model",
+  "generation_date": "2026-11-18T15:48:04.378992",
+  "description": "Low-poly Philippine palengke vendor stall: four wooden posts holding a slanted corrugated tin awning, a wooden counter in front, and two produce baskets on the counter. Stylized, simple flat-shaded shapes, game-ready prop, standing on its own, no ground plane, no people.",
+  "negative_prompt": "ground plane, floor, people, text, high detail, photorealistic, complex geometry",
+  "pose_type": "Default",
+  "model_version": "P1-20260311",
+  "pbr": false,
+  "face_limit": 3000,
+  "quad": false,
+  "convert_to_fbx": true,
+  "texture_files": [
+    {
+      "role": "BaseColor",
+      "path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\PalengkeStall\\PalengkeStall_BaseColor.jpg",
+      "mime_type": "image/jpeg"
+    }
+  ],
+  "file_path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\PalengkeStall\\PalengkeStall.fbx"
+}

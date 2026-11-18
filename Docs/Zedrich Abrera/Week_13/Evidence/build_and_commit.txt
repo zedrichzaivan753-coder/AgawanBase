@@ -1,0 +1,85 @@
+BUILD AND REPOSITORY STATE - WEEK 13 (PT5)
+AgawanBase - recorded 2026-11-18
+=========================================================================
+
+1. ENGINE AND PIPELINE
+----------------------
+Unity version ............ 6000.6.0f1
+Render pipeline .......... Universal Render Pipeline 17.6.0
+Input .................... com.unity.inputsystem 1.20.0
+UI ....................... com.unity.ugui 2.6.0
+Scripting backend ........ IL2CPP
+Target architecture ...... ARM64
+Minimum API level ........ 26
+Orientation .............. landscape
+Product name ............. AgawanBase v0.2
+Bundle identifier ........ com.zedrich.agawanbase
+
+Scenes in build (3, all enabled, in this order):
+  Assets/Scenes/Game.unity
+  Assets/Scenes/Map_Palengke.unity
+  Assets/Scenes/Map_SchoolCampus.unity
+
+
+2. COMPILE
+----------
+check_compile_errors (Unity editor, after the last script edit, 2026-11-18):
+  "No compile errors"
+
+
+3. APK
+------
+Path ............. Docs/Zedrich Abrera/Week_13/Abrera_Zedrich_PT5.apk
+Size ............. 40,876,464 bytes (38.98 MB)
+Timestamp ........ 11/18/2026 07:56 PM
+Build id ......... build-58d8c2d2db
+Build status ..... Build Succeeded.
+Duration ......... 258 s
+Errors ........... 0
+Warnings ......... 20
+Signing .......... debug keystore - NOT suitable for store distribution
+
+Note on a build artefact that is easy to misread: Unity also wrote
+  Week_13/Abrera_Zedrich_PT5_BackUpThisFolder_ButDontShipItWithYourGame/
+(487 files, 525,368,933 bytes) next to the APK. That folder is Unity's IL2CPP build backup -
+generated C++ and intermediate assemblies used for debugging a build. It is not part of the
+game, it is not installed by the APK, and it was DELETED from the submission folder after the
+build completed. Any tool that reported a "686 MB" build was measuring that folder plus the
+APK; the artefact that a marker installs is the 38.98 MB APK above.
+
+Why the APK lives under Docs/ and not under Builds/: *.apk is in .gitignore (see
+secrets_and_gitignore.txt), so a build under Docs/ is deliberately outside version control
+while remaining inside the submission folder. The source that produced it is version
+controlled; the binary is the evidence.
+
+
+4. REPOSITORY AT BUILD TIME
+---------------------------
+Branch ............ main
+HEAD .............. d08fc9b2c9e28876f337cfcad009b88802d2b534
+Short hash ........ d08fc9b
+HEAD commit date .. 2026-09-21 17:31:32 +0800
+HEAD subject ...... Update README
+Working-tree entries reported by "git status --porcelain" ... 126
+
+The Week 13 profile work is in that working tree and was NOT committed when this document was
+written. That is stated rather than hidden: the HEAD above is the last commit, not the commit
+that contains PlayerProfile.cs.
+
+  git rev-parse --short HEAD
+    -> d08fc9b
+  git log -1 --format="%H|%ad|%s" --date=iso
+    -> d08fc9b2c9e28876f337cfcad009b88802d2b534|2026-09-21 17:31:32 +0800|Update README
+  git branch --show-current
+    -> main
+  git status --porcelain | find /c /v ""
+    -> 126
+
+WHAT THE STUDENT MUST DO
+------------------------
+1. Commit the Week 13 work. Suggested message:
+       PT5: local player profile with signed save and best-times board
+2. Record the resulting commit id in this file (replacing "not committed" above) and in
+   README.md ("Current commit ID") and Abrera_Zedrich_PT5.md section 10 ("Commit for this work").
+3. Commit again if the documents themselves change afterwards, and keep the id in the three
+   places above consistent.

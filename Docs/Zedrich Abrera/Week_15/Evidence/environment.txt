@@ -1,0 +1,77 @@
+AGAWAN BASE - AS3 MILESTONE (WEEK 15) - TEST ENVIRONMENT
+========================================================
+Recorded at the start of the Week 15 testing lab. Every case in
+test_results_*.tsv is executed against one of the two identifiers below.
+
+Builds
+------
+Baseline (the "Week 14 corrected build" the module requires)
+    id      : AB-0.2-QA1
+    file    : Docs/Zedrich Abrera/Week_14/Abrera_Zedrich_PT6_Playtest.apk
+    bytes   : 50,097,691
+    md5     : 0eef3dcb32fc0b9852bb4627c18d50d4
+    type    : development build
+
+Corrected build (produced in step 6, tested in step 7)
+    id      : AB-0.2-QA2
+    file    : Docs/Zedrich Abrera/Week_15/Abrera_Zedrich_AS3_Milestone.apk
+    bytes   : 54,489,688
+    md5     : f4fa8b51d465f2e9120d9d23c7769245
+    type    : development build, debug-signed, installable by adb
+    package : com.zedrich.agawanbase, versionCode 1, versionName 0.2, targetSdk 36
+
+    Packaging note (DEF-15-04): both artefacts above were written by a build whose
+    "Build App Bundle" flag was ON, so the first output of each was an .aab carrying an
+    .apk filename and installable by nothing. AB-0.2-QA2 was rebuilt with the flag OFF
+    and the 54,489,688-byte file above is the real APK, verified with aapt2. AB-0.2-QA1
+    still on disk is the bundle, not an APK; defect_log.md records that. Full evidence
+    in build_and_commit.txt.
+
+Engine and platform range
+-------------------------
+Engine              : Unity 6000.6.0f1 (f7f8ed4d1e24)
+Render pipeline     : Universal RP 17.6.0, Linear colour space
+Scripting backend   : IL2CPP, ARM64 only (AndroidTargetArchitectures = 2)
+Minimum Android     : API 26 (Android 8.0)
+Target Android      : highest installed (AndroidTargetSdkVersion = 0)
+Orientation         : landscape, locked (defaultScreenOrientation = 3, LandscapeRight)
+Product             : AgawanBase v0.2 (bundleVersion 0.2, versionCode 1)
+Company             : Zedrich Zaivan B. Abrera
+Scenes (build)      : Assets/Scenes/Game.unity            (index 0)
+                      Assets/Scenes/Map_Palengke.unity    (index 1)
+                      Assets/Scenes/Map_SchoolCampus.unity (index 2)
+Canvas              : 1920x1080 reference, Scale With Screen Size, match 0.5
+Input               : com.unity.inputsystem 1.20.0
+Test framework      : com.unity.test-framework 1.8.0
+
+Repository
+----------
+HEAD          : d08fc9b2c9e28876f337cfcad009b88802d2b534  (short d08fc9b)
+HEAD date     : Mon Sep 21 17:31:32 2026 +0800
+Working tree  : 141 dirty paths
+
+CAVEAT, recorded deliberately: the tested code is NOT in HEAD. Weeks 13, 14 and 15 are
+all uncommitted, so the commit id above does not identify the build under test until the
+working tree is committed. This is a real departure from the module's rule "the tested
+build and commit are identified", and it is carried into the acceptance summary as an
+open item rather than hidden by quoting a commit that does not contain the code.
+
+Device and configuration profiles
+---------------------------------
+The module asks for two "approved device or configuration profiles" (one physical device
+plus one approved emulator or configuration when resources are limited).
+
+P1  Physical Android handset. The five Week 14 testers ran on a Samsung Galaxy S9 and an
+    Oppo A5S, both Android 13. Availability of a handset for this lab's own adb session is
+    pending; if none is attached the device-dependent cases are recorded BLOCKED with that
+    reason, not asserted as passes.
+P2  Windows 64-bit standalone player of the same commit, executed at 1920x1080 and again
+    at 1280x720, to exercise the CanvasScaler path at two aspect ratios without a second
+    handset.
+
+Not applicable to this build
+----------------------------
+Interrupted network access. Verified by search: no UnityWebRequest, System.Net, HttpClient,
+Socket or WebClient anywhere under Assets/Scripts, and the game holds exactly one local file
+(the profile). There is no network path to interrupt, so this boundary case is recorded N/A
+with this reason instead of being quietly dropped.

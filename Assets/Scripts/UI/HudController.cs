@@ -52,9 +52,15 @@ public class HudController : MonoBehaviour
              "reads the brains, it never steers them.")]
     public Text aiDebugLabel;
 
-    [Tooltip("Switch the AI read-out on. Leave it off for the shipped build: it is a debugging " +
-             "aid, and each line names a team-mate the player is not meant to be watching.")]
+    [Tooltip("Switch the AI read-out on. Off for the shipped build: it is a debugging aid, and " +
+             "each line names a team-mate the player is not meant to be watching. The default is " +
+             "true in the editor and false in every player build, so a verification pass cannot " +
+             "leave it switched on in an APK (Docs/Part_D_Test_Results.md D.5).")]
+#if UNITY_EDITOR
     public bool showAiDebug = true;
+#else
+    public bool showAiDebug = false;
+#endif
 
     [Tooltip("How many times a second the read-out is rebuilt. Deliberately slow: building one " +
              "string per character is work the game does not need to do 30 times a second, and " +
@@ -66,6 +72,19 @@ public class HudController : MonoBehaviour
 
     // Counts down to the next AI debug rebuild.
     float aiDebugTimer;
+
+    // Cached read-outs, one set per thing that is drawn. A label is only rebuilt when the value
+    // behind it actually changes, so a steady frame allocates no strings at all - which is what
+    // keeps the HUD off the GC on a 30 FPS Android build. int.MinValue means "never built yet".
+    int freshnessCode = int.MinValue;   // 0 = captured, 1 = safe at base, 2 = in the field
+    int freshnessTenths = int.MinValue;
+    int staminaWord = int.MinValue;     // 0 = plain, 1 = sprinting, 2 = captured
+    int staminaPercent = int.MinValue;
+
+    // Indexed by Team: 0 = Blue, 1 = Red.
+    readonly int[] cachedFree = { int.MinValue, int.MinValue };
+    readonly int[] cachedTotal = { int.MinValue, int.MinValue };
+    readonly int[] cachedFlagState = { int.MinValue, int.MinValue };
 
     void Awake()
     {
@@ -104,10 +123,20 @@ public class HudController : MonoBehaviour
 
         if (freshnessLabel == null) return;
 
+        // Three read-outs share one line. Each gets a code, and the pair (code, tenths) is what
+        // the cache compares: while it is unchanged nothing is formatted and nothing is assigned.
+        int code = player.isCaptured ? 0 : (player.IsInHomeBase ? 1 : 2);
+        int tenths = Mathf.RoundToInt(player.fieldTime * 10f);
+
+        if (code == freshnessCode && tenths == freshnessTenths) return;
+
+        freshnessCode = code;
+        freshnessTenths = tenths;
+
         string wanted;
-        if (player.isCaptured) wanted = "CAPTURED";
-        else if (player.IsInHomeBase) wanted = "SAFE AT BASE";
-        else wanted = player.fieldTime.ToString("F1") + " s in the field";
+        if (code == 0) wanted = "CAPTURED";
+        else if (code == 1) wanted = "SAFE AT BASE";
+        else wanted = (tenths * 0.1f).ToString("F1") + " s in the field";
 
         if (wanted != freshnessLabel.text) freshnessLabel.text = wanted;
     }
@@ -121,18 +150,23 @@ public class HudController : MonoBehaviour
 
         // The percentage is ALWAYS shown, sprinting or not, so you can see exactly how much
         // stamina is left at the moment you need it. Only the word in front changes.
-        string wanted;
-        if (player != null && player.isCaptured)
+        // Percent and word are cached, so the string is only built when one of them moves.
+        int word = (player != null && player.isCaptured) ? 2 : (stamina.IsSprinting ? 1 : 0);
+        int percent = Mathf.RoundToInt(stamina.Stamina01 * 100f);
+
+        if (word == staminaWord && percent == staminaPercent) return;
+
+        staminaWord = word;
+        staminaPercent = percent;
+
+        if (word == 2)
         {
-            wanted = "STAMINA  -";
+            staminaLabel.text = "STAMINA  -";
         }
         else
         {
-            string percent = Mathf.RoundToInt(stamina.Stamina01 * 100f) + "%";
-            wanted = (stamina.IsSprinting ? "SPRINTING  " : "STAMINA  ") + percent;
+            staminaLabel.text = (word == 1 ? "SPRINTING  " : "STAMINA  ") + percent + "%";
         }
-
-        if (wanted != staminaLabel.text) staminaLabel.text = wanted;
     }
 
     // ------------------------------------------------------------------- carry banner
@@ -168,21 +202,39 @@ public class HudController : MonoBehaviour
     {
         if (label == null) return;
 
-        string wanted = team.ToString().ToUpperInvariant() +
-                        "  " + TeamManager.FreeCount(team) + "/" + TeamManager.Count(team) + " free" +
-                        "  |  flag: " + FlagStateText(flag);
+        int index = (int)team;
+        int free = TeamManager.FreeCount(team);
+        int total = TeamManager.Count(team);
+        int flagState = FlagStateCode(flag);
 
-        // Strings are only assigned when they have actually changed: a Text assignment rebuilds
-        // the canvas, and these two lines would otherwise do it twice every single frame.
-        if (wanted != label.text) label.text = wanted;
+        // Nothing to reassign while all three numbers hold still - which is most frames.
+        if (free == cachedFree[index] && total == cachedTotal[index] &&
+            flagState == cachedFlagState[index]) return;
+
+        cachedFree[index] = free;
+        cachedTotal[index] = total;
+        cachedFlagState[index] = flagState;
+
+        label.text = (team == Team.Blue ? "BLUE" : "RED") +
+                     "  " + free + "/" + total + " free" +
+                     "  |  flag: " + FlagStateText(flagState);
     }
 
-    static string FlagStateText(Flag flag)
+    /// <summary>0 = carried, 1 = dropped, 2 = at base, 3 = no flag to show.</summary>
+    static int FlagStateCode(Flag flag)
     {
-        if (flag == null) return "-";
-        if (flag.IsCarried) return "CARRIED";
-        if (flag.IsDropped) return "DROPPED";
-        return "AT BASE";
+        if (flag == null) return 3;
+        if (flag.IsCarried) return 0;
+        if (flag.IsDropped) return 1;
+        return 2;
+    }
+
+    static string FlagStateText(int code)
+    {
+        if (code == 0) return "CARRIED";
+        if (code == 1) return "DROPPED";
+        if (code == 2) return "AT BASE";
+        return "-";
     }
 
     // ------------------------------------------------------------------- centre alert

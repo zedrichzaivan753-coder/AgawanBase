@@ -1,0 +1,101 @@
+AGAWAN BASE - AS3 MILESTONE (WEEK 15) - BUILD UNDER TEST AND COMMIT
+==================================================================
+Every number below was read off the artefact on disk, the editor build log, or
+the Android asset dump. Nothing here is copied from a previous week's document.
+
+The build
+---------
+id          : AB-0.2-QA2   (the corrected build: the Week 14 build plus the two
+                            Week 15 fixes, DEF-15-01 and DEF-15-03)
+file        : Docs/Zedrich Abrera/Week_15/Abrera_Zedrich_AS3_Milestone.apk
+bytes       : 54,489,688
+md5         : f4fa8b51d465f2e9120d9d23c7769245
+measured    : 2026-11-18 21:53 (+08:00)
+type        : development build (application-debuggable is present in the manifest)
+signed with : the editor's debug keystore, so it installs with "adb install -r"
+              and can be sideloaded on a handset
+
+Manifest facts (aapt2 dump badging, build-tools 36.0.0)
+------------------------------------------------------
+package              com.zedrich.agawanbase
+versionCode          1
+versionName          0.2
+application-label    AgawanBase v0.2
+minSdkVersion        26   (Android 8.0)
+targetSdkVersion     36
+native-code          arm64-v8a only
+launchable-activity  com.unity3d.player.UnityPlayerGameActivity
+supports-screens     small, normal, large, xlarge
+debuggable           yes
+
+Engine and build settings
+-------------------------
+Engine             : Unity 6000.6.0f1 (f7f8ed4d1e24)
+Scripting backend  : IL2CPP, ARM64 only (AndroidTargetArchitectures = 2)
+Graphics API       : Vulkan, OpenGLES3
+Orientation        : landscape, locked (defaultScreenOrientation = 3, LandscapeRight)
+Scenes             : Assets/Scenes/Game.unity            (index 0)
+                     Assets/Scenes/Map_Palengke.unity    (index 1)
+                     Assets/Scenes/Map_SchoolCampus.unity (index 2)
+Development Build  : on
+Build App Bundle   : off  <- see DEF-15-04; this is the flag that had to change
+
+Build log lines (Logs/Editor.log)
+---------------------------------
+    [Build] active target=Android scriptingBackend=IL2CPP architectures=ARM64
+            minSdk=AndroidApiLevel26 orientation=LandscapeLeft bundleVersion=0.2
+    Build Finished, Result: Success.
+    [MCP Build] Build succeeded: Abrera_Zedrich_AS3_Milestone.apk (838.57 MB, 22.0s)
+
+The 838.57 MB is the size of the whole build output the report accounts for, not the
+size of the one file: the deliverable APK is the 54,489,688 bytes above. The 22.0 s is
+the incremental re-package that produced this file; the IL2CPP compile it reused was
+the 234.8 s build of the same source earlier the same evening. Both builds ran on the
+same working tree, so only the packaging changed between them.
+
+DEF-15-04, found while producing this build
+-------------------------------------------
+The first build of this deliverable reported Success and wrote a 50,097,152-byte file
+named .apk. It was not an APK. The editor's Build App Bundle flag was on, so Unity ran
+Gradle's "bundleDebug" task and the tool copied launcher-debug.aab to the requested
+.apk path. The zip listing proved it: BundleConfig.pb and base/manifest were at the
+root, there was no classes.dex.
+
+    wrong artefact  : 50,097,152 bytes, md5 ed3afc1290fd4cf1858d30056df0dfa5
+                      (an .aab with an .apk filename, not installable by adb)
+    corrected       : 54,489,688 bytes, md5 f4fa8b51d465f2e9120d9d23c7769245
+                      (classes.dex + classes2-4.dex + lib/arm64-v8a/*.so, 428 entries)
+
+Verified after the fix by listing the archive, by aapt2 dump badging, and by the fact
+that the size grew by exactly the dex and native payload an APK carries and an AAB
+stores compressed. The same defect is present in the Week 14 artefact
+(Abrera_Zedrich_PT6_Playtest.apk, 50,097,691 bytes, md5 0eef3dcb32fc0b9852bb4627c18d50d4):
+it too is an .aab with an .apk name. See defect_log.md, DEF-15-04.
+
+Commit
+------
+HEAD         : d08fc9b2c9e28876f337cfcad009b88802d2b534  (short d08fc9b)
+HEAD date    : Mon Sep 21 17:31:32 2026 +0800
+Working tree : 144 dirty paths at build time (weeks 13, 14 and 15 are uncommitted)
+
+CAVEAT, carried from environment.txt and not papered over: the code in this APK is NOT
+in HEAD. The commit id above identifies the last commit, not the tested source. Until the
+working tree is committed, "the tested build and commit are identified" is satisfied only
+by the file hash, and the honest way to write it is:
+
+    tested source = working tree over d08fc9b, 144 paths uncommitted
+    tested binary = Abrera_Zedrich_AS3_Milestone.apk, md5 f4fa8b51d465f2e9120d9d23c7769245
+
+How to reproduce
+----------------
+1. Edit > Build Settings: Android, Development Build on, Build App Bundle OFF.
+2. Player Settings: IL2CPP, ARM64, minimum API 26, landscape-left only.
+3. Build, and point the output at Docs/Zedrich Abrera/Week_15/Abrera_Zedrich_AS3_Milestone.apk.
+4. Confirm the result is an APK and not a bundle before recording it:
+
+       aapt2 dump badging Abrera_Zedrich_AS3_Milestone.apk | findstr package
+       dir  Abrera_Zedrich_AS3_Milestone.apk
+       certutil -hashfile Abrera_Zedrich_AS3_Milestone.apk MD5
+
+5. Install with "adb install -r Abrera_Zedrich_AS3_Milestone.apk" and repeat the four
+   device cases in android_crash_buffer.txt / android_rapid_input_monkey.log.

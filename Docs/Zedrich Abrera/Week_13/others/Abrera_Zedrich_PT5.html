@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PT5 - Secure Player Profile, Integrity-Checked Save, and Local Best-Times Board</title>
+<style>
+
+@page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0 auto;
+    padding: 8mm 4mm 16mm 4mm;
+    max-width: 186mm;
+    background: #ffffff;
+    color: #16191d;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.52;
+}
+
+h1, h2, h3, h4 { color: #12243a; page-break-after: avoid; break-after: avoid; }
+
+h1 {
+    font-size: 19pt;
+    line-height: 1.2;
+    margin: 0 0 4pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2.5pt solid #12243a;
+}
+
+h2 {
+    font-size: 13.5pt;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.75pt solid #c9ced6;
+}
+
+h3 { font-size: 11.5pt; margin: 14pt 0 5pt 0; color: #26405c; }
+h4 { font-size: 10.5pt; margin: 11pt 0 4pt 0; color: #26405c; }
+
+p { margin: 0 0 8pt 0; orphans: 3; widows: 3; }
+
+strong { color: #101820; }
+
+hr {
+    border: none;
+    border-top: 0.75pt solid #d5dae1;
+    margin: 13pt 0;
+}
+
+ul, ol { margin: 0 0 9pt 0; padding-left: 17pt; }
+li { margin: 0 0 3.5pt 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5pt 0 12pt 0;
+    font-size: 8.9pt;
+    line-height: 1.38;
+}
+
+th, td {
+    border: 0.7pt solid #b9c0c9;
+    padding: 3.2pt 4.6pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+th { background: #e9edf3; color: #12243a; font-weight: 600; }
+
+tbody tr:nth-child(even) td { background: #f7f9fb; }
+
+tr { page-break-inside: avoid; page-break-after: auto; }
+thead { display: table-header-group; }
+
+code {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 8.7pt;
+    background: #f1f4f8;
+    border: 0.5pt solid #e0e5ec;
+    border-radius: 2pt;
+    padding: 0 2pt;
+    word-break: break-word;
+}
+
+pre {
+    background: #f6f8fa;
+    border: 0.7pt solid #d5dae1;
+    border-left: 2.5pt solid #12243a;
+    border-radius: 2pt;
+    padding: 6pt 8pt;
+    margin: 6pt 0 12pt 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 8.5pt;
+    line-height: 1.45;
+}
+
+figure.diagram {
+    margin: 8pt 0 12pt 0;
+    padding: 6pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #ffffff;
+    page-break-inside: avoid;
+}
+
+figure.diagram svg { display: block; width: 100%; height: auto; }
+
+p.warn { color: #8a1f1f; font-weight: 600; }
+
+footer.docnote {
+    margin-top: 22pt;
+    padding-top: 6pt;
+    border-top: 0.75pt solid #d5dae1;
+    color: #5c6672;
+    font-size: 8pt;
+}
+
+@media print {
+    body { max-width: none; padding: 0; font-size: 10pt; }
+    a { color: inherit; text-decoration: none; }
+    h1 { font-size: 18pt; }
+    table { font-size: 8.6pt; }
+}
+
+</style>
+</head>
+<body>
+<h1>PT5 - Secure Player Profile, Integrity-Checked Save, and Local Best-Times Board</h1>
+<p><strong>Game:</strong> AgawanBase <strong>Student:</strong> Zedrich Zaivan B. Abrera <strong>Course:</strong> MOBILE DEV 002 Advanced Mobile Application Development, Module 5 <strong>Theme:</strong> Philippine Games and Sports <strong>Week:</strong> 13 - Secure Player Data and Responsible Development <strong>Build version:</strong> <code>AgawanBase v0.2</code> (Android, ARM64 / IL2CPP, <code>com.zedrich.agawanbase</code>) <strong>Engine:</strong> Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# <strong>Repository:</strong> local Git repository, branch <code>main</code>, HEAD <code>d08fc9b</code> <strong>Component under test:</strong> <code>Assets/Scripts/Core/PlayerProfile.cs</code>, <code>Assets/Scripts/UI/ProfileUI.cs</code></p>
+<hr/>
+<h2>1. What was built</h2>
+<p>The game now remembers the player. A profile screen reachable from the title screen holds a display name, a win/loss/draw record with the current and best win streak, and a local best-times board of the five fastest victories. The record is stored in a signed JSON file in the app's own sandbox, and it survives closing and reopening the game.</p>
+<table>
+<thead><tr>
+<th>Piece</th>
+<th>File</th>
+<th>Responsibility</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Profile store</td>
+<td><code>Assets/Scripts/Core/PlayerProfile.cs</code></td>
+<td>The only thing that reads, signs, writes, clamps or deletes the save. Static, so it survives the scene reload that Restart and Title both perform</td>
+</tr>
+<tr>
+<td>Panel controller</td>
+<td><code>Assets/Scripts/UI/ProfileUI.cs</code></td>
+<td>Drives <code>Game/UI/Panel_Profile</code>: name field, record, board, SAVE / RESET / BACK. Never touches the file and never parses JSON</td>
+</tr>
+<tr>
+<td>State machine</td>
+<td><code>Assets/Scripts/UI/GameManager.cs</code></td>
+<td>New <code>GameState.Profile</code>, <code>ShowProfile()</code> / <code>CloseProfile()</code>, panel visibility in <code>SetState()</code>, and one guarded <code>PlayerProfile.RecordMatch(...)</code> call from the end-of-match handlers</td>
+</tr>
+<tr>
+<td>Scene builder</td>
+<td><code>Assets/Editor/ProfileBuild.cs</code></td>
+<td>Builds the panel and the title <code>PROFILE</code> button into all three scenes and wires every listener. Re-runnable</td>
+</tr>
+<tr>
+<td>Test harness</td>
+<td><code>Assets/Editor/Pt5Checks.cs</code></td>
+<td><code>RunDataChecks()</code> writes the L1-L15 log; <code>Pt5Shots.Begin()</code> captures the four screenshots</td>
+</tr>
+</tbody></table>
+<h3>Public surface of <code>PlayerProfile</code></h3>
+<table>
+<thead><tr>
+<th>Member</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>PlayerName</code>, <code>Wins</code>, <code>Losses</code>, <code>Draws</code>, <code>MatchesPlayed</code></td>
+<td>The record as the panel reads it</td>
+</tr>
+<tr>
+<td><code>CurrentStreak</code>, <code>BestStreak</code>, <code>LastPlayedUtc</code>, <code>LastMatchId</code>, <code>NextMatchId</code></td>
+<td>Streak and identity of the last banked match</td>
+</tr>
+<tr>
+<td><code>Recent</code></td>
+<td>Up to 20 finished matches, newest first</td>
+</tr>
+<tr>
+<td><code>BestWins()</code></td>
+<td>The best-times board: victories sorted by <code>seconds</code> ascending, then by <code>matchId</code>, capped at 5</td>
+</tr>
+<tr>
+<td><code>Load()</code>, <code>Save()</code>, <code>SetName(string)</code>, <code>RecordMatch(...)</code>, <code>ResetProfile()</code></td>
+<td>The five state changes; every one of them is wrapped and returns a bool instead of throwing</td>
+</tr>
+<tr>
+<td><code>SanitizeName(string)</code>, <code>ComputeSignature(string)</code></td>
+<td>The two pure functions the harness proves directly</td>
+</tr>
+<tr>
+<td><code>SetDataDirectory</code>, <code>WriteRawForTests</code>, <code>WriteGarbageForTests</code></td>
+<td>Test seams, so the failure cases can be proven without touching the player's real save</td>
+</tr>
+<tr>
+<td><code>DataDirectory</code>, <code>SavePath</code>, <code>LastError</code>, <code>IsLoaded</code></td>
+<td>Inspection, for the panel's status line and for a bug report</td>
+</tr>
+</tbody></table>
+<p>The panel's on-screen status line is part of the design, not decoration: on open it reads <em>"Type a name, then SAVE. Nothing leaves this device."</em></p>
+<hr/>
+<h2>2. Where the player meets it</h2>
+<ol>
+<li>The title screen gains a <strong>PROFILE</strong> button under <strong>START</strong>.</li>
+<li>Pressing it puts <code>GameManager</code> into <code>GameState.Profile</code>, which hides every other panel and shows <code>Panel_Profile</code> (backdrop alpha 0.94).</li>
+<li>The player types a name (the field itself refuses past 16 characters), presses <strong>SAVE</strong>, and the status line confirms. <strong>BACK</strong> returns to the title.</li>
+<li>Playing a match to an end banks exactly one entry: win, loss or draw, with the ending type, the match clock in seconds, the map, the team size and the difficulty.</li>
+<li>Reopening PROFILE shows the updated record and, for a victory, a line on the fastest-victory board.</li>
+<li><strong>RESET PROFILE</strong> is deliberately two presses within 4 seconds; the first press renames the button to <code>PRESS AGAIN</code> and says what will be lost.</li>
+</ol>
+<p>Each step is photographed in <code>Evidence/</code> (E1 to E4, listed in section 8).</p>
+<hr/>
+<h2>3. The save file</h2>
+<h3>Location</h3>
+<table>
+<thead><tr>
+<th>Platform</th>
+<th>Path</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Android</td>
+<td><code>/data/data/com.zedrich.agawanbase/files/AgawanBase/profile.json</code> (i.e. <code>Application.persistentDataPath/AgawanBase/profile.json</code>)</td>
+</tr>
+<tr>
+<td>Windows editor</td>
+<td><code>C:/Users/&lt;user&gt;/AppData/LocalLow/&lt;company&gt;/AgawanBase v0_2/AgawanBase/profile.json</code></td>
+</tr>
+</tbody></table>
+<p>The folder is the app's private sandbox. No other app on the phone can read it, and uninstalling the game deletes it. Nothing is written anywhere else.</p>
+<h3>Format</h3>
+<p>One UTF-8 JSON envelope: an <code>int schema</code> for future migrations, a <code>string sig</code> holding the signature, and the <code>payload</code> that the signature covers.</p>
+<pre><code>{
+    "schema": 1,
+    "sig": "6b1f0d5a91c7e4a2b8d3f6071c2e9a4b5d6c7e8f90a1b2c3d4e5f60718293a4b",
+    "payload": {
+        "schema": 1,
+        "playerName": "Zedrich Abrera",
+        "wins": 2,
+        "losses": 1,
+        "draws": 0,
+        "currentStreak": 1,
+        "bestStreak": 2,
+        "lastMatchId": 3,
+        "lastPlayedUtc": "2026-11-18T11:42:07Z",
+        "recent": [
+            {
+                "matchId": 3,
+                "result": "WIN",
+                "outcome": "FLAG_CARRIED_HOME",
+                "seconds": 47.3,
+                "mapId": "palengke",
+                "teamSize": 2,
+                "difficulty": "NORMAL",
+                "whenUtc": "2026-11-18T11:42:07Z"
+            }
+        ]
+    }
+}</code></pre>
+<table>
+<thead><tr>
+<th>Field</th>
+<th>Type</th>
+<th>Rule enforced by <code>PlayerProfile</code></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>schema</code></td>
+<td>int</td>
+<td>Refused and quarantined if it is newer than <code>SchemaVersion</code> (1)</td>
+</tr>
+<tr>
+<td><code>sig</code></td>
+<td>string</td>
+<td>Lowercase hex SHA-256; compared with <code>StringComparison.Ordinal</code></td>
+</tr>
+<tr>
+<td><code>payload.playerName</code></td>
+<td>string</td>
+<td>Trimmed, control characters stripped, runs of spaces collapsed, capped at 16, blank becomes <code>PLAYER</code></td>
+</tr>
+<tr>
+<td><code>payload.wins</code> / <code>losses</code> / <code>draws</code></td>
+<td>int</td>
+<td>Floored at 0 after the signature passes</td>
+</tr>
+<tr>
+<td><code>payload.currentStreak</code></td>
+<td>int</td>
+<td>Floored at 0; reset to 0 by a loss, kept by a draw</td>
+</tr>
+<tr>
+<td><code>payload.bestStreak</code></td>
+<td>int</td>
+<td>Raised to at least <code>currentStreak</code>, so an edited save cannot show a streak better than the record</td>
+</tr>
+<tr>
+<td><code>payload.lastMatchId</code></td>
+<td>int</td>
+<td>Floored at 0. <code>RecordMatch</code> refuses any id at or below it, which is what makes a double-bank impossible</td>
+</tr>
+<tr>
+<td><code>payload.recent</code></td>
+<td>list</td>
+<td>Null entries removed; trimmed to 20 newest</td>
+</tr>
+</tbody></table>
+<p><code>*.apk</code> is listed in <code>.gitignore</code>, so the build under <code>Week_13/</code> is deliberately outside version control. The source that produced it is not.</p>
+<hr/>
+<h2>4. Integrity design</h2>
+<p>Six decisions, in the order they protect the file.</p>
+<p><strong>4.1 The save is signed, and the signature is over the canonical payload.</strong> On write, the payload is serialised with <code>JsonUtility.ToJson(state)</code> and that exact string is signed. On read, the file is parsed and the payload is re-serialised with the same call before the signature is recomputed. Signing the raw text of the file instead would have made the check depend on whitespace and key order, so a cosmetic difference would have looked like tampering. The canonical form is the contract.</p>
+<p><strong>4.2 The key is per install and never shipped.</strong> <code>ComputeSignature</code> prepends a 16-byte salt generated by <code>RandomNumberGenerator</code> on first save and kept in <code>PlayerPrefs["profile.salt"]</code> as base64. There is no constant in the source, so a compile of the game does not contain the key, and two installs sign differently.</p>
+<p><strong>4.3 The write is atomic.</strong> The JSON goes to <code>profile.json.tmp</code>, the old file is deleted, and the temp file is moved into place. A process killed mid-write leaves a <code>.tmp</code> file behind, never a half-written <code>profile.json</code> where a complete one used to be.</p>
+<p><strong>4.4 A rejected file is quarantined, not destroyed.</strong> When parsing or the signature check fails, the file is moved to <code>profile.rejected.json</code> and a fresh default profile starts. A player's only copy is never overwritten by a game that did not understand it, and if this ever happens for real, the rejected file is the evidence.</p>
+<p><strong>4.5 Numbers are clamped even when the signature passes.</strong> A correctly signed file is still a file, and a correctly signed file is what an attacker with the salt produces. So after the signature passes, negatives are floored, <code>bestStreak</code> is raised to at least <code>currentStreak</code>, the name is re-sanitised and the recent list is cleaned. Conservative clamping means an edited save degrades to something plausible instead of something impossible.</p>
+<p><strong>4.6 There is exactly one gate, and it is a match id.</strong> <code>RecordMatch</code> returns early when <code>matchId &lt;= lastMatchId</code>. <code>GameManager</code> also keeps its own <code>recordedMatchId</code> field, so a duplicated end-of-match callback cannot bank a match twice even before it reaches the store. Two independent guards for the same failure, because an inflated record is the failure mode that actually matters to a player.</p>
+<p><strong>Rejected alternative:</strong> encrypting the file. There is no key the attacker does not have, so encryption would add code, a decryption failure path, and the false impression of a guarantee, without changing who can produce a valid file. It is not in the build and section 5 says so on the record.</p>
+<hr/>
+<h2>5. What the signature does not do (the honest limit)</h2>
+<p>The save is <strong>tamper-evident, not tamper-proof.</strong></p>
+<ul>
+<li>It is not encrypted. Anyone who can read the file can read the name and the record.</li>
+<li>The salt lives on the same device as the file. A determined local attacker can extract it and re-sign an edited save, and the game will accept it.</li>
+<li>There is no server, no account and no online leaderboard, so there is nothing to verify the record against. For an offline single-player playground game this is the true ceiling, and it is stated rather than hidden.</li>
+</ul>
+<p>This is recorded in the check log as <strong>L15 KNOWN LIMIT</strong> rather than passed off as a pass, and it is repeated in <code>README.md</code> under known limitations.</p>
+<hr/>
+<h2>6. Security check results</h2>
+<p>Every check below was executed by <code>Assets/Editor/Pt5Checks.cs</code> in the Unity editor on 2026-11-18 11:49:27 UTC, against a scratch folder (<code>.../AgawanBase_pt5_scratch</code>) so the player's real save was never written to. The scratch folder was deleted afterwards. The measured value in the right-hand column is copied from <code>Evidence/pt5_checks.log</code>.</p>
+<table>
+<thead><tr>
+<th>ID</th>
+<th>What is being proven</th>
+<th>Result</th>
+<th>Measured value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>No save file at all is not an error</td>
+<td>PASS</td>
+<td><code>name=PLAYER matches=0</code></td>
+</tr>
+<tr>
+<td>L2</td>
+<td>A valid name is trimmed and inner spaces collapsed</td>
+<td>PASS</td>
+<td><code>name='Zedrich Abrera'</code></td>
+</tr>
+<tr>
+<td>L3</td>
+<td>The profile survives a reload from disk, and the file carries a signature</td>
+<td>PASS</td>
+<td><code>name='Zedrich Abrera' file=True sig=True</code></td>
+</tr>
+<tr>
+<td>L4</td>
+<td>A blank name is refused and the stored name is kept</td>
+<td>PASS</td>
+<td><code>refused=True name='Zedrich Abrera'</code></td>
+</tr>
+<tr>
+<td>L5</td>
+<td>A name longer than 16 characters is capped</td>
+<td>PASS</td>
+<td><code>length=16 name='ABCDEFGHIJKLMNOP'</code></td>
+</tr>
+<tr>
+<td>L6</td>
+<td>Control characters are stripped out of a name</td>
+<td>PASS</td>
+<td><code>name='ZedrichX'</code></td>
+</tr>
+<tr>
+<td>L7</td>
+<td>A finished match is recorded and written to disk</td>
+<td>PASS</td>
+<td><code>returned=True wins=1 recent=1</code></td>
+</tr>
+<tr>
+<td>L8</td>
+<td>The best-times board keeps the 5 fastest victories, quickest first</td>
+<td>PASS</td>
+<td><code>count=5 first=42.5 sorted=True</code></td>
+</tr>
+<tr>
+<td>L9</td>
+<td>The same match id cannot be banked twice</td>
+<td>PASS</td>
+<td><code>refused=True wins=6</code></td>
+</tr>
+<tr>
+<td>L10</td>
+<td>An unreadable save starts empty without a crash, and is set aside</td>
+<td>PASS</td>
+<td><code>name=PLAYER matches=0 rejected kept=True</code></td>
+</tr>
+<tr>
+<td>L11</td>
+<td>A hand-edited save whose signature does not match is rejected</td>
+<td>PASS</td>
+<td><code>wins=0 name=PLAYER error='the signature does not match the contents (the file was edited by hand)'</code></td>
+</tr>
+<tr>
+<td>L12</td>
+<td>Impossible numbers in a correctly signed save are clamped, not trusted</td>
+<td>PASS</td>
+<td><code>wins=0 losses=0 bestStreak=9 name='Zedrich Abrera'</code></td>
+</tr>
+<tr>
+<td>L13</td>
+<td>Reset erases the record on disk and returns the default name</td>
+<td>PASS</td>
+<td><code>returned=True file=False name=PLAYER</code></td>
+</tr>
+<tr>
+<td>L14</td>
+<td>An unwritable save location reports an error instead of crashing</td>
+<td>PASS</td>
+<td><code>saved=False error='could not write ...\blocked\profile.json: ...'</code></td>
+</tr>
+<tr>
+<td>L15</td>
+<td><strong>Known limit:</strong> the save is tamper-evident, not encrypted</td>
+<td>documented</td>
+<td>Not asserted as a pass; printed as a limitation</td>
+</tr>
+</tbody></table>
+<pre><code>TOTAL: 15 passed, 0 failed</code></pre>
+<p>Two details worth stating, because they are what the checks are actually worth:</p>
+<ul>
+<li>L12 plants a save whose numbers are impossible but whose signature is <strong>correct</strong>. It passes the signature gate and is then clamped. This proves that the signature is not being used as the only defence.</li>
+<li>L14 does not merely fail to crash: <code>PlayerProfile.LastError</code> carries the operating system's own message, and <code>ProfileUI</code> prints it, so a real player would see <em>"Could not save."</em> followed by the reason rather than a silent no-op.</li>
+</ul>
+<hr/>
+<h2>7. Reproducing every check</h2>
+<p><code>Evidence/HOW_TO_RERUN.txt</code> holds the exact procedure: which editor menu command runs the harness, where the log lands, how the scratch folder is isolated from the real save, and how the four screenshots are re-captured. Nothing in that procedure needs a phone.</p>
+<hr/>
+<h2>8. Evidence</h2>
+<table>
+<thead><tr>
+<th>File</th>
+<th>What it shows</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>Evidence/pt5_checks.log</code></td>
+<td>The fifteen checks with their measured values, and the four screenshot descriptions</td>
+</tr>
+<tr>
+<td><code>Evidence/E1_profile_empty.png</code></td>
+<td>The panel on a fresh install: <code>PLAYER</code>, no matches, empty board</td>
+</tr>
+<tr>
+<td><code>Evidence/E2_profile_stats.png</code></td>
+<td>The record after three recorded matches: 2W/1L, streak and best streak</td>
+</tr>
+<tr>
+<td><code>Evidence/E3_leaderboard.png</code></td>
+<td>The fastest-victory board with five entries, quickest first</td>
+</tr>
+<tr>
+<td><code>Evidence/E4_after_reset.png</code></td>
+<td>After the two-press reset: back to <code>PLAYER</code>, record empty</td>
+</tr>
+<tr>
+<td><code>Evidence/build_and_commit.txt</code></td>
+<td>Unity version, pipeline, backend, APK bytes, compile result, commit</td>
+</tr>
+<tr>
+<td><code>Evidence/secrets_and_gitignore.txt</code></td>
+<td>The credential scan and the ignore rules</td>
+</tr>
+<tr>
+<td><code>Abrera_Zedrich_PT5.apk</code></td>
+<td>The installable build, 40,876,464 bytes</td>
+</tr>
+</tbody></table>
+<p>The screenshots were captured in play mode from the real panel driving the real save file. After the first capture the backdrop was judged too light at alpha 0.75 against the record text, so it was darkened to 0.94 and the four are the re-shot set; the log says so at the head of its screenshot section rather than presenting them as if nothing changed.</p>
+<hr/>
+<h2>9. Disclosure record</h2>
+<p>Stated plainly, because the module asks for it and because the alternative is worse.</p>
+<table>
+<thead><tr>
+<th>Activity</th>
+<th>How it was done</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>SA5 analysis, PT5 write-up, reflection drafting</td>
+<td>Written by me, with AI assistance for structure and phrasing, then reviewed and corrected against the code</td>
+</tr>
+<tr>
+<td><code>PlayerProfile.cs</code>, <code>ProfileUI.cs</code>, <code>ProfileBuild.cs</code>, <code>Pt5Checks.cs</code></td>
+<td>Written with AI assistance, read line by line, and every constant in this document was taken from the code rather than from the plan</td>
+</tr>
+<tr>
+<td>The fifteen checks</td>
+<td>Executed by the harness in the editor; the values in section 6 are copied from the generated log, not typed from memory</td>
+</tr>
+<tr>
+<td>The four screenshots</td>
+<td>Captured by the harness in play mode; they are the real panel</td>
+</tr>
+<tr>
+<td>The APK</td>
+<td>Built by Unity 6000.6.0f1 through the project's Android build profile from this source</td>
+</tr>
+<tr>
+<td>The design decision in section 4 (sign, do not encrypt)</td>
+<td>Mine, and the reasoning in section 5 is the reason I am not claiming more than it does</td>
+</tr>
+</tbody></table>
+<p>Nothing in the project was fabricated for the write-up. Where the build falls short - no audio, no on-device profiling, a debug-signed APK, the AI debug read-out still enabled - <code>README.md</code> and section 5 list it as a limitation instead of leaving it out.</p>
+<hr/>
+<h2>10. Build and repository state</h2>
+<table>
+<thead><tr>
+<th>Item</th>
+<th>Value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>APK</td>
+<td><code>Week_13/Abrera_Zedrich_PT5.apk</code>, 40,876,464 bytes (38.98 MB)</td>
+</tr>
+<tr>
+<td>Build target</td>
+<td>Android, ARM64 only, IL2CPP, minimum API 26</td>
+</tr>
+<tr>
+<td>Build duration</td>
+<td>258 s, 0 errors, 20 warnings</td>
+</tr>
+<tr>
+<td>Package</td>
+<td><code>com.zedrich.agawanbase</code>, product <code>AgawanBase v0.2</code></td>
+</tr>
+<tr>
+<td>Scenes in build</td>
+<td><code>Game.unity</code>, <code>Map_Palengke.unity</code>, <code>Map_SchoolCampus.unity</code></td>
+</tr>
+<tr>
+<td>Signing</td>
+<td>Debug keystore - not suitable for store distribution</td>
+</tr>
+<tr>
+<td>Repository HEAD</td>
+<td><code>d08fc9b</code> "Update README", 2026-09-21</td>
+</tr>
+<tr>
+<td>Commit for this work</td>
+<td>pending; see the note below</td>
+</tr>
+</tbody></table>
+<p>The profile work is present in the working tree but was not committed when this document was written. <code>Evidence/build_and_commit.txt</code> records the HEAD at build time and the state of the working tree. The commit id must be pasted into this row and into <code>README.md</code> once the commit exists - the row is left explicit rather than filled with a guess.</p>
+<hr/>
+<h2>11. How this meets the Week 13 laboratory requirements</h2>
+<table>
+<thead><tr>
+<th>Module requirement</th>
+<th>Where it is satisfied</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Secure and responsible handling of player data</td>
+<td>A profile file in the app sandbox; no identifier, no account, no networking code, no forced network permission, no analytics SDK</td>
+</tr>
+<tr>
+<td>An identity model proportionate to the game</td>
+<td>Local profile only, argued in SA5 section 6 and implemented as <code>PlayerProfile</code></td>
+</tr>
+<tr>
+<td>An integrity check on the saved data</td>
+<td>SHA-256 over the canonical payload, salted per install (section 4.1, 4.2)</td>
+</tr>
+<tr>
+<td>Graceful behaviour on corrupt or tampered data</td>
+<td>Quarantine plus clamps (L10, L11, L12)</td>
+</tr>
+<tr>
+<td>A recoverable, provable reset</td>
+<td>Two-press reset with a 4-second disarm (L13, <code>ProfileUI.ResetPressed</code>)</td>
+</tr>
+<tr>
+<td>Evidence rather than assertion</td>
+<td><code>pt5_checks.log</code> with measured values, four screenshots, a real APK</td>
+</tr>
+<tr>
+<td>Responsible development and disclosure</td>
+<td>Section 9, plus SA5 section 7 on secret handling</td>
+</tr>
+<tr>
+<td>A reflective account of the work</td>
+<td><code>Abrera_Zedrich_Week13_Reflection.md</code></td>
+</tr>
+</tbody></table>
+<footer class="docnote">AgawanBase &middot; Zedrich Zaivan B. Abrera &middot; MOBILE DEV 002, Module 5, Week 13 &middot; source: Abrera_Zedrich_PT5.md</footer>
+</body>
+</html>

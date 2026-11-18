@@ -1,0 +1,51 @@
+EDITMODE TEST RUN - FINAL (post-fix working tree)
+=================================================
+Runner   : Unity Test Framework 1.8.0, EditMode, via a test job on the open editor
+Job      : 151a2cba798e4a43ad10291e206331d6
+Assembly : AgawanBase.Tests.EditMode
+Result   : 17 run / 17 passed / 0 failed / 0 skipped
+Duration : 0.10 s
+
+This is the same 17 cases as editmode_baseline.txt, run again after the Week 15
+correction to MatchSettings.SetDifficulty. The only difference between the two runs
+is MatchSettingsTests.SetDifficulty_ClampsAnOutOfRangeValue, which was red on the
+baseline and is green here - so the fix, and nothing else, is what moved it.
+
+The line the case now produces (from the job's captured output):
+
+    [Settings] difficulty 99 is not a preset - clamped to HARD.
+    [Settings] difficulty = HARD
+
+BASELINE -> FINAL
+-----------------
+                                    baseline            final
+MatchSettingsTests.SetDifficulty_ClampsAnOutOfRangeValue   FAIL  <- DEF-15-03   PASS
+all other 16 cases                                         PASS                 PASS
+total                                                      16/17                17/17
+
+CASES
+-----
+TeamRulesTests.Opponent_IsItsOwnInverse                          PASS
+TeamRulesTests.All_IsBlueThenRed                                 PASS
+TeamRulesTests.Freshness_StaysInsideZeroToOne                    PASS
+PlayerProfileTests.CorruptSave_LoadsDefaultProfile_AndKeepsTheBrokenFile PASS
+PlayerProfileTests.EmptySave_LoadsDefaultProfile                 PASS
+PlayerProfileTests.MissingSave_LoadsDefaultProfile_WithoutAnError PASS
+PlayerProfileTests.SetName_PersistsAcrossAReload                 PASS
+PlayerProfileTests.RecordMatch_PersistsCountersAcrossAReload     PASS
+PlayerProfileTests.BestWins_OrdersFastestFirst_AndDuplicateMatchIdsAreRefused PASS
+PlayerProfileTests.ResetProfile_ClearsTheProfileAndTheFile       PASS
+PlayerProfileTests.Save_WhenTheFolderCannotBeCreated_FailsWithoutClaimingANewName PASS
+MatchSettingsTests.SetTeamSize_ClampsToTheLegalRange             PASS
+MatchSettingsTests.SetDifficulty_ClampsAnOutOfRangeValue         PASS  (was FAIL, DEF-15-03)
+MatchSettingsTests.RememberedChoices_RoundTripThroughPlayerPrefs PASS
+MatchSettingsTests.DerivedCounts_FollowTheTeamSize               PASS
+SprintConfigTests.CarryPenalty_IsAStaminaPenalty_NotASpeedPenalty PASS
+SprintConfigTests.SprintNumbers_AllowSprintingToStartAgainAfterRunningOut PASS
+
+WHAT THIS RUN DOES NOT PROVE
+----------------------------
+Edit mode ticks no Update(), so sprint drain, the lock-out, capture immunity, the
+pause rule and the whole match loop are NOT covered here. They are covered by the
+play-mode scenario suite in test_logs_final/scenario.tsv (16 passed / 0 failed /
+0 blocked). Nothing in this file should be read as "the game works".

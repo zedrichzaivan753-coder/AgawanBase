@@ -1,0 +1,5 @@
+Week 14 evidence captures (Tools > Week14 > Capture Evidence Screenshots)
+Unity 6000.6.0f1
+Finished: 2026-11-18 12:32:38 UTC
+E2_hud_contrast.png, E3_catch_feedback.png, E1_pause_sound.png
+Notes: started the match from the title screen; captured Red_AI_1 through MatchManager.Capture; pause screen captured with the SOUND button; 

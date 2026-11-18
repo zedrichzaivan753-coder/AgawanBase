@@ -1,0 +1,23 @@
+{
+  "task_id": "b2c30295-d00c-41a6-98c3-8961d247fe45",
+  "original_generation_task_id": "0cdec1ff-dba8-449b-96c3-26665b03de48",
+  "original_model_url": "https://openapi-dl.data.tripo3d.com/tcli_af214df3136f4037b860bb82d8a79830/20261118/0cdec1ff-dba8-449b-96c3-26665b03de48/tripo_model_0cdec1ff-dba8-449b-96c3-26665b03de48.glb?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV9hZjIxNGRmMzEzNmY0MDM3Yjg2MGJiODJkOGE3OTgzMC8yMDI2MTExOC8wY2RlYzFmZi1kYmE4LTQ0OWItOTZjMy0yNjY2NWIwM2RlNDgvdHJpcG9fbW9kZWxfMGNkZWMxZmYtZGJhOC00NDliLTk2YzMtMjY2NjViMDNkZTQ4LmdsYiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5NTA3NDQ4Nn19fV19&Signature=Snvl~9WXqRtJotHgeKporabWb1n-DDnIGO1OVDd0Z95w5djnqnrg-jZKs0ZASENAcx3DFrqEdbJcFYlv9JygnSox36IBt~DVrzUPXXmpvgokp7FRMeWdnzTIf4kNM0HcsLU4yw3099fZzLLpm1vbpPcS2VybT9Pmuuk9LOgFGJ91s2Uxas5HBNy9jV7XWfbPJWtoe98U9J0IJ9OjmnCa1zjbmL-bwGFAbbnREFmGmLgDIC7B~jKFku9ra1OdNF10eYKm7K13T1tUgcV7rrTHyCH56EWCIyTgJDBnapDKY7ELmcg1CpqVIomHI8XnmQgeLEIEmaNGa9VS-cLd0WdDOQ__&Key-Pair-Id=K1676C64NMVM2J",
+  "generation_type": "text_to_model",
+  "generation_date": "2026-11-18T15:48:14.326106",
+  "description": "Philippine tricycle: a small motorcycle with a sidecar on its right, the sidecar covered by a rounded metal canopy, three wheels, simple handlebars. Low-poly stylized game prop, standing on the ground, no ground plane, no driver or passengers.",
+  "negative_prompt": "ground plane, floor, people, driver, text, photorealistic, complex geometry",
+  "pose_type": "Default",
+  "model_version": "P1-20260311",
+  "pbr": false,
+  "face_limit": 3000,
+  "quad": false,
+  "convert_to_fbx": true,
+  "texture_files": [
+    {
+      "role": "BaseColor",
+      "path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\Tricycle\\Tricycle_BaseColor.jpg",
+      "mime_type": "image/jpeg"
+    }
+  ],
+  "file_path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\Tricycle\\Tricycle.fbx"
+}

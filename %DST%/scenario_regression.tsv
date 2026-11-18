@@ -1,0 +1,18 @@
+id	requirement	title	expected	actual	status
+TC-CORE-01	REQ-01	a match starts and runs	GameManager.State == Playing with a spawned roster	Playing, 4 Blue / 4 Red, 4 enemies, clock 1.7 s	PASS
+TC-CORE-02	REQ-02	the human is on the Blue roster and free to move	registered, not captured, motor not frozen	BluePlayer free, in its home base	PASS
+TC-CORE-04	REQ-05	the prison holds the prisoner	immobile and the motor frozen while captured	moved 0.000 m in 0.4 s, motor.IsFrozen=True	PASS
+TC-CORE-05	REQ-06	a team-mate reaching the prison frees the prisoner	isCaptured == false and the prisoner can move again	released, immunity 1.3 s	PASS
+TC-CORE-06	REQ-07	the enemy flag can be taken and the carry penalty arms	Carried + SprintStamina.IsCarryingFlag	carried by BluePlayer, IsCarryingFlag=True	PASS
+TC-CORE-07	REQ-08	a dropped flag returns home after 10 s	AtBase once the timer expires	AtBase when checked 1.5 real s after the drop at 20x	PASS
+TC-LIFE-01	REQ-18	pause stops the clock and resume continues it	frozen while paused, running after resume	paused delta 0.00 s, then ran again	PASS
+TC-LIFE-03	REQ-19	backgrounding pauses the match and stops its clock	Paused, clock stopped, resumed on return	paused with the clock frozen for 0.8 s	PASS
+TC-LIFE-02	REQ-18	restart starts a clean match	clock near the full time, outcome None	clock 0.1 s, outcome None	PASS
+TC-BND-01	REQ-04	repeated rapid catches stay consistent	no exception, the capture counter matches the captures made	3 captures in one frame, redsCaptured 0 -> 3, no exception	PASS
+TC-BND-02	REQ-18	50 rapid pause toggles	no exception, ends in a known state	no exception; state Playing, timeScale 1.00	PASS
+TC-BND-03	REQ-07	50 rapid pick-up attempts	no exception, the flag ends in one consistent state	no exception; state Dropped, carried=	PASS
+TC-CORE-10	REQ-11	the clock running out ends the match as a draw	the match ends when the clock reaches zero with no flag taken	ended by the clock, outcome TimeLimit, no winning feedback line	PASS
+TC-CORE-08	REQ-09	carrying the enemy flag home wins the match	the match ends by flag delivery and the victory feedback fires	outcome FlagCarriedHome with the victory clip played	PASS
+TC-CORE-09	REQ-10	the enemy carrying our flag home loses the match	the match ends by flag delivery and the defeat feedback fires	outcome FlagCarriedHome with the defeat clip played	PASS
+TC-BUILD-01	REQ-12	the AI read-out is off in the running game	showAiDebug == false, so no AI read-out can be seen	showAiDebug=False (source guard HudController.cs:59-63, scene value off)	PASS
+TOTAL				16 passed, 0 failed, 0 blocked	

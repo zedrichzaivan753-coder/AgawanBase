@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" width="980" height="660" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333333"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="660" fill="#ffffff"/>
+
+  <!-- trust boundary -->
+  <rect x="20" y="18" width="940" height="560" rx="10" fill="none" stroke="#8a8a8a"
+        stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="36" y="42" font-size="14" fill="#666666" font-weight="bold" letter-spacing="1">
+    TRUST BOUNDARY: THE PLAYER'S OWN DEVICE
+  </text>
+  <text x="36" y="62" font-size="13" fill="#8a8a8a">
+    No account, no network permission, no server, nothing transmitted.
+  </text>
+
+  <!-- A: player -->
+  <rect x="50" y="120" width="180" height="64" rx="8" fill="#e8eef7" stroke="#3f5b86" stroke-width="2"/>
+  <text x="140" y="148" font-size="16" fill="#1c2a40" text-anchor="middle" font-weight="bold">PLAYER</text>
+  <text x="140" y="170" font-size="13" fill="#3f5b86" text-anchor="middle">types a name, taps SAVE</text>
+
+  <!-- B: ProfileUI -->
+  <rect x="330" y="120" width="230" height="64" rx="8" fill="#e8eef7" stroke="#3f5b86" stroke-width="2"/>
+  <text x="445" y="145" font-size="15" fill="#1c2a40" text-anchor="middle" font-weight="bold">ProfileUI</text>
+  <text x="445" y="166" font-size="12" fill="#3f5b86" text-anchor="middle">Game/UI/Panel_Profile</text>
+
+  <!-- C: PlayerProfile -->
+  <rect x="330" y="250" width="230" height="96" rx="8" fill="#f2f6e9" stroke="#5a7a2a" stroke-width="2"/>
+  <text x="445" y="276" font-size="15" fill="#26330f" text-anchor="middle" font-weight="bold">PlayerProfile</text>
+  <text x="445" y="296" font-size="12" fill="#3f5320" text-anchor="middle">sanitise name · clamp numbers</text>
+  <text x="445" y="313" font-size="12" fill="#3f5320" text-anchor="middle">count results · sign payload</text>
+  <text x="445" y="330" font-size="12" fill="#3f5320" text-anchor="middle">refuse duplicate match id</text>
+
+  <!-- D: profile.json -->
+  <rect x="40" y="420" width="250" height="96" rx="8" fill="#fdf4e3" stroke="#b07d1a" stroke-width="2"/>
+  <text x="165" y="446" font-size="15" fill="#3d2a05" text-anchor="middle" font-weight="bold">profile.json</text>
+  <text x="165" y="466" font-size="12" fill="#6b5216" text-anchor="middle">persistentDataPath/AgawanBase/</text>
+  <text x="165" y="484" font-size="12" fill="#6b5216" text-anchor="middle">payload + SHA-256 signature</text>
+  <text x="165" y="502" font-size="12" fill="#6b5216" text-anchor="middle">written to .tmp, then renamed</text>
+
+  <!-- E: PlayerPrefs -->
+  <rect x="340" y="420" width="230" height="96" rx="8" fill="#fdf4e3" stroke="#b07d1a" stroke-width="2"/>
+  <text x="455" y="446" font-size="15" fill="#3d2a05" text-anchor="middle" font-weight="bold">PlayerPrefs</text>
+  <text x="455" y="466" font-size="12" fill="#6b5216" text-anchor="middle">match.teamSize · match.difficulty</text>
+  <text x="455" y="484" font-size="12" fill="#6b5216" text-anchor="middle">match.tagHints · map.*</text>
+  <text x="455" y="502" font-size="12" fill="#6b5216" text-anchor="middle">profile.salt (16 random bytes)</text>
+
+  <!-- F: match end -->
+  <rect x="620" y="420" width="290" height="96" rx="8" fill="#f7e9ee" stroke="#8a3350" stroke-width="2"/>
+  <text x="765" y="446" font-size="15" fill="#3d0f1e" text-anchor="middle" font-weight="bold">MatchManager / GameManager</text>
+  <text x="765" y="466" font-size="12" fill="#6b2439" text-anchor="middle">PlayerWon / PlayerLost / MatchDrawn</text>
+  <text x="765" y="484" font-size="12" fill="#6b2439" text-anchor="middle">outcome + MatchClock</text>
+  <text x="765" y="502" font-size="12" fill="#6b2439" text-anchor="middle">recorded once, guarded by match id</text>
+
+  <!-- arrows -->
+  <line x1="230" y1="152" x2="326" y2="152" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <line x1="445" y1="184" x2="445" y2="246" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="455" y="216" font-size="11" fill="#333333">SetName · ResetProfile</text>
+
+  <line x1="360" y1="346" x2="200" y2="416" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="205" y="372" font-size="11" fill="#333333">sign + write</text>
+
+  <line x1="252" y1="420" x2="392" y2="350" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="268" y="404" font-size="11" fill="#333333">read + verify on start</text>
+
+  <line x1="470" y1="346" x2="465" y2="416" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="478" y="384" font-size="11" fill="#333333">salt</text>
+
+  <line x1="660" y1="420" x2="560" y2="330" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="592" y="384" font-size="11" fill="#333333">RecordMatch</text>
+
+  <line x1="560" y1="266" x2="536" y2="268" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="530" y="248" font-size="11" fill="#333333" text-anchor="end">record + board</text>
+
+  <!-- reset -->
+  <path d="M 140 184 L 140 300 L 326 300" fill="none" stroke="#333333" stroke-width="2"
+        stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="150" y="292" font-size="11" fill="#333333">RESET button (two presses)</text>
+
+  <!-- footer -->
+  <text x="36" y="612" font-size="12" fill="#555555">
+    Deleted by the player: RESET deletes profile.json and profile.rejected.json. Settings and the salt stay in PlayerPrefs.
+  </text>
+  <text x="36" y="634" font-size="12" fill="#555555">
+    A save that fails to parse, or whose signature does not match, is moved to profile.rejected.json and never overwrites a good file.
+  </text>
+</svg>

@@ -1,0 +1,118 @@
+HOW TO REPRODUCE EVERY WEEK 13 CHECK AND SCREENSHOT
+AgawanBase - PT5 evidence
+=========================================================================
+
+WHAT THIS FILE IS
+-----------------
+Every number in Abrera_Zedrich_PT5.md section 6, and every image in this folder, was
+produced by one editor script: Assets/Editor/Pt5Checks.cs. Nothing was typed from memory.
+This file records how to run it again from a clean checkout, and what "the same result"
+looks like.
+
+REQUIREMENTS
+------------
+- Unity 6000.6.0f1 with this project's packages (see Packages/manifest.json).
+  No phone, no Android SDK and no network connection is needed for either half.
+- The checks need no particular scene open. The screenshots need Assets/Scenes/Game.unity,
+  because that is the scene with the title screen.
+- Wait for the script compile to finish before using the Tools menu.
+
+
+PART 1 - THE FIFTEEN CHECKS (edit mode, about one second)
+---------------------------------------------------------
+1. Open the project and wait for the compile to finish.
+2. Menu: Tools > PT5 > Run Data Checks (writes pt5_checks.log)
+3. Console should end with:
+       [PT5] checks finished: 15 passed, 0 failed. Log: ...\Docs\Zedrich Abrera\Week_13\Evidence\pt5_checks.log
+4. The log is OVERWRITTEN (not appended) at:
+       Docs/Zedrich Abrera/Week_13/Evidence/pt5_checks.log
+
+What the run guarantees:
+- It works in a scratch folder - <persistentDataPath>/AgawanBase_pt5_scratch - which the
+  run creates, uses and deletes. On this machine <persistentDataPath> is
+  C:/Users/Zedrich/AppData/LocalLow/Zedrich Zaivan B_ Abrera/AgawanBase v0_2
+  (on Android it is /data/data/com.zedrich.agawanbase/files).
+- The player's real save (<persistentDataPath>/AgawanBase/profile.json) is never opened,
+  written or deleted by these fifteen checks. The harness switches the profile's data
+  directory to the scratch folder and switches it back at the end.
+- The run tolerates the scratch folder already existing or being locked: it warns and
+  continues rather than throwing.
+
+Expected last line of the log:
+       TOTAL: 15 passed, 0 failed
+
+Expected measured values, for a quick diff against a fresh run:
+  L1  name=PLAYER matches=0
+  L2  name='Zedrich Abrera'
+  L3  name='Zedrich Abrera' file=True sig=True
+  L4  refused=True name='Zedrich Abrera'
+  L5  length=16 name='ABCDEFGHIJKLMNOP'
+  L6  name='ZedrichX'
+  L7  returned=True wins=1 recent=1
+  L8  count=5 first=42.5 sorted=True
+  L9  refused=True wins=6
+  L10 name=PLAYER matches=0 rejected kept=True
+  L11 wins=0 name=PLAYER error='the signature does not match the contents (the file was edited by hand)'
+  L12 wins=0 losses=0 bestStreak=9 name='Zedrich Abrera'
+  L13 returned=True file=False name=PLAYER
+  L14 saved=False error='could not write <scratch>\blocked\profile.json: ...'
+  L15 printed as a documented limitation, not asserted as a feature
+
+L14 is the only check whose text is machine-specific: it reports the operating system's own
+message, so the path inside the error string is the scratch path of whichever machine runs it.
+Everything else in the list above should come back character for character.
+
+
+PART 2 - THE FOUR SCREENSHOTS (play mode, about five seconds)
+-------------------------------------------------------------
+1. Open Assets/Scenes/Game.unity.
+2. Press Play.
+3. Menu: Tools > PT5 > Capture Profile Screenshots (press Play first)
+4. Wait about five seconds. The sequence stops play mode itself when it is done.
+5. Console: [PT5] screenshot sequence finished - 4 PNGs in ...\Week_13\Evidence
+6. These are written (overwritten) into Docs/Zedrich Abrera/Week_13/Evidence/:
+       E1_profile_empty.png   empty profile: PLAYER on the title screen
+       E2_profile_stats.png   record after three recorded matches: 2W/1L
+       E3_leaderboard.png     fastest-victory board with 5 entries
+       E4_after_reset.png     after the two-press reset: PLAYER
+   The same four descriptions are appended to the bottom of pt5_checks.log.
+
+The sequence drives the real panel and the real handlers: it calls GameManager.ShowProfile(),
+PlayerProfile.RecordMatch(...) with the same arguments the end screen uses, ui.Refresh(), and
+ProfileUI.ResetPressed() twice. It is not a mock and it adds no component to the scene - it
+runs off EditorApplication.update and unsubscribes when finished.
+
+WARNING - this is the only part of the evidence folder that touches real player data. The
+sequence calls PlayerProfile.ResetProfile() on the REAL save at the start, so E1 really is a
+fresh install, and the two-press reset in step 4 wipes it again at the end. After a screenshot
+run, the game on this machine starts on PLAYER with an empty record. Run the checks first, or
+restore your own profile by playing a match again.
+
+
+PART 3 - THE BY-HAND REGRESSION (what the plan calls "play to a victory")
+------------------------------------------------------------------------
+Neither script above plays a real match. To confirm the end-to-end path:
+
+  Title > PROFILE > type a name > SAVE > BACK > START > pick a map > match setup
+        > play a match to a victory (or a defeat) > end panel
+        > PROFILE shows the win or the loss, the streak, and the fastest time on the board
+        > RESET twice (within 4 seconds) > the panel reads PLAYER and the record is empty
+
+The reset also deletes <persistentDataPath>/AgawanBase/profile.json - check the folder if you
+want to see the file disappear. Closing and reopening the editor, or playing twice in a row,
+proves the save survives an application restart.
+
+
+PART 4 - WHAT TO DO IF SOMETHING FAILS
+--------------------------------------
+- A failing check writes "FAIL  L<n> ..." to the log AND logs to the Console at error level,
+  so it will not pass unnoticed.
+- L1-L9 failing means the store itself is wrong: start with PlayerProfile.Load/Save and the
+  signature round-trip.
+- L10-L12 failing means the save-file trust boundary is wrong: start with TryParse, Clamp and
+  Quarantine.
+- L13 failing means the reset path is not erasing the file.
+- L14 failing means a write error is being swallowed instead of surfacing through
+  PlayerProfile.LastError.
+- "no GameManager in the open scene" or "Panel_Profile has no ProfileUI" during Part 2 means
+  Assets/Editor/ProfileBuild.cs has not been run against the open scene: run ProfileBuild.Build().

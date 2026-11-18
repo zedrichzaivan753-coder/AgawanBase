@@ -1,0 +1,23 @@
+{
+  "task_id": "6fc1c345-b2e3-4d94-b56e-d1cd62038b69",
+  "original_generation_task_id": "6dcb4c2c-e016-43dc-9a0a-3e9941db6b53",
+  "original_model_url": "https://openapi-dl.data.tripo3d.com/tcli_af214df3136f4037b860bb82d8a79830/20261118/6dcb4c2c-e016-43dc-9a0a-3e9941db6b53/tripo_model_6dcb4c2c-e016-43dc-9a0a-3e9941db6b53.glb?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV9hZjIxNGRmMzEzNmY0MDM3Yjg2MGJiODJkOGE3OTgzMC8yMDI2MTExOC82ZGNiNGMyYy1lMDE2LTQzZGMtOWEwYS0zZTk5NDFkYjZiNTMvdHJpcG9fbW9kZWxfNmRjYjRjMmMtZTAxNi00M2RjLTlhMGEtM2U5OTQxZGI2YjUzLmdsYiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5NTA3NDQ4NX19fV19&Signature=EsH4PvLUcdG3j-ZksUdHVOgbZtNRwCgNI81VQQFmnunsfYeEsFXOWWV-w~pg60NiAGVjZ8EpgGLpKAy2tuRiUbf0efLxPl3E0ZwfH5db6uostZmnq4dDJqCJKdR8Rp8qOVKa5gp8loBuIU~iAeWkWT5BkO0XyyGnJ5hzL67gKeS9buxoiqPb-0CoIQq51G-sAJ8sCgHa15u0NNjjeT7SQp8lxHS5oPHQKFxknWbEMMAHE05N-BYg5n5La2uUDT~PrdSiNZfMXlKUNrskmMc9a4OeEHn3QmR9syuCLiOmi4pMYcCPc72Q~zMU3DUDOHe5s0nAQ~r6eySrJj-COwU7Cg__&Key-Pair-Id=K1676C64NMVM2J",
+  "generation_type": "text_to_model",
+  "generation_date": "2026-11-18T15:48:18.370452",
+  "description": "Outdoor school basketball hoop: one straight steel post with a small base plate, a rectangular white backboard with a dark square target, and an orange ring with a short net. Low-poly stylized game prop, standing upright, no ground plane.",
+  "negative_prompt": "ground plane, floor, people, multiple hoops, text, photorealistic, complex geometry",
+  "pose_type": "Default",
+  "model_version": "P1-20260311",
+  "pbr": false,
+  "face_limit": 3000,
+  "quad": false,
+  "convert_to_fbx": true,
+  "texture_files": [
+    {
+      "role": "BaseColor",
+      "path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\BasketballHoop\\BasketballHoop_BaseColor.jpg",
+      "mime_type": "image/jpeg"
+    }
+  ],
+  "file_path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\BasketballHoop\\BasketballHoop.fbx"
+}

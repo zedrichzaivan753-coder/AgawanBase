@@ -1,0 +1,23 @@
+{
+  "task_id": "9ac15c74-aa1c-41eb-a4a3-fad344e0bac7",
+  "original_generation_task_id": "e92f88bf-aa42-42fc-8ef3-c07e74a4edbd",
+  "original_model_url": "https://openapi-dl.data.tripo3d.com/tcli_af214df3136f4037b860bb82d8a79830/20261118/e92f88bf-aa42-42fc-8ef3-c07e74a4edbd/tripo_model_e92f88bf-aa42-42fc-8ef3-c07e74a4edbd.glb?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV9hZjIxNGRmMzEzNmY0MDM3Yjg2MGJiODJkOGE3OTgzMC8yMDI2MTExOC9lOTJmODhiZi1hYTQyLTQyZmMtOGVmMy1jMDdlNzRhNGVkYmQvdHJpcG9fbW9kZWxfZTkyZjg4YmYtYWE0Mi00MmZjLThlZjMtYzA3ZTc0YTRlZGJkLmdsYiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5NTA3NDQ4OH19fV19&Signature=mvW6TWqxi3oxM9hhB~oW6bWZ3NPkhSlApOyQNAQxmzXZZm9p7t49Wm~Ni8tVyFxfE-4x-I7K8VsenkIY0lUnVCi58xZyII40QxKKBoh7GMbHUnUK-foobxwIv8SlgkClYgqfLsOPV~ierHIlaGsC382kA2CaI7kOWcCbGVn-4fl-fVnF6kjaUr96aYZpKF~lwb9tR3ytb6hGFyZQOrxQSy4xNAkBUseBVIvYL~iNwNbjcmIv1AJzjrTi9GNrJ8UH4TntZs4L8A7oeTqKcWOsUzRNrOkKY~joT-ErtsJxT0uf~ewOaP3CkhC~vTOoCAYkfFtNqqR1d6ikIRURYqMZow__&Key-Pair-Id=K1676C64NMVM2J",
+  "generation_type": "text_to_model",
+  "generation_date": "2026-11-18T15:48:16.244949",
+  "description": "Simple low-poly school bench: a long wooden seat plank with a wooden backrest, on two dark metal legs. Stylized game prop, standing on its own, no ground plane.",
+  "negative_prompt": "ground plane, floor, people, text, photorealistic, complex geometry",
+  "pose_type": "Default",
+  "model_version": "P1-20260311",
+  "pbr": false,
+  "face_limit": 3000,
+  "quad": false,
+  "convert_to_fbx": true,
+  "texture_files": [
+    {
+      "role": "BaseColor",
+      "path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\SchoolBench\\SchoolBench_BaseColor.jpg",
+      "mime_type": "image/jpeg"
+    }
+  ],
+  "file_path": "C:\\Users\\Zedrich\\AgawanBase\\Assets\\Generated_Models\\SchoolBench\\SchoolBench.fbx"
+}

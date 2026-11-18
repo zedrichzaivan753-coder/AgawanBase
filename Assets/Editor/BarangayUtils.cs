@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -239,7 +240,7 @@ public static class BarangayUtils
         System.IO.Directory.CreateDirectory(dir);
         string apk = System.IO.Path.Combine(dir, "AgawanBase.apk");
 
-        Debug.Log("[Build] building " + apk + " (id=" + PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.Android) + ") ...");
+        Debug.Log("[Build] building " + apk + " (id=" + PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android) + ") ...");
 
         var opts = new UnityEditor.BuildPlayerOptions
         {
@@ -263,7 +264,7 @@ public static class BarangayUtils
     public static void ReportBuild()
     {
         Debug.Log("[Build] active target=" + EditorUserBuildSettings.activeBuildTarget +
-                  " scriptingBackend=" + PlayerSettings.GetScriptingBackend(BuildTargetGroup.Android) +
+                  " scriptingBackend=" + PlayerSettings.GetScriptingBackend(NamedBuildTarget.Android) +
                   " architectures=" + PlayerSettings.Android.targetArchitectures +
                   " minSdk=" + PlayerSettings.Android.minSdkVersion +
                   " orientation=" + PlayerSettings.defaultInterfaceOrientation +
@@ -332,7 +333,7 @@ public static class BarangayUtils
                   " frame=" + Time.frameCount +
                   " time=" + Time.time.ToString("F2"));
 
-        Flag[] flags = Object.FindObjectsByType<Flag>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        Flag[] flags = Object.FindObjectsByType<Flag>(FindObjectsInactive.Include);
         Debug.Log("[Utils] flags in scene: " + flags.Length);
         for (int i = 0; i < flags.Length; i++)
         {

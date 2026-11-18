@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" role="img" aria-label="Frame budget usage: main thread 0.60 ms and GPU 0.48 ms against a 33.3 ms budget">
+  <rect x="0" y="0" width="900" height="300" fill="#ffffff"/>
+  <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#111">Where the 33.3 ms frame budget goes - 3-run mean, idle host</text>
+  <text x="20" y="52" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#555">Agawan Base v0.2 · Windows x64 dev build · Mobile_RPAsset, render scale 0.80 · Game.unity · 4v4 HARD, seed 20261118</text>
+
+  <!-- Row 1: full budget -->
+  <text x="20" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#222">1. The whole budget (0 - 33.3 ms)</text>
+  <rect x="60" y="104" width="800" height="26" fill="#e8eaed" stroke="#b8bcc2"/>
+  <rect x="60" y="104" width="14.4" height="26" fill="#c0392b"/>
+  <line x1="81.1" y1="100" x2="81.1" y2="134" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="88" y="122" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#c0392b">main thread 0.60 ms = 1.8 % of the budget (p95 0.88 ms = 2.6 %)</text>
+  <text x="60" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">0 ms</text>
+  <text x="790" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">33.3 ms</text>
+
+  <!-- Row 2: zoom to 1 ms -->
+  <text x="20" y="188" font-family="Segoe UI, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#222">2. The same marks magnified (0 - 1 ms), so the difference is visible at all</text>
+  <rect x="60" y="200" width="800" height="30" fill="#f4f6f8" stroke="#b8bcc2"/>
+  <line x1="60" y1="196" x2="60" y2="234" stroke="#888"/>
+  <line x1="860" y1="196" x2="860" y2="234" stroke="#888"/>
+  <!-- 1 ms scale: 800 px per ms -->
+  <rect x="412" y="200" width="4" height="30" fill="#2d7d46"/>
+  <text x="300" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#2d7d46">GPU 0.48 ms</text>
+  <rect x="536" y="200" width="4" height="30" fill="#c0392b"/>
+  <text x="470" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#c0392b">main mean 0.60 ms</text>
+  <rect x="760" y="200" width="4" height="30" fill="#e08a7f"/>
+  <text x="686" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#a5524a">main p95 0.88 ms</text>
+  <text x="60" y="264" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">0 ms</text>
+  <text x="836" y="264" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#666">1.0 ms</text>
+
+  <text x="20" y="288" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#333">Verdict: the measured scene already meets the 30 fps target with roughly 50x headroom - a finding, not a missing bottleneck.</text>
+</svg>

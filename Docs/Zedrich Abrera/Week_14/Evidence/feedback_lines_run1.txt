@@ -1,0 +1,21 @@
+Week 14 - feedback layer, recorded from a real AI match
+Unity 6000.6.0f1
+Finished: 2026-11-18 12:34:00 UTC
+Stopped because: the match ended (GameOver)
+Lines recorded: 8
+
+SEEN     catch
+SEEN     rescue
+SEEN     flag picked up by
+NOT SEEN victory
+SEEN     defeat
+
+--- every [Feedback] line, in order ---
+catch - Blue_AI_3 (Blue) is locked up -> Catch
+catch - Red_AI_3 (Red) is locked up -> Catch
+catch - Blue_AI_1 (Blue) is locked up -> Catch
+rescue - Red_AI_3 (Red) is free -> Rescue
+catch - Red_AI_4 (Red) is locked up -> Catch
+rescue - Red_AI_4 (Red) is free -> Rescue
+flag picked up by Red_AI_4 -> FlagPickup
+defeat - your flag was carried home -> Defeat

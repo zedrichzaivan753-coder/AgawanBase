@@ -1,0 +1,107 @@
+BUILD AND COMMIT RECORD — Week 14 (PT6 playtest build)
+=====================================================
+
+Built:        2026-11-18, about 20:40-20:47 (UTC+8)
+Builder:      Unity Editor build, Android, via the editor build pipeline
+Output:       Docs/Zedrich Abrera/Week_14/Abrera_Zedrich_PT6_Playtest.apk
+APK size:     50,097,691 bytes (47.8 MiB)
+
+Engine
+------
+Unity:              6000.6.0f1
+Render pipeline:    URP 17.6.0
+Input:              Input System 1.20.0 (uGUI 2.6.0 for the screens)
+Colour space:       Linear
+
+Player settings as built
+------------------------
+Target:             Android
+Scripting backend:  IL2CPP
+Architecture:       ARM64 only (AndroidTargetArchitectures = 2)
+Minimum API level:  26 (Android 8.0)
+Orientation:        Landscape, locked
+Build type:         Development build (Development Build checked), so the
+                    playtesters can be shown logs if a session goes wrong
+Product name:       AgawanBase
+Bundle identifier:  com.zedrich.agawanbase
+Version:            0.2
+
+Scenes in the build (Build Settings, in order)
+----------------------------------------------
+0  Assets/Scenes/Game.unity
+1  Assets/Scenes/Map_Palengke.unity
+2  Assets/Scenes/Map_SchoolCampus.unity
+
+All three are enabled. Any one of them can be the first scene the player meets,
+because every map IS a scene in this project.
+
+What this build contains that the Week 13 build did not
+------------------------------------------------------
+1. Every uGUI Button is at least 144 canvas px tall (about 48 dp at xxhdpi), and
+   the profile name field is 144 px instead of 100 px.
+2. The selected match-setup option is a dark amber (white label 7.26:1) instead
+   of the bright amber it was (1.80:1). Map blurbs 6.47:1, profile placeholder
+   10.65:1.
+3. Sound feedback for the first time in the project's life: five one-shot clips
+   (catch, rescue, flag pick-up, victory, defeat) through one AudioSource, plus
+   Handheld.Vibrate() on a catch.
+4. A SOUND button on the pause screen that remembers its state in
+   PlayerPrefs["audio.feedback"].
+5. The AI debug read-out is behind #if UNITY_EDITOR, so it defaults to OFF in a
+   player build; the other five debug flags are off in all three scenes.
+
+Point 5 is the one to double-check on the device: the bottom-left of the in-match
+HUD must be empty. If a list of AI jobs and states is visible, this is the wrong
+APK.
+
+Git
+---
+HEAD (at build time):  d08fc9b2c9e28876f337cfcad009b88802d2b534
+Short:                 d08fc9b  ("Update README", 2026-09-21)
+Working tree:          141 changed/untracked paths, i.e. all of Weeks 13 and 14
+                       are uncommitted at the time of this build.
+
+The APK above was built from that working tree, not from the commit. To make the
+build reproducible, commit this week's work and replace the two lines below.
+
+Commit id (to fill after committing): ____________________
+Dirty paths after that commit (expect 0 for tracked files): ____
+
+Housekeeping
+------------
+Unity wrote a folder beside the APK:
+
+  Docs/Zedrich Abrera/Week_14/Abrera_Zedrich_PT6_Playtest_BackUpThisFolder_ButDontShipItWithYourGame/
+
+It is debugging output (IL2CPP C++ sources, symbols, managed assemblies), about
+half a gigabyte, and it is NOT part of the submission. It has been deleted.
+Delete it again if this APK is rebuilt.
+
+An older artifact from a previous week,
+C:\Users\Zedrich\AgawanBase\Builds\AgawanBase_BackUpThisFolder_ButDontShipItWithYourGame/,
+is still on disk and is not part of this week's submission.
+
+.gitignore covers *.apk, so the playtest APK lives under Docs/ and is described
+here rather than committed.
+
+Verification performed on this build
+------------------------------------
+- check_compile_errors: no compile errors.
+- Tools > Playtest > Run Accessibility Audit, twice (before and after the fixes):
+  Evidence/a11y_baseline.log  345 passed / 69 failed / 24 not measurable
+  Evidence/a11y_after.log     423 passed /  0 failed / 24 not measurable
+- Tools > Week14 > Record AI Match Feedback: 8 [Feedback] lines from a real AI
+  match (4 catches, 2 rescues, 1 flag pick-up, 1 defeat) -> Evidence/feedback_lines.txt
+- Tools > Week14 > Capture Evidence Screenshots: E1, E2, E3 captured in play mode
+  -> Evidence/E1_pause_sound.png, E2_hud_contrast.png, E3_catch_feedback.png,
+     week14_shots.txt
+- The AI debug read-out is absent from E2_hud_contrast.png, which is the
+  in-editor version of the same check: outside the editor the field cannot even
+  be switched on.
+
+Not verified
+------------
+- The APK has not been installed and played on a physical device by me. The
+  first device run is the playtest session itself, and the tester observations in
+  PT6 sections 6-7 will be the first device evidence this build has.
+- Frame rate and memory on hardware are unmeasured (carried over from Part D).

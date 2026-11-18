@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AS3 - Testing, Optimisation and Evaluation Report</title>
+<style>
+
+@page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0 auto;
+    padding: 8mm 4mm 16mm 4mm;
+    max-width: 186mm;
+    background: #ffffff;
+    color: #16191d;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.52;
+}
+
+h1, h2, h3, h4 { color: #12243a; page-break-after: avoid; break-after: avoid; }
+
+h1 {
+    font-size: 19pt;
+    line-height: 1.2;
+    margin: 0 0 4pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2.5pt solid #12243a;
+}
+
+h2 {
+    font-size: 13.5pt;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.75pt solid #c9ced6;
+}
+
+h3 { font-size: 11.5pt; margin: 14pt 0 5pt 0; color: #26405c; }
+h4 { font-size: 10.5pt; margin: 11pt 0 4pt 0; color: #26405c; }
+
+p { margin: 0 0 8pt 0; orphans: 3; widows: 3; }
+
+strong { color: #101820; }
+
+hr {
+    border: none;
+    border-top: 0.75pt solid #d5dae1;
+    margin: 13pt 0;
+}
+
+ul, ol { margin: 0 0 9pt 0; padding-left: 17pt; }
+li { margin: 0 0 3.5pt 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5pt 0 12pt 0;
+    font-size: 8.9pt;
+    line-height: 1.38;
+}
+
+th, td {
+    border: 0.7pt solid #b9c0c9;
+    padding: 3.2pt 4.6pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+th { background: #e9edf3; color: #12243a; font-weight: 600; }
+
+tbody tr:nth-child(even) td { background: #f7f9fb; }
+
+tr { page-break-inside: avoid; page-break-after: auto; }
+thead { display: table-header-group; }
+
+code {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 8.7pt;
+    background: #f1f4f8;
+    border: 0.5pt solid #e0e5ec;
+    border-radius: 2pt;
+    padding: 0 2pt;
+    word-break: break-word;
+}
+
+pre {
+    background: #f6f8fa;
+    border: 0.7pt solid #d5dae1;
+    border-left: 2.5pt solid #12243a;
+    border-radius: 2pt;
+    padding: 6pt 8pt;
+    margin: 6pt 0 12pt 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 8.5pt;
+    line-height: 1.45;
+}
+
+figure.diagram {
+    margin: 8pt 0 12pt 0;
+    padding: 6pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #ffffff;
+    page-break-inside: avoid;
+}
+
+figure.diagram svg { display: block; width: 100%; height: auto; }
+
+figure.shot {
+    margin: 8pt 0 13pt 0;
+    padding: 5pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #fbfcfd;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+figure.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 0.5pt solid #c9ced6;
+    border-radius: 2pt;
+}
+
+figure.shot figcaption {
+    margin-top: 4pt;
+    font-size: 8.6pt;
+    color: #4c5661;
+    line-height: 1.4;
+}
+
+p.warn { color: #8a1f1f; font-weight: 600; }
+
+footer.docnote {
+    margin-top: 22pt;
+    padding-top: 6pt;
+    border-top: 0.75pt solid #d5dae1;
+    color: #5c6672;
+    font-size: 8pt;
+}
+
+@media print {
+    body { max-width: none; padding: 0; font-size: 10pt; }
+    a { color: inherit; text-decoration: none; }
+    h1 { font-size: 18pt; }
+    table { font-size: 8.6pt; }
+}
+
+</style>
+</head>
+<body>
+<h1>AS3 - Testing, Optimisation and Evaluation Report</h1>
+<p><strong>Abrera, Zedrich Zaivan B.</strong> · MOBILE DEV 002 - Advanced Mobile Application Development, Module 5, Week 16 <strong>Game:</strong> Agawan Base v0.2 - 3D mobile capture-the-flag, two teams of two to four <strong>Engine:</strong> Unity 6000.6.0f1, URP 17.6.0 <strong>Target:</strong> 30 fps / 33.3 ms per frame <strong>Analysis behind this report:</strong> <code>Abrera_Zedrich_SA6.md</code> <strong>Repository:</strong> <code>d08fc9b</code> was HEAD at the start of the week</p>
+<hr/>
+<h2>1. What was delivered</h2>
+<table>
+<thead><tr>
+<th>Artefact</th>
+<th>Path</th>
+<th>Size</th>
+<th>State</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Optimised device build</td>
+<td><code>Docs/Zedrich Abrera/Week_16/Abrera_Zedrich_AS3.apk</code></td>
+<td><strong>68.30 MB</strong> (71,617,384 bytes), <code>classes.dex</code> at APK root</td>
+<td>built, 0 errors</td>
+</tr>
+<tr>
+<td>Optimised profiling build</td>
+<td><code>Builds/Week16/AgawanBasePerf.exe</code> (+ <code>_Data</code>)</td>
+<td><strong>171.41 MB</strong></td>
+<td>launched clean, wrote a CSV</td>
+</tr>
+<tr>
+<td>Pre-fix A/B build</td>
+<td><code>Builds/Week16_ab/AgawanBasePreFix.exe</code></td>
+<td><strong>181.41 MB</strong></td>
+<td>built for the same-host comparison only</td>
+</tr>
+<tr>
+<td>Raw measurements</td>
+<td><code>Week_16/Evidence/raw_csv/</code> and <code>player_logs/</code></td>
+<td>22 CSVs, 20 logs</td>
+<td>every quoted number traces here</td>
+</tr>
+<tr>
+<td>Regression logs</td>
+<td><code>Week_16/Evidence/test_logs_regression/</code></td>
+<td>5 files</td>
+<td>17/17, 16/0/0, 423/0/24</td>
+</tr>
+</tbody></table>
+<p>The APK is the build a phone installs (IL2CPP, ARM64 only, API 26+). The <code>.exe</code> is the build the measurements came from, because Week 16's approved profiling environment is a Windows standalone development build - no Android device was attached this week.</p>
+<h2>2. Method, and the one time the method failed</h2>
+<p>The module asks for one change at a time so its effect can be examined. One change was made, so this was easy to honour:</p>
+<ol>
+<li>Measure a baseline (<code>perf_baseline2_run{1,2,3}</code>).</li>
+<li>Make <strong>one</strong> change, rebuild with byte-identical settings, re-measure (<code>perf_fix1_run{1,2,3}</code>).</li>
+<li><strong>Fail the comparison.</strong> Those three runs, and six more (<code>fix1b</code>, <code>fix1c</code>), degraded monotonically from 0.68 to 2.07 ms mean while the baseline sat at 0.62-0.63 ms with a 0.01 ms spread. GPU time drifted the same way (0.49 -&gt; 0.60 -&gt; 0.71 ms). The host was carrying an unrelated <code>Client-Win64-Shipping</code> process holding 5.4 GB. A texture downsample cannot triple main-thread time, and the GPU moving with it is what a busy GPU looks like.</li>
+<li>Instead of publishing a number from a busy machine, **build the A/B pair and re-measure both on an idle host.** The four textures were returned to their original import settings, the player rebuilt (181.41 MB - exactly the pre-fix artefact size), and then both builds were measured minutes apart: <code>perf_baselclean_run{1,2,3}</code> and <code>perf_fix1clean_run{1,2,3}</code>.</li>
+</ol>
+<p>Step 4 is the part worth defending. A contaminated measurement is not a measurement, and the only way to know which of two numbers was contaminated is to take both again under the same conditions.</p>
+<h2>3. Before and after</h2>
+<h3>3.1 Deterministic metrics - what the change actually did</h3>
+<table>
+<thead><tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After</th>
+<th>Delta</th>
+<th>How measured</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Imported size of the four maps</td>
+<td>2048x2048</td>
+<td><strong>512x512</strong></td>
+<td>-</td>
+<td><code>TextureImporter</code> / <code>Texture2D.width</code></td>
+</tr>
+<tr>
+<td>Their runtime memory (editor, same API both times)</td>
+<td>21,849 KB</td>
+<td><strong>1,369 KB</strong></td>
+<td><strong>-20.0 MB</strong></td>
+<td><code>Profiler.GetRuntimeMemorySizeLong</code></td>
+</tr>
+<tr>
+<td>Windows player artefact</td>
+<td>181.41 MB</td>
+<td><strong>171.41 MB</strong></td>
+<td><strong>-10.00 MB (-5.5 %)</strong></td>
+<td>same build tool, same settings, both counted on disk</td>
+</tr>
+<tr>
+<td>Files in the player</td>
+<td>334</td>
+<td>334</td>
+<td>0</td>
+<td><code>Get-ChildItem -Recurse</code> count</td>
+</tr>
+<tr>
+<td>Compression, mipmaps</td>
+<td>Compressed, on</td>
+<td>Compressed, on</td>
+<td>unchanged</td>
+<td>importer settings</td>
+</tr>
+</tbody></table>
+<p>These are the numbers the change is claimed on. They are deterministic: the same API measured them both times, they do not depend on host load, and the deltas are 10x larger than any run-to-run variation observed this week.</p>
+<h3>3.2 Frame time - before and after on the same idle host</h3>
+<table>
+<thead><tr>
+<th>Metric, 3-run mean</th>
+<th>A/B pre-fix</th>
+<th>Optimised</th>
+<th>Delta</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Main thread, mean ms</td>
+<td>0.60</td>
+<td>0.60</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr>
+<td>Main thread, p95 ms</td>
+<td>0.86</td>
+<td>0.88</td>
+<td>+0.02 (spread 0.02-0.05)</td>
+</tr>
+<tr>
+<td>Frame interval, mean ms</td>
+<td>0.61</td>
+<td>0.61</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>Uncapped fps</td>
+<td>1,652</td>
+<td>1,640</td>
+<td>-12 (fps spread alone is 23)</td>
+</tr>
+<tr>
+<td>GPU ms</td>
+<td>0.48</td>
+<td>0.48</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>GC bytes/frame</td>
+<td>317</td>
+<td>313</td>
+<td>-4 (recorder noise)</td>
+</tr>
+<tr>
+<td>Total memory MB</td>
+<td>245.4</td>
+<td>246.7</td>
+<td>+1.3 (see 3.3)</td>
+</tr>
+<tr>
+<td><strong>% of the 33.3 ms budget, main thread</strong></td>
+<td><strong>1.8 %</strong></td>
+<td><strong>1.8 %</strong></td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p><strong>The change does not move frame time, and this report does not claim that it does.</strong> <code>Game.unity</code> does not reference the four textures, so the measured scenario never samples them. The earlier 0.63 -&gt; 0.60 comparison in the contaminated sets was host state, and the A/B pair proves it.</p>
+<p>That is the honest result, and it still satisfies the module's completion checkpoint twice over: there <strong>is</strong> a measurable improvement (-20.0 MB of runtime texture memory, -10.00 MB of shipped data), and there <strong>is</strong> a technically valid finding that the tested area already meets the target (1.8 % of a 33.3 ms budget, ~50x headroom).</p>
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" height="330" role="img" aria-label="Before and after: texture memory 21.3 MB to 1.3 MB, player artefact 181.41 MB to 171.41 MB, frame time unchanged at 0.60 ms">
+  <rect x="0" y="0" width="900" height="330" fill="#ffffff"/>
+  <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#111">What the change moved, and what it did not</text>
+  <text x="20" y="52" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#555">A/B pair measured minutes apart on an idle host: pre-fix build 181.41 MB vs optimised 171.41 MB. Bar length is scaled within each row.</text>
+
+  <!-- Row 1: texture memory -->
+  <text x="20" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#222">Runtime memory, the four prop BaseColor maps</text>
+  <rect x="300" y="96" width="440" height="22" fill="#c0392b"/>
+  <text x="748" y="113" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#333">21.3 MB before</text>
+  <rect x="300" y="124" width="27.6" height="22" fill="#2d7d46"/>
+  <text x="336" y="141" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#333">1.3 MB after  (-20.0 MB)</text>
+
+  <!-- Row 2: artefact -->
+  <text x="20" y="182" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#222">Windows player artefact</text>
+  <rect x="300" y="190" width="440" height="22" fill="#c0392b"/>
+  <text x="748" y="207" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#333">181.41 MB</text>
+  <rect x="300" y="218" width="415.6" height="22" fill="#2d7d46"/>
+  <text x="722" y="235" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#333">171.41 MB  (-10.00 MB, -5.5 %)</text>
+
+  <!-- Row 3: frame time -->
+  <text x="20" y="276" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#222">Main-thread time, mean</text>
+  <rect x="300" y="284" width="440" height="22" fill="#7f8c8d"/>
+  <text x="748" y="301" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" fill="#333">0.60 ms</text>
+  <rect x="300" y="284" width="440" height="10" fill="#2c3e50"/>
+  <text x="20" y="322" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#333">Unchanged at 0.60 ms: Game.unity never loads these four textures, so the fix is a memory and storage fix, not a frame-time fix.</text>
+</svg>
+</figure>
+<p><em>Figure 1 - the A/B pair: what the change reduced, and what it deliberately left alone. Frame time sits on the same chart as the memory numbers because that is the finding of the week - the fix is real, and it is not a frame-time fix.</em></p>
+<h3>3.3 One result that runs the wrong way</h3>
+<p>In the same A/B pair the optimised build reports <strong>89 textures / 45.3 MB</strong> against the pre-fix build's <strong>82 / 44.8 MB</strong>, consistently across all three runs of each set. The four maps cannot explain it - <code>Game.unity</code> does not load them - and this harness does not enumerate textures, so the cause is unknown. It is printed here rather than quietly dropped, because a before/after table that only moves in the author's favour is not evidence. The fix's memory benefit is claimed where the textures live: the import settings, the runtime size measured directly, and the build artefact.</p>
+<h2>4. Change log</h2>
+<p>One functional change, one defect fix found by the regression gate, plus the instrumentation that made any of it measurable.</p>
+<h3>4.1 The optimisation</h3>
+<table>
+<thead><tr>
+<th>File</th>
+<th>Change</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>Assets/Generated_Models/CrateStack/CrateStack_BaseColor.jpg</code></td>
+<td><code>maxTextureSize</code> 2048 -&gt; <strong>512</strong>, <code>maxTextureSizeSet</code> on the default platform; compression <code>Compressed</code> and mipmaps untouched</td>
+</tr>
+<tr>
+<td><code>Assets/Generated_Models/PalengkeStall/PalengkeStall_BaseColor.jpg</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td><code>Assets/Generated_Models/SchoolBench/SchoolBench_BaseColor.jpg</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td><code>Assets/Generated_Models/Tricycle/Tricycle_BaseColor.jpg</code></td>
+<td>same</td>
+</tr>
+</tbody></table>
+<p>No script changed for the optimisation. The evidence named an import setting, so the fix is an import setting; a code change would have had to be invented to look like work.</p>
+<h3>4.2 The defect the regression gate found, and the fix</h3>
+<p><code>Assets/Scripts/Core/PlayerProfile.cs</code>, <code>Load()</code>: added <code>lastError = ""</code> plus a comment. <code>Load()</code> reset the state and the loaded flag but never cleared the last error, and the missing-file branch returns before anything sets one - so a load could inherit the previous load's rejection reason. It surfaced as an order-dependent EditMode failure (section 6.2) and was reachable in the game through any load-see-a-rejection-load-again path. <strong>No test was edited.</strong></p>
+<h3>4.3 Instrumentation added this week</h3>
+<table>
+<thead><tr>
+<th>File</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>Assets/Scripts/Diagnostics/PerfCapture.cs</code></td>
+<td><code>ProfilerRecorder</code>-based per-frame CSV, 14 counters, scenario conditions written into the header, per-segment quality/frame-cap lines, <code>-perf</code> command-line switches</td>
+</tr>
+<tr>
+<td><code>Assets/Scripts/Diagnostics/PerfScenario.cs</code></td>
+<td>the repeatable scenario: 4v4 HARD, seed 20261118, 4-waypoint loop driven through the real input path</td>
+</tr>
+<tr>
+<td><code>Assets/Editor/ProfilerRun.cs</code></td>
+<td>menus to run a 10 s smoke or 60 s capture and open the evidence folder</td>
+</tr>
+<tr>
+<td><code>Assets/Editor/PerfBuildPipeline.cs</code></td>
+<td>points the <code>PC</code> quality level at <code>Mobile_RPAsset</code> before a perf build and restores it after, with a status menu</td>
+</tr>
+<tr>
+<td><code>Assets/Editor/PerfMarkerProbe.cs</code></td>
+<td>dumps the real <code>ProfilerRecorder</code> marker names, which is how the draw-call counters were found</td>
+</tr>
+<tr>
+<td><code>Assets/Scripts/Core/GameFeedback.cs</code></td>
+<td><code>Handheld.Vibrate()</code> behind `#if UNITY_ANDROID \</td>
+<td>\</td>
+<td>UNITY_IOS` - without it the project had never compiled for Windows (DEF-16-01)</td>
+</tr>
+</tbody></table>
+<h2>5. Trade-offs</h2>
+<h3>5.1 Accepted</h3>
+<p><strong>Visual resolution of four prop textures, from 2048 to 512.</strong> This is a real quality reduction and it is justified three ways: the objects are a bench, a tricycle, a stall and a crate stack, seen from a third-person camera a few metres away on a phone screen; both the Windows and Android builds use <code>Mobile_RPAsset</code> at render scale 0.8, so the final on-screen resolution is already below 1080p; and the alternative - leaving 21.3 MB of texture memory on four minor props - costs a mid-range phone something real (resident memory, load time, eviction pressure) to protect detail nobody can resolve at that distance. Mipmaps stay on and compression stays <code>Compressed</code>, so no new aliasing was introduced.</p>
+<h3>5.2 Rejected, with reasons</h3>
+<table>
+<thead><tr>
+<th>Candidate</th>
+<th>Why it was rejected</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>HDR off / render scale below 0.8</td>
+<td>Both are visible quality losses across the whole screen, taken to buy frame time the game already has (1.8 % of budget). The module requires a trade-off to be justified; this one buys nothing.</td>
+</tr>
+<tr>
+<td>Disabling shadows</td>
+<td>Already disabled on the Mobile path.</td>
+</tr>
+<tr>
+<td>Object pooling / allocation work</td>
+<td>~320 B/frame is ~10 KB/s at 30 fps. A refactor of gameplay code covered by 16 regression cases, to remove GC pressure that does not exist.</td>
+</tr>
+<tr>
+<td>Draw-call reduction</td>
+<td>Already 17 render events with static and SRP batching; what remains are the passes that must happen.</td>
+</tr>
+<tr>
+<td>Chasing the rare 10 ms frames</td>
+<td>Not reproducible inside a 60 s window, so a change could not be shown to have fixed it.</td>
+</tr>
+<tr>
+<td>A second optimisation for the report's sake</td>
+<td>Would have meant inventing a bottleneck. The analysis found one, and one is what it fixed.</td>
+</tr>
+</tbody></table>
+<h2>6. Regression results</h2>
+<p>Run on the optimised tree, logs in <code>Week_16/Evidence/test_logs_regression/</code>.</p>
+<table>
+<thead><tr>
+<th>Suite</th>
+<th>Required</th>
+<th>Measured</th>
+<th>Verdict</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>EditMode unit tests (17)</td>
+<td>17/17</td>
+<td><strong>17 passed / 0 failed</strong></td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Play-mode scenario suite (16)</td>
+<td>16/0/0</td>
+<td><strong>16 passed / 0 failed / 0 blocked</strong>, 0 exceptions, 71 <code>[Feedback]</code> lines</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Accessibility audit</td>
+<td>423/0/24</td>
+<td><strong>423 passed / 0 failed / 0 warnings / 24 not measurable</strong></td>
+<td>PASS</td>
+</tr>
+</tbody></table>
+<h3>6.1 Where the suites live</h3>
+<p>The play-mode suite is <code>Assets/Editor/QualityRun.cs</code> (menu <code>Tools &gt; Week15 &gt; Run Quality Scenarios</code>), not an NUnit assembly - it enters play mode and drives a real 4v4 match through the same public methods the rules use, recording one TSV row per case. It was run with the label <code>week16_regression</code>; the harness writes to <code>Week_15/Evidence/test_logs_week16_regression/</code> and the files in this week's evidence folder are unedited copies. The 24 accessibility items are checks the audit cannot perform from a scene; they are recorded as not-measurable, never as passes.</p>
+<h3>6.2 The gate caught something, and that is the point of a gate</h3>
+<p>The first EditMode run was <strong>16/17</strong>: <code>PlayerProfileTests.MissingSave_LoadsDefaultProfile_WithoutAnError</code> failed, reporting <code>LastError</code> = "the file is empty" when a save file did not exist at all. It was proved order-dependent before anything was touched - the same test alone passes - and traced to <code>Load()</code> not clearing <code>lastError</code> while NUnit runs the fixture in name order, so <code>EmptySave_LoadsDefaultProfile</code> always handed it a stale message. Fixed in the product (4.2), re-run <strong>17/17</strong>, with every file under <code>Assets/Tests/EditMode/</code> still carrying its Week 15 timestamp as proof that no test was modified.</p>
+<p>It was <strong>not</strong> a Week 16 regression - the optimisation touched four texture import settings - but it would have shipped, and the gate is the reason it did not.</p>
+<h3>6.3 What the gate does not cover</h3>
+<p>The suites test functional rules, not performance; nothing in them is quoted as a timing measurement. They ran against the editor's scene tree, not against the shipped <code>.exe</code>. And they are the Week 15 suites unchanged, so they prove the optimisation broke nothing known - they cannot prove an optimised path is correct if that path has no case.</p>
+<h2>7. Evaluation</h2>
+<p><strong>Does the build meet the target?</strong> Yes, on the measured environment: 0.60 ms of main-thread work and 0.48 ms of GPU time per frame against a 33.3 ms budget, with p95 at 0.88 ms. The margin is roughly 50x.</p>
+<p><strong>Was the optimisation worth making?</strong> Yes, but for memory and storage, not frame time: -20.0 MB of runtime texture memory and -10.00 MB of shipped data, at no visible cost. On a phone, where <code>Mobile_RPAsset</code> at render scale 0.8 is already the shipping path and memory is the scarce resource, that is the number that matters.</p>
+<p><strong>What did the week actually teach?</strong> That the honest outcome of a profiling week can be "the thing you expected to be slow was already fast". The value is in knowing it with numbers, in having a harness that writes its own conditions into every file so a result can be checked later, and in having caught two instrument defects and one real product defect along the way.</p>
+<p><strong>What still limits this report?</strong> Section 9.</p>
+<h2>8. Repository and artefacts</h2>
+<table>
+<thead><tr>
+<th>Item</th>
+<th>Value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Repository</td>
+<td><code>AgawanBase</code>, Unity <code>6000.6.0f1</code></td>
+</tr>
+<tr>
+<td>Branch</td>
+<td><code>main</code></td>
+</tr>
+<tr>
+<td>HEAD at the start of the week</td>
+<td><code>d08fc9b</code> - "Update README"</td>
+</tr>
+<tr>
+<td><strong>End-of-week commit</strong></td>
+<td><strong><code>&lt;COMMIT_ID&gt;</code></strong> - contains the optimisation, the instrumentation, the evidence, the regression logs and these three documents</td>
+</tr>
+<tr>
+<td>Follow-up commit</td>
+<td>records this id inside AS3 itself (a commit cannot contain its own id)</td>
+</tr>
+</tbody></table>
+<p>How to reproduce the measurement: build the perf player through <code>Tools &gt; Week16 &gt; Perf Build &gt; 1</code> (points the PC level at <code>Mobile_RPAsset</code>), <code>manage_build</code> windows64 development to <code>Builds/Week16/AgawanBasePerf.exe</code>, then <code>2 - Restore</code>; run <code>AgawanBasePerf.exe -perf -perf-label &lt;name&gt; -perf-duration 60 -perf-out &lt;evidence folder&gt;</code>; summarise with <code>Docs/tools/PerfStats.ps1 -Pattern "&lt;label&gt;*.csv"</code>. The CSV header states the pipeline, render scale, scenario, seed and per-segment quality settings, so a file that does not match its conditions can be discarded rather than trusted.</p>
+<h2>9. Limitations, stated plainly</h2>
+<ul>
+<li><strong>No phone was measured.</strong> Every timing number is from a Windows standalone development build on a GTX 1070. The APK is built and verified (IL2CPP, ARM64, <code>classes.dex</code> at root) but not profiled; no Android device was available this week. Anything said about phone frame time would be an inference.</li>
+<li><strong>One scene.</strong> <code>Game.unity</code> only. The other two maps and their props never load in this scenario, which is exactly how the section 7.2 error in SA6 happened.</li>
+<li><strong>The APK's size delta is not measured.</strong> The -10.00 MB figure is for the Windows artefact, where both builds were made by the same tool with the same settings. The APK was not rebuilt in a pre-fix variant, so no APK delta is claimed.</li>
+<li><strong>The texture-memory delta was measured in the editor</strong> (<code>Profiler.GetRuntimeMemorySizeLong</code>), on the same API both times, because the player's own capture cannot see textures its scene never loads.</li>
+<li><strong>Host state is a measured hazard</strong>: it moved this game's main thread by 3x within one evening. Every comparison in this report is therefore same-host, same-sitting, A/B, and anything else in <code>raw_csv/</code> is labelled as contaminated.</li>
+<li><strong>Loading time, battery use and thermal behaviour are not measured.</strong></li>
+</ul>
+<p><em>AS3 · Agawan Base v0.2 · Zedrich Zaivan B. Abrera · Week 16</em></p>
+<footer class="docnote">AgawanBase &middot; Zedrich Zaivan B. Abrera &middot; MOBILE DEV 002, Module 5, Week 16 &middot; source: Abrera_Zedrich_AS3.md</footer>
+</body>
+</html>

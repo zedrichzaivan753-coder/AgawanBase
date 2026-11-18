@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SA5 - Theme, Player, and Advanced Game-Integration Analysis</title>
+<style>
+
+@page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0 auto;
+    padding: 8mm 4mm 16mm 4mm;
+    max-width: 186mm;
+    background: #ffffff;
+    color: #16191d;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.52;
+}
+
+h1, h2, h3, h4 { color: #12243a; page-break-after: avoid; break-after: avoid; }
+
+h1 {
+    font-size: 19pt;
+    line-height: 1.2;
+    margin: 0 0 4pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2.5pt solid #12243a;
+}
+
+h2 {
+    font-size: 13.5pt;
+    margin: 20pt 0 7pt 0;
+    padding-bottom: 3pt;
+    border-bottom: 0.75pt solid #c9ced6;
+}
+
+h3 { font-size: 11.5pt; margin: 14pt 0 5pt 0; color: #26405c; }
+h4 { font-size: 10.5pt; margin: 11pt 0 4pt 0; color: #26405c; }
+
+p { margin: 0 0 8pt 0; orphans: 3; widows: 3; }
+
+strong { color: #101820; }
+
+hr {
+    border: none;
+    border-top: 0.75pt solid #d5dae1;
+    margin: 13pt 0;
+}
+
+ul, ol { margin: 0 0 9pt 0; padding-left: 17pt; }
+li { margin: 0 0 3.5pt 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5pt 0 12pt 0;
+    font-size: 8.9pt;
+    line-height: 1.38;
+}
+
+th, td {
+    border: 0.7pt solid #b9c0c9;
+    padding: 3.2pt 4.6pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+th { background: #e9edf3; color: #12243a; font-weight: 600; }
+
+tbody tr:nth-child(even) td { background: #f7f9fb; }
+
+tr { page-break-inside: avoid; page-break-after: auto; }
+thead { display: table-header-group; }
+
+code {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 8.7pt;
+    background: #f1f4f8;
+    border: 0.5pt solid #e0e5ec;
+    border-radius: 2pt;
+    padding: 0 2pt;
+    word-break: break-word;
+}
+
+pre {
+    background: #f6f8fa;
+    border: 0.7pt solid #d5dae1;
+    border-left: 2.5pt solid #12243a;
+    border-radius: 2pt;
+    padding: 6pt 8pt;
+    margin: 6pt 0 12pt 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 8.5pt;
+    line-height: 1.45;
+}
+
+figure.diagram {
+    margin: 8pt 0 12pt 0;
+    padding: 6pt;
+    border: 0.7pt solid #d5dae1;
+    border-radius: 3pt;
+    background: #ffffff;
+    page-break-inside: avoid;
+}
+
+figure.diagram svg { display: block; width: 100%; height: auto; }
+
+p.warn { color: #8a1f1f; font-weight: 600; }
+
+footer.docnote {
+    margin-top: 22pt;
+    padding-top: 6pt;
+    border-top: 0.75pt solid #d5dae1;
+    color: #5c6672;
+    font-size: 8pt;
+}
+
+@media print {
+    body { max-width: none; padding: 0; font-size: 10pt; }
+    a { color: inherit; text-decoration: none; }
+    h1 { font-size: 18pt; }
+    table { font-size: 8.6pt; }
+}
+
+</style>
+</head>
+<body>
+<h1>SA5 - Theme, Player, and Advanced Game-Integration Analysis</h1>
+<p><strong>Game:</strong> AgawanBase <strong>Student:</strong> Zedrich Zaivan B. Abrera <strong>Course:</strong> MOBILE DEV 002 Advanced Mobile Application Development, Module 5 <strong>Theme:</strong> Philippine Games and Sports <strong>Week:</strong> 13 - Secure Player Data and Responsible Development <strong>Build version:</strong> <code>AgawanBase v0.2</code> (Android, ARM64 / IL2CPP, <code>com.zedrich.agawanbase</code>) <strong>Repository:</strong> local Git repository, branch <code>main</code>, HEAD <code>d08fc9b</code> <strong>Engine:</strong> Unity 6000.6.0f1, Universal Render Pipeline 17.6.0</p>
+<hr/>
+<h2>1. Theme-to-Mechanics Justification</h2>
+<h3>Target player</h3>
+<p>A Filipino student or young adult with a phone and a few spare minutes: someone who played <em>Agawang Base</em> in a school yard, remembers the rules with their body rather than their head, and wants that memory back without having to find eight people and a field. The player is not looking for a story or a progression grind. They are looking for one clean contest against opponents that behave like classmates.</p>
+<h3>Intended experience</h3>
+<p>The feeling the original game produces is <em>tension between two decisions</em>: go for the flag, or go back for the team-mate who just got caught. That is the experience AgawanBase is built to reproduce. Every design decision in the game is judged against one question: does this make the choice between attacking and rescuing harder in a way a player would recognise from the playground?</p>
+<h3>Core gameplay loop</h3>
+<ol>
+<li>Leave the base. Standing still at base is safe, so the match is decided by who dares leave and for how long.</li>
+<li>Close on an opponent. A character who has been in the field longer than the opponent they touch is caught, not the other way round.</li>
+<li>Catch, or be caught. A caught character is locked in the opponent's prison and cannot act.</li>
+<li>Rescue, or push on. A free team-mate walking up to the prison releases the prisoner, and the rescuer gains no protection for doing it.</li>
+<li>Steal the flag. Carrying the enemy flag into your own base wins the match.</li>
+<li>Repeat until the flag comes home, one team is entirely locked up, or the three-minute clock runs out and the team with more characters free wins.</li>
+</ol>
+<h3>How the mechanics communicate the theme</h3>
+<table>
+<thead><tr>
+<th>Element of <em>Agawang Base</em></th>
+<th>Mechanic in the game</th>
+<th>Why it is not decoration</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Two bases at opposite ends of a field</td>
+<td>Two bases, two prisons, two flags, a walled arena 34.5 m long</td>
+<td>The arena shape is the rule: the distance between the bases is what creates the risk</td>
+</tr>
+<tr>
+<td>"Fresh" and "stale" - the player who has been out longer is the one who can be caught</td>
+<td>A 20-second freshness timer per character; the staler of two touching characters is the one captured; equal timers capture nobody (<code>MatchManager.tieEpsilon = 0.01</code>, <code>tieIsNoCapture = true</code>)</td>
+<td>This is the rule that makes the game <em>Agawang Base</em> and not tag. It inverts the obvious reading of "tag" and it is measured to 0.01 s</td>
+</tr>
+<tr>
+<td>Rescuing a team-mate ("bawi")</td>
+<td><code>rescueDistance = 1.5 m</code>, <code>immunitySeconds = 2</code>, <code>rescueCooldown = 3</code>, and the rescuer gets no immunity</td>
+<td>The asymmetry - the freed player is briefly safe, the rescuer is not - is exactly the playground's risk</td>
+</tr>
+<tr>
+<td>Hiding in bushes and behind the market stalls</td>
+<td><code>HideSpot</code> volumes: a character standing inside one loses its body and its overhead bars, keeping only the ground ring of the player's own character</td>
+<td>Hiding is the theme's answer to being watched; it is a mechanic with a cost, not a cosmetic effect</td>
+</tr>
+<tr>
+<td>Everyone plays every role</td>
+<td>One preset difficulty drives both teams; the human is always Blue with AI team-mates, and Red is all AI</td>
+<td>No side is secretly stronger, which is how a playground game stays fair</td>
+</tr>
+<tr>
+<td>Playing on your own ground - the school, the market, the open field</td>
+<td>Three separate scenes: <code>Game</code> (classic field), <code>Map_Palengke</code>, <code>Map_SchoolCampus</code>, each with its own hiding places and NavMesh</td>
+<td>The maps are Filipino places, and their geometry changes the hiding routes</td>
+</tr>
+</tbody></table>
+<p>A generic top-down tag game with a Filipino skin would not have the freshness inversion, the no-immunity-for-the-rescuer rule, or the bush hiding that punishes standing still in the open. Those three together are the theme expressed as rules.</p>
+<hr/>
+<h2>2. Player and stakeholder analysis</h2>
+<table>
+<thead><tr>
+<th>Stakeholder</th>
+<th>What they need from this build</th>
+<th>How the build answers it</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>The player</td>
+<td>Understand the goal without reading a manual; control with one thumb; know instantly what just happened</td>
+<td>Title screen, a rules line, one map-select screen with a blurb per map, a match-setup screen with a summary line, a live HUD with freshness, stamina, flag and team counters, and an end screen that names which of the three endings occurred</td>
+</tr>
+<tr>
+<td>The player, as the owner of their own data</td>
+<td>Know that nothing about them leaves the phone</td>
+<td>The game contains no networking code, forces no network permission and makes no network calls. The profile is one JSON file in the app's own sandbox, and the profile screen says so on screen: "Type a name, then SAVE. Nothing leaves this device."</td>
+</tr>
+<tr>
+<td>The instructor</td>
+<td>Verifiable evidence that the work is the student's own</td>
+<td>Repository with commits, the PT5 check log with real measured results, and a disclosure record in PT5</td>
+</tr>
+<tr>
+<td>The developer (me)</td>
+<td>Be able to see why the AI did something</td>
+<td>A serialised AI read-out on the HUD, which is a debugging aid that must be off in a shipped build - carried into Week 15 as a defect</td>
+</tr>
+<tr>
+<td>Future playtesters (Week 14)</td>
+<td>A build that behaves the same way twice</td>
+<td>Fixed camera, fixed rules, no randomness in the rules themselves; only the AI's scores carry noise (<code>DifficultyProfile.noise</code>)</td>
+</tr>
+</tbody></table>
+<hr/>
+<h2>3. Gameplay and integration requirements</h2>
+<table>
+<thead><tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Where it lives</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>Choose a map, see its name and a one-line description</td>
+<td><code>MapSelectUI</code>, <code>MapDefinition</code> assets in <code>Assets/Config</code></td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Choose 1v1 to 4v4 and Easy / Normal / Hard; the same preset applies to both teams</td>
+<td><code>MatchSettings</code>, <code>MatchSetupUI</code></td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Start, pause, resume, restart, return to title</td>
+<td><code>GameManager</code> state machine</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Catch the staler character on contact; equal freshness captures nobody</td>
+<td><code>MatchManager</code></td>
+</tr>
+<tr>
+<td>R5</td>
+<td>Rescue a prisoner from prison; the rescuer gains no immunity</td>
+<td><code>MatchManager</code></td>
+</tr>
+<tr>
+<td>R6</td>
+<td>Carry the enemy flag home to win; concede a flag carried home by the enemy</td>
+<td><code>Flag</code>, <code>MatchManager</code></td>
+</tr>
+<tr>
+<td>R7</td>
+<td>Hide inside a bush, hedge or crate stack</td>
+<td><code>HideSpot</code>, <code>CharacterBushHide</code>, <code>CharacterBars</code></td>
+</tr>
+<tr>
+<td>R8</td>
+<td>Remember the player's settings and map between launches</td>
+<td><code>MatchSettings</code>, <code>MapSettings</code> (PlayerPrefs)</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>Remember who the player is and what they have achieved, across restarts</td>
+<td><strong>Week 13: <code>PlayerProfile</code> (signed JSON save)</strong></td>
+</tr>
+<tr>
+<td>R10</td>
+<td>Show that record on a screen the player can open from the title</td>
+<td><strong>Week 13: <code>ProfileUI</code>, <code>Game/UI/Panel_Profile</code></strong></td>
+</tr>
+<tr>
+<td>R11</td>
+<td>Survive a corrupt or hand-edited save without crashing or trusting it</td>
+<td><strong>Week 13: signature + quarantine + clamps</strong></td>
+</tr>
+</tbody></table>
+<hr/>
+<h2>4. Data inventory</h2>
+<p>Everything the build touches, in one table. "Sandbox" means the app's private folder, which on Android is not readable by other apps.</p>
+<table>
+<thead><tr>
+<th>Data item</th>
+<th>Where it comes from</th>
+<th>Where it is stored</th>
+<th>Who can read it</th>
+<th>Lifetime and deletion</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Display name (up to 16 characters)</td>
+<td>Typed by the player on the profile screen</td>
+<td><code>profile.json</code> in <code>Application.persistentDataPath/AgawanBase/</code></td>
+<td>The app; the same device user via a file manager</td>
+<td>Until the player presses RESET, or uninstalls the app</td>
+</tr>
+<tr>
+<td>Match results (result, ending type, match seconds, map id, team size, difficulty, UTC timestamp)</td>
+<td>Recorded at the end screen from <code>MatchManager.outcome</code> and <code>MatchManager.MatchClock</code></td>
+<td><code>profile.json</code>, <code>recent</code> list, newest first</td>
+<td>The app</td>
+<td>Oldest entries are dropped past 20; RESET erases all</td>
+</tr>
+<tr>
+<td>Aggregate record (wins, losses, draws, current streak, best streak, last match id)</td>
+<td>Derived while recording a result</td>
+<td><code>profile.json</code></td>
+<td>The app</td>
+<td>Same as above</td>
+</tr>
+<tr>
+<td>Match settings (team size, difficulty, tag hints)</td>
+<td>Match Setup screen and the pause screen</td>
+<td>PlayerPrefs keys <code>match.*</code></td>
+<td>The app</td>
+<td>Until the player changes them</td>
+</tr>
+<tr>
+<td>Map choice (map id, scene name, display name)</td>
+<td>Map Select screen</td>
+<td>PlayerPrefs keys <code>map.*</code></td>
+<td>The app</td>
+<td>Until the player changes the map</td>
+</tr>
+<tr>
+<td>Signature salt (16 random bytes, base64)</td>
+<td>Generated by the app on first save</td>
+<td>PlayerPrefs key <code>profile.salt</code></td>
+<td>The app</td>
+<td>Survives RESET, so a reset profile is signed with the same install salt</td>
+</tr>
+<tr>
+<td><strong>Not collected:</strong> account, e-mail, phone number, contacts, location, advertising id, device identifiers, analytics, telemetry, crash reports</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>The list of things <em>not</em> collected is the important half. The game has no login, no multiplayer, no analytics SDK and no <code>UnityWebRequest</code> call; the project keeps no custom Android manifest and does not force the <code>INTERNET</code> permission (the Player Setting <code>forceInternetPermission</code> is not present, so it is off). There is nothing to transmit and nowhere to transmit it. The scan behind that sentence is <code>Week_13/Evidence/secrets_and_gitignore.txt</code>.</p>
+<hr/>
+<h2>5. Data-flow diagram</h2>
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" width="980" height="660" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333333"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="660" fill="#ffffff"/>
+
+  <!-- trust boundary -->
+  <rect x="20" y="18" width="940" height="560" rx="10" fill="none" stroke="#8a8a8a"
+        stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="36" y="42" font-size="14" fill="#666666" font-weight="bold" letter-spacing="1">
+    TRUST BOUNDARY: THE PLAYER'S OWN DEVICE
+  </text>
+  <text x="36" y="62" font-size="13" fill="#8a8a8a">
+    No account, no network permission, no server, nothing transmitted.
+  </text>
+
+  <!-- A: player -->
+  <rect x="50" y="120" width="180" height="64" rx="8" fill="#e8eef7" stroke="#3f5b86" stroke-width="2"/>
+  <text x="140" y="148" font-size="16" fill="#1c2a40" text-anchor="middle" font-weight="bold">PLAYER</text>
+  <text x="140" y="170" font-size="13" fill="#3f5b86" text-anchor="middle">types a name, taps SAVE</text>
+
+  <!-- B: ProfileUI -->
+  <rect x="330" y="120" width="230" height="64" rx="8" fill="#e8eef7" stroke="#3f5b86" stroke-width="2"/>
+  <text x="445" y="145" font-size="15" fill="#1c2a40" text-anchor="middle" font-weight="bold">ProfileUI</text>
+  <text x="445" y="166" font-size="12" fill="#3f5b86" text-anchor="middle">Game/UI/Panel_Profile</text>
+
+  <!-- C: PlayerProfile -->
+  <rect x="330" y="250" width="230" height="96" rx="8" fill="#f2f6e9" stroke="#5a7a2a" stroke-width="2"/>
+  <text x="445" y="276" font-size="15" fill="#26330f" text-anchor="middle" font-weight="bold">PlayerProfile</text>
+  <text x="445" y="296" font-size="12" fill="#3f5320" text-anchor="middle">sanitise name · clamp numbers</text>
+  <text x="445" y="313" font-size="12" fill="#3f5320" text-anchor="middle">count results · sign payload</text>
+  <text x="445" y="330" font-size="12" fill="#3f5320" text-anchor="middle">refuse duplicate match id</text>
+
+  <!-- D: profile.json -->
+  <rect x="40" y="420" width="250" height="96" rx="8" fill="#fdf4e3" stroke="#b07d1a" stroke-width="2"/>
+  <text x="165" y="446" font-size="15" fill="#3d2a05" text-anchor="middle" font-weight="bold">profile.json</text>
+  <text x="165" y="466" font-size="12" fill="#6b5216" text-anchor="middle">persistentDataPath/AgawanBase/</text>
+  <text x="165" y="484" font-size="12" fill="#6b5216" text-anchor="middle">payload + SHA-256 signature</text>
+  <text x="165" y="502" font-size="12" fill="#6b5216" text-anchor="middle">written to .tmp, then renamed</text>
+
+  <!-- E: PlayerPrefs -->
+  <rect x="340" y="420" width="230" height="96" rx="8" fill="#fdf4e3" stroke="#b07d1a" stroke-width="2"/>
+  <text x="455" y="446" font-size="15" fill="#3d2a05" text-anchor="middle" font-weight="bold">PlayerPrefs</text>
+  <text x="455" y="466" font-size="12" fill="#6b5216" text-anchor="middle">match.teamSize · match.difficulty</text>
+  <text x="455" y="484" font-size="12" fill="#6b5216" text-anchor="middle">match.tagHints · map.*</text>
+  <text x="455" y="502" font-size="12" fill="#6b5216" text-anchor="middle">profile.salt (16 random bytes)</text>
+
+  <!-- F: match end -->
+  <rect x="620" y="420" width="290" height="96" rx="8" fill="#f7e9ee" stroke="#8a3350" stroke-width="2"/>
+  <text x="765" y="446" font-size="15" fill="#3d0f1e" text-anchor="middle" font-weight="bold">MatchManager / GameManager</text>
+  <text x="765" y="466" font-size="12" fill="#6b2439" text-anchor="middle">PlayerWon / PlayerLost / MatchDrawn</text>
+  <text x="765" y="484" font-size="12" fill="#6b2439" text-anchor="middle">outcome + MatchClock</text>
+  <text x="765" y="502" font-size="12" fill="#6b2439" text-anchor="middle">recorded once, guarded by match id</text>
+
+  <!-- arrows -->
+  <line x1="230" y1="152" x2="326" y2="152" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <line x1="445" y1="184" x2="445" y2="246" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="455" y="216" font-size="11" fill="#333333">SetName · ResetProfile</text>
+
+  <line x1="360" y1="346" x2="200" y2="416" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="205" y="372" font-size="11" fill="#333333">sign + write</text>
+
+  <line x1="252" y1="420" x2="392" y2="350" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="268" y="404" font-size="11" fill="#333333">read + verify on start</text>
+
+  <line x1="470" y1="346" x2="465" y2="416" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="478" y="384" font-size="11" fill="#333333">salt</text>
+
+  <line x1="660" y1="420" x2="560" y2="330" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="592" y="384" font-size="11" fill="#333333">RecordMatch</text>
+
+  <line x1="560" y1="266" x2="536" y2="268" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="530" y="248" font-size="11" fill="#333333" text-anchor="end">record + board</text>
+
+  <!-- reset -->
+  <path d="M 140 184 L 140 300 L 326 300" fill="none" stroke="#333333" stroke-width="2"
+        stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="150" y="292" font-size="11" fill="#333333">RESET button (two presses)</text>
+
+  <!-- footer -->
+  <text x="36" y="612" font-size="12" fill="#555555">
+    Deleted by the player: RESET deletes profile.json and profile.rejected.json. Settings and the salt stay in PlayerPrefs.
+  </text>
+  <text x="36" y="634" font-size="12" fill="#555555">
+    A save that fails to parse, or whose signature does not match, is moved to profile.rejected.json and never overwrites a good file.
+  </text>
+</svg>
+</figure>
+<p>Reading the diagram: the player's typed name and the RESET command enter through the panel; the profile class is the only thing that signs or writes; the only two stores are one file and PlayerPrefs; the only other writer is the end-of-match callback, and it goes through the same <code>RecordMatch</code> gate that refuses an id it has already banked. Nothing crosses the dashed line.</p>
+<hr/>
+<h2>6. Identity model decision</h2>
+<p>The module allows no account, local profile, anonymous authentication or e-mail authentication, and asks for the choice to be proportionate.</p>
+<p><strong>Decision: a local profile, with no account of any kind.</strong></p>
+<p>Why:</p>
+<ul>
+<li>The game is single-player and offline. An account would exist only to identify a player to a server that does not exist; there is no leaderboard to protect and no second device to sync to.</li>
+<li>A login screen on a playground game adds a failure state (no signal, forgotten password) in exchange for no gameplay.</li>
+<li>Collecting an e-mail address from a game aimed at students would create a data-protection obligation that the project cannot service - there would be no deletion process, no retention policy and no breach process.</li>
+<li><code>Packages/manifest.json</code> contains no Firebase, PlayFab or Unity Services package, so the choice also matches the build: adding a cloud service would mean installing a package, creating a cloud project and holding a key, which is a much larger surface than this build needs.</li>
+</ul>
+<p>What the player gets instead: their name and their record on the screen they open from the title, remembered between launches, and the ability to erase it themselves in two presses.</p>
+<p>The honest cost of this decision, and the reason it is defensible rather than lazy: a local record can be edited by whoever owns the phone. The signature makes that <em>detectable</em>, not impossible. See PT5 L15.</p>
+<hr/>
+<h2>7. Secure configuration and secret handling</h2>
+<table>
+<thead><tr>
+<th>Risk</th>
+<th>Position in this build</th>
+<th>Evidence</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Credentials in source code</td>
+<td>There are none. No API key, token, service account file or password exists, because no service is used</td>
+<td><code>Week_13/Evidence/secrets_and_gitignore.txt</code> (scan output)</td>
+</tr>
+<tr>
+<td>Shipped secrets</td>
+<td>The only secret-like value is the signature salt, and it is <strong>generated at runtime</strong> into PlayerPrefs, never committed</td>
+<td><code>PlayerProfile.Salt()</code></td>
+</tr>
+<tr>
+<td>Build artefacts in the repository</td>
+<td><code>.gitignore</code> excludes <code>*.apk</code>, <code>*.aab</code>, <code>*.unitypackage</code>, <code>Library/</code>, <code>Temp/</code> and <code>Builds/</code></td>
+<td><code>.gitignore</code> lines 81-88</td>
+</tr>
+<tr>
+<td>Player records readable by other apps</td>
+<td>The save lives in the app's own sandbox under <code>Application.persistentDataPath</code></td>
+<td><code>PlayerProfile.DataDirectory</code></td>
+</tr>
+<tr>
+<td>Trusting untrusted input</td>
+<td>The save file is treated as hostile: parsed defensively, signature-checked, clamped, and quarantined rather than overwritten</td>
+<td><code>PlayerProfile.TryParse</code>, <code>Clamp</code>, <code>Quarantine</code></td>
+</tr>
+</tbody></table>
+<p>What is <em>not</em> claimed: the save is not encrypted, and the salt is on the same device as the file. This is stated on screen and in the documentation rather than glossed over.</p>
+<hr/>
+<h2>8. Failure and recovery design</h2>
+<p>An offline game has no network to fail, so the failure cases that matter are the disk and the file itself:</p>
+<table>
+<thead><tr>
+<th>Failure</th>
+<th>What the build does</th>
+<th>Check</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>No save file at all</td>
+<td>Starts on <code>PLAYER</code> with an empty record; writes nothing until the player saves something</td>
+<td>L1</td>
+</tr>
+<tr>
+<td>Save file is not JSON</td>
+<td>Parsing is wrapped; the file is renamed to <code>profile.rejected.json</code> and a fresh profile starts. The bad file is kept as evidence</td>
+<td>L10</td>
+</tr>
+<tr>
+<td>Save file was edited by hand</td>
+<td>Signature mismatch; same quarantine path as above. The edited values never reach the UI</td>
+<td>L11</td>
+</tr>
+<tr>
+<td>Save holds impossible numbers</td>
+<td>Clamped to zero (or raised to the current streak) after the signature passes; an edited save cannot produce a negative record</td>
+<td>L12</td>
+</tr>
+<tr>
+<td>Save folder cannot be written</td>
+<td>The write is wrapped, <code>LastError</code> is set, the UI reports it, and the in-memory record is rolled back so memory and disk never disagree</td>
+<td>L14</td>
+</tr>
+<tr>
+<td>App killed mid-write</td>
+<td>The file is written to <code>profile.json.tmp</code> first and then moved over the old one, so a half file never replaces a whole one</td>
+<td>design, see <code>PlayerProfile.Save</code></td>
+</tr>
+<tr>
+<td>The same match reported twice</td>
+<td><code>RecordMatch</code> refuses an id at or below <code>lastMatchId</code>, and <code>GameManager</code> guards with its own <code>recordedMatchId</code> field</td>
+<td>L9</td>
+</tr>
+<tr>
+<td>The player wipes the record by accident</td>
+<td>RESET is two presses within 4 s, and the first press says what will be lost</td>
+<td><code>ProfileUI.ResetPressed</code></td>
+</tr>
+</tbody></table>
+<hr/>
+<h2>9. Integration plan, Weeks 13 to 18</h2>
+<table>
+<thead><tr>
+<th>Week</th>
+<th>What this profile work becomes the input for</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>The profile, the save, the panel and the fifteen security checks - this submission</td>
+</tr>
+<tr>
+<td>14</td>
+<td>The panel is one of the screens the usability test covers: is a 16-character name field with a visible limit understandable on a phone; is the fastest-victory board legible at arm's length; is the two-press RESET discoverable</td>
+</tr>
+<tr>
+<td>15</td>
+<td>The record path is a test target: a match ended by all three endings must be banked exactly once, and the RESET path must not leave a half-erased state. The AI debug read-out defect already recorded in <code>Docs/Part_D_Test_Results.md</code> is fixed here</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Profiling: the save is a synchronous file write at the end of a match, so its cost is measured and, if needed, moved off the end-screen frame</td>
+</tr>
+<tr>
+<td>17</td>
+<td>README, technical documentation, user guide and evidence index all describe this component rather than being written from scratch</td>
+</tr>
+<tr>
+<td>18</td>
+<td>The profile is part of the demonstration script: name it, win a match, show the record and the board, then show the two-press reset</td>
+</tr>
+</tbody></table>
+<hr/>
+<h2>10. Risk register</h2>
+<table>
+<thead><tr>
+<th>Risk</th>
+<th>Likelihood</th>
+<th>Impact</th>
+<th>Mitigation in this build</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>A hand-edited save is trusted</td>
+<td>Medium</td>
+<td>The player's record becomes meaningless</td>
+<td>Signature check; rejected files quarantined, never merged</td>
+</tr>
+<tr>
+<td>A corrupt save crashes the game on launch</td>
+<td>Low</td>
+<td>The game will not open</td>
+<td>Every read and write is wrapped; a failure starts a fresh profile</td>
+</tr>
+<tr>
+<td>The player loses a long record by accident</td>
+<td>Medium</td>
+<td>Trust in the game</td>
+<td>Two-press reset with a warning, 4-second disarm</td>
+</tr>
+<tr>
+<td>Personal data collected without a process to delete it</td>
+<td>Very low</td>
+<td>Data-protection exposure</td>
+<td>No personal data is collected at all; name is 16 characters, player-chosen, player-deleted</td>
+</tr>
+<tr>
+<td>The profile work breaks the match flow</td>
+<td>Medium</td>
+<td>The submission does not run</td>
+<td>The end-of-match call is the only coupling; guarded by match id and verified by playing a match end to end</td>
+</tr>
+<tr>
+<td>A secret ends up in the repository later</td>
+<td>Low</td>
+<td>Credential exposure</td>
+<td>No service to hold a key for; <code>.gitignore</code> excludes builds; scan recorded in the evidence folder</td>
+</tr>
+</tbody></table>
+<hr/>
+<h2>11. Evidence index</h2>
+<table>
+<thead><tr>
+<th>File</th>
+<th>What it shows</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>Week_13/Evidence/pt5_checks.log</code></td>
+<td>Fifteen checks, fifteen passes, with the measured value for each</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/E1_profile_empty.png</code></td>
+<td>The panel on a fresh install: <code>PLAYER</code>, no matches</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/E2_profile_stats.png</code></td>
+<td>The record after three recorded matches</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/E3_leaderboard.png</code></td>
+<td>The fastest-victory board with five entries, quickest first</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/E4_after_reset.png</code></td>
+<td>The panel after the two-press reset</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/SA5_data_flow.svg</code></td>
+<td>The data-flow diagram in this document</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/build_and_commit.txt</code></td>
+<td>The APK, its size, the build settings and the repository commit</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/secrets_and_gitignore.txt</code></td>
+<td>The secret scan and the ignore rules</td>
+</tr>
+<tr>
+<td><code>Week_13/Evidence/HOW_TO_RERUN.txt</code></td>
+<td>How to reproduce every check and screenshot</td>
+</tr>
+</tbody></table>
+<footer class="docnote">AgawanBase &middot; Zedrich Zaivan B. Abrera &middot; MOBILE DEV 002, Module 5, Week 13 &middot; source: Abrera_Zedrich_SA5.md</footer>
+</body>
+</html>

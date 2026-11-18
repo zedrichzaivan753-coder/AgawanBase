@@ -1,0 +1,49 @@
+ANDROID CRASH BUFFER - NOT CAPTURED (no device attached)
+========================================================
+What the Week 15 checklist asks for: the crash buffer of the shipped build,
+taken from a physical phone after a played session (adb logcat -b crash).
+
+WHAT WAS ACTUALLY ATTEMPTED
+---------------------------
+The Android platform tools that Unity installs with were probed for an attached
+device, because a crash buffer can only come from one:
+
+    > "%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe" devices
+    List of devices attached
+
+That empty list is the whole output: no serial, no "device" state. `adb` itself
+is not on PATH on this machine, so the SDK copy above is the one that was used.
+
+WHY THIS FILE CONTAINS NO BUFFER
+--------------------------------
+A crash buffer is a record of what a device did. No device ran this build for
+this session, so there is no buffer to paste, and writing a plausible-looking one
+here would be a false record in the evidence folder. The honest status of the
+crash question for AB-0.2-QA2 is UNTESTED, not "clean".
+
+    Build            : AB-0.2-QA2 (Docs/Zedrich Abrera/Week_15/Abrera_Zedrich_AS3_Milestone.apk)
+    Device           : none attached
+    Crash buffer     : not captured
+    Residual risk    : a fault that only appears on arm64 hardware would not be
+                       seen by any evidence in this submission
+
+WHAT SUBSTITUTES FOR IT IN THIS SUBMISSION
+------------------------------------------
+Not the same thing, and not claimed to be, but it is what was measured:
+
+  * test_logs_final/scenario.tsv - the 16-case play-mode suite. Its runner counts
+    every LogType.Error and every LogType.Exception for the whole session and the
+    summary line reports that count; the final run reports "0 errors".
+  * TC-BND-01 / TC-BND-02 / TC-BND-03 - three rapid-input cases (50 pause toggles,
+    50 pick-up attempts, repeated captures in one frame) that exist to provoke the
+    kind of fault a monkey would find on a device.
+  * android_rapid_input_monkey.log - the companion file for this gap.
+
+HOW TO CLOSE IT
+---------------
+  1. Copy Abrera_Zedrich_AS3_Milestone.apk to an arm64 phone running Android 8.0
+     or newer and install it (uninstall any older AgawanBase first).
+  2. adb logcat -c
+  3. Play one full match, send the app to the background and bring it back once.
+  4. adb logcat -b crash -d > android_crash_buffer.txt
+  5. Paste the output above this note and delete the note.

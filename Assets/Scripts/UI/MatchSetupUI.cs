@@ -110,10 +110,10 @@ public class MatchSetupUI : MonoBehaviour
         else game.StartMatchAndReload();
     }
 
-    /// <summary>BACK button: return to the title screen.</summary>
+    /// <summary>BACK button: one step back, to the map select screen.</summary>
     public void Back()
     {
-        if (game != null) game.ShowTitle();
+        if (game != null) game.ShowMapSelect();
         else Debug.LogWarning("MatchSetupUI: 'game' is not assigned, so BACK does nothing.");
     }
 
@@ -144,7 +144,10 @@ public class MatchSetupUI : MonoBehaviour
 
         if (summaryText != null)
         {
-            summaryText.text = MatchSettings.SizeName +
+            // The map comes first: it is the one thing on this screen that cannot be changed here,
+            // so seeing it confirmed is what tells the player BACK goes to the map list.
+            summaryText.text = MapSettings.DisplayName +
+                               "     " + MatchSettings.SizeName +
                                "     Blue: you + " + MatchSettings.BlueAiCount + " AI" +
                                "     Red: " + MatchSettings.RedAiCount + " AI" +
                                "     Skill: " + MatchSettings.DifficultyName(MatchSettings.Difficulty);
@@ -157,6 +160,14 @@ public class MatchSetupUI : MonoBehaviour
         if (button == null) return;
 
         Image image = button.GetComponent<Image>();
-        if (image != null) image.color = chosen ? selectedColor : normalColor;
+        if (image != null)
+        {
+            // The chosen option is a DARK amber, not the bright selectedColor itself. White 34pt
+            // labels on the bright amber measured 1.80:1 in the Week 14 accessibility audit - far
+            // under WCAG AA's 4.5:1 - and the dark tint measures 7.3:1. MapSelectUI.Paint has used
+            // the same 0.45 lerp for its cards since the map screen was built; this is that rule
+            // applied to the setup screen, not a new one.
+            image.color = chosen ? Color.Lerp(Color.black, selectedColor, 0.45f) : normalColor;
+        }
     }
 }

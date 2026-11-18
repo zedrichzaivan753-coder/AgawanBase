@@ -1,0 +1,24 @@
+BASELINE SNAPSHOT - AS3 Milestone (Week 15)
+===========================================
+Taken before any test was executed.
+
+Repository
+    HEAD            : d08fc9b2c9e28876f337cfcad009b88802d2b534
+    short           : d08fc9b
+    HEAD commit date: Mon Sep 21 17:31:32 2026 +0800
+    dirty paths     : 141
+
+Editor
+    Unity           : 6000.6.0f1 (f7f8ed4d1e24)
+    test framework  : com.unity.test-framework 1.8.0
+
+Build under test (baseline)
+    id              : AB-0.2-QA1
+    file            : Docs/Zedrich Abrera/Week_14/Abrera_Zedrich_PT6_Playtest.apk
+    bytes           : 50,097,691
+    md5             : 0eef3dcb32fc0b9852bb4627c18d50d4
+
+Warning carried into the acceptance summary
+    141 dirty paths means HEAD does not contain the code being tested. Weeks 13, 14 and 15
+    are uncommitted. The commit id is recorded because the module requires one, and this
+    note records that it does not yet identify the tested build.

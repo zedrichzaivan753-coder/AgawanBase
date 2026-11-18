@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public enum GameState
     {
         Title,      // title screen, nobody can move
+        Profile,    // the player's own record: name, wins/losses, fastest victories
+        MapSelect,  // choose which map to play on
         MatchSetup, // choose the team size and the AI skill
         Playing,    // the match is live
         Paused,     // frozen, pause menu up
@@ -23,6 +25,30 @@ public class GameManager : MonoBehaviour
 
     // Survives a scene reload so the Restart button can jump straight back into the match.
     static bool startPlayingOnLoad;
+
+    // Survives the reload that happens when a DIFFERENT map is chosen: after that load the player
+    // lands on the match setup screen, not back on the title.
+    static bool startOnMatchSetup;
+
+    // The id of the match this session has already banked. -1 means nothing yet. It is an
+    // instance field, so a scene reload starts a brand new match with a fresh guard.
+    int recordedMatchId = -1;
+
+    /// <summary>
+    /// Clears the two flags above every time a play session begins.
+    ///
+    /// This project runs with Enter Play Mode Options domain reload switched OFF, so a STATIC keeps
+    /// its value from the previous play session. Without this reset, a session that ended in a
+    /// match leaves startPlayingOnLoad at true and the next Play jumps straight past the title
+    /// screen - which is exactly what was happening. In a built player the fields are already
+    /// false, so this only ever helps.
+    /// </summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetPlaySessionFlags()
+    {
+        startPlayingOnLoad = false;
+        startOnMatchSetup = false;
+    }
 
     [Header("Scene references")]
     [Tooltip("The rules component.")]
@@ -36,7 +62,17 @@ public class GameManager : MonoBehaviour
 
     [Header("Screens")]
     public GameObject panelTitle;
+
+    [Tooltip("Map select: one card per playable map.")]
+    public GameObject panelMapSelect;
+
     public GameObject panelMatchSetup;
+
+    [Tooltip("The player's profile: display name, record and fastest victories.")]
+    public GameObject panelProfile;
+
+    [Tooltip("Optional. Redrawn every time the profile panel opens.")]
+    public ProfileUI profileUI;
     public GameObject panelHud;
     public GameObject panelPause;
     public GameObject panelEnd;
@@ -89,6 +125,14 @@ public class GameManager : MonoBehaviour
 
         // Read the remembered match choice once, before any screen can ask for it.
         MatchSettings.Load();
+
+        // Same for the chosen map: Restart and Title reload by scene name, so it must be known
+        // before the first screen appears.
+        MapSettings.Load();
+
+        // The profile is a file, not a preference, but it is read at the same moment for the same
+        // reason: the title screen can open it, and it must already be true when it does.
+        PlayerProfile.Load();
     }
 
     void Start()
@@ -101,8 +145,30 @@ public class GameManager : MonoBehaviour
         }
         else Debug.LogError("GameManager: 'match' is not assigned.");
 
-        // A fresh launch shows the title; a Restart jumps straight into the match.
-        SetState(startPlayingOnLoad ? GameState.Playing : GameState.Title);
+        // A fresh launch shows the title; a Restart jumps straight into the match; and arriving
+        // from the map select screen with a newly loaded map stops on match setup.
+        bool onMatchSetup = startOnMatchSetup;
+        bool playImmediately = startPlayingOnLoad;
+
+        // Both flags are one-shot. Clearing them here means nothing can leak into the next screen.
+        startOnMatchSetup = false;
+        startPlayingOnLoad = false;
+
+        if (playImmediately)
+        {
+            Debug.Log("[Title] restart requested - going straight into the match.");
+            SetState(GameState.Playing);
+        }
+        else if (onMatchSetup)
+        {
+            Debug.Log("[Title] map chosen - showing the match setup screen.");
+            SetState(GameState.MatchSetup);
+        }
+        else
+        {
+            Debug.Log("[Title] starting on the title screen.");
+            SetState(GameState.Title);
+        }
     }
 
     void OnDestroy()
@@ -117,16 +183,65 @@ public class GameManager : MonoBehaviour
 
     // ------------------------------------------------- button handlers
 
-    /// <summary>START button on the TITLE screen: go and choose a match.</summary>
+    /// <summary>START button on the TITLE screen: go and choose a map.</summary>
+    public void ShowMapSelect()
+    {
+        SetState(GameState.MapSelect);
+    }
+
+    /// <summary>PROFILE button on the title screen: the player's own record.</summary>
+    public void ShowProfile()
+    {
+        SetState(GameState.Profile);
+    }
+
+    /// <summary>BACK button on the profile panel: return to the title.</summary>
+    public void CloseProfile()
+    {
+        SetState(GameState.Title);
+    }
+
+    /// <summary>START button on the match setup screen: go and choose a map.</summary>
     public void ShowMatchSetup()
     {
         SetState(GameState.MatchSetup);
+    }
+
+    /// <summary>
+    /// Loads the map the player chose on the map select screen.
+    ///
+    /// Every map is its own SCENE, so choosing a different one means a scene load - and after that
+    /// load the player must land on match setup, not back on the title. Choosing the map that is
+    /// ALREADY loaded skips the load entirely and just moves the screen on, which is why pressing
+    /// START MATCH on the map you are standing in is instant.
+    /// </summary>
+    public void LoadMap(MapDefinition map)
+    {
+        if (map == null || !map.IsValid)
+        {
+            Debug.LogError("GameManager: LoadMap() was given an invalid map definition.");
+            return;
+        }
+
+        if (map.sceneName == SceneManager.GetActiveScene().name)
+        {
+            SetState(GameState.MatchSetup);
+            return;
+        }
+
+        startPlayingOnLoad = false;
+        startOnMatchSetup = true;
+        Time.timeScale = 1f;
+
+        Debug.Log("[Map] loading scene '" + map.sceneName + "' for " + map.displayName);
+        SceneManager.LoadScene(map.sceneName);
     }
 
     /// <summary>BACK button on the match setup screen: return to the title.</summary>
     public void ShowTitle()
     {
         startPlayingOnLoad = false;
+        startOnMatchSetup = false;
         SetState(GameState.Title);
     }
 
@@ -208,9 +323,44 @@ public class GameManager : MonoBehaviour
     // The human's team is always Blue, so the two legacy events are still exactly what the end
     // screen needs. A TIME-LIMIT or ELIMINATION ending arrives through the same two events.
 
-    void HandlePlayerWon() { SetState(GameState.Victory); }
-    void HandlePlayerLost() { SetState(GameState.GameOver); }
-    void HandleMatchDrawn() { SetState(GameState.Draw); }
+    void HandlePlayerWon()
+    {
+        RecordResult(MatchResult.Win);
+        SetState(GameState.Victory);
+    }
+
+    void HandlePlayerLost()
+    {
+        RecordResult(MatchResult.Loss);
+        SetState(GameState.GameOver);
+    }
+
+    void HandleMatchDrawn()
+    {
+        RecordResult(MatchResult.Draw);
+        SetState(GameState.Draw);
+    }
+
+    /// <summary>
+    /// Writes one finished match into the player's profile. Called from the three end-of-match
+    /// callbacks above, and nowhere else, so a match is banked exactly once.
+    ///
+    /// The guard is belt and braces: PlayerProfile refuses an id it has already seen, and the
+    /// field below stops this class from even asking twice if a callback were ever to fire again.
+    /// </summary>
+    void RecordResult(MatchResult result)
+    {
+        int matchId = PlayerProfile.NextMatchId;
+        if (matchId == recordedMatchId) return;
+        recordedMatchId = matchId;
+
+        string outcome = match != null ? match.outcome.ToString().ToUpperInvariant() : "UNKNOWN";
+        float seconds = match != null ? match.MatchClock : 0f;
+
+        PlayerProfile.RecordMatch(matchId, result, outcome, seconds, MapSettings.MapId,
+                                  MatchSettings.TeamSize,
+                                  MatchSettings.DifficultyName(MatchSettings.Difficulty));
+    }
 
     // ------------------------------------------------- the end-screen words
 
@@ -290,7 +440,13 @@ public class GameManager : MonoBehaviour
 
         // Screens
         if (panelTitle != null) panelTitle.SetActive(next == GameState.Title);
+        if (panelMapSelect != null) panelMapSelect.SetActive(next == GameState.MapSelect);
         if (panelMatchSetup != null) panelMatchSetup.SetActive(next == GameState.MatchSetup);
+
+        // The profile panel is redrawn from the stored profile every time it opens, so it can
+        // never show a record that the save file no longer holds.
+        if (panelProfile != null) panelProfile.SetActive(next == GameState.Profile);
+        if (next == GameState.Profile && profileUI != null) profileUI.Open();
         if (panelHud != null) panelHud.SetActive(next == GameState.Playing || next == GameState.Paused);
         if (panelPause != null) panelPause.SetActive(next == GameState.Paused);
 
@@ -317,5 +473,38 @@ public class GameManager : MonoBehaviour
         }
 
         if (StateChanged != null) StateChanged(next);
+    }
+
+    // ------------------------------------------------- backgrounding
+
+    /// <summary>
+    /// Sending the app to the background must not leave the match running. Android keeps ticking
+    /// the app for a while after HOME, and if the OS then reclaims it the player returns to a match
+    /// they lost while they could not see it. Nothing else in the project is told when the app
+    /// leaves, so this is the only place that can prevent it.
+    ///
+    /// Coming back does NOT auto-resume: the pause menu is already on screen with its RESUME
+    /// button, so an interrupted player resumes on purpose instead of being dropped into a live
+    /// chase with a finger nowhere near the stick.
+    /// </summary>
+    void OnApplicationPause(bool paused)
+    {
+        if (!paused) return;
+        if (State != GameState.Playing) return;
+
+        Debug.Log("[Pause] the app went to the background - pausing the match.");
+        Pause();
+    }
+
+    /// <summary>
+    /// Some Android builds deliver focus loss without a pause event, so the same guard runs here.
+    /// Idempotent by construction: the State check means a second call while paused does nothing.
+    /// </summary>
+    void OnApplicationFocus(bool focused)
+    {
+        if (focused) return;
+        if (State != GameState.Playing) return;
+
+        Pause();
     }
 }

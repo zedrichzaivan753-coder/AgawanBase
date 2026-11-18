@@ -112,6 +112,8 @@ public class CharacterSpawner : MonoBehaviour
         SpawnTeam(Team.Blue, MatchSettings.BlueAiCount, baseBlue, flagBlue, flagRed, blueJersey, 1);
         SpawnTeam(Team.Red, MatchSettings.RedAiCount, baseRed, flagRed, flagBlue, redJersey, 0);
 
+        PlacePlacedCharacters();
+
         if (logRoster)
         {
             Debug.Log("[Spawn] " + MatchSettings.SizeName + " at " + MatchSettings.Difficulty +
@@ -186,5 +188,95 @@ public class CharacterSpawner : MonoBehaviour
             // own default team by the time Instantiate returns.
             if (status != null) status.SetTeam(team);
         }
+    }
+
+    // ------------------------------------------------- placed (human) characters
+
+    /// <summary>
+    /// Puts right the one body this spawner does NOT create: the hand-placed human.
+    ///
+    /// Two things are repaired here, and both of them are map-dependent facts rather than rules:
+    ///
+    ///  1. HOME BASE. A character that is placed in the scene keeps whatever base was serialized
+    ///     into that scene. Because the human is copied from Game.unity into every map, that can
+    ///     be a base which does not belong to his team - or a base that no longer exists once a
+    ///     map is rebuilt. Rebinding by team here makes "stand in your own base to stay fresh"
+    ///     true on every map without a single line of per-map code.
+    ///
+    ///  2. START POSITION. The bases moved when the new maps were laid out, but a placed body
+    ///     does not move with them: on the two new maps the human was still standing at the OLD
+    ///     Classic spawn point, 15 m outside his own base - and on School Campus that exact spot
+    ///     is inside a garden planter. He is moved onto a free slot inside his base, which is
+    ///     where the Classic map always started him, and where the HUD reads SAFE AT BASE.
+    /// </summary>
+    void PlacePlacedCharacters()
+    {
+        CharacterStatus[] placed =
+            Object.FindObjectsByType<CharacterStatus>(FindObjectsSortMode.None);
+
+        int rebound = 0;
+
+        for (int i = 0; i < placed.Length; i++)
+        {
+            CharacterStatus status = placed[i];
+            if (status == null) continue;
+
+            BaseZone home = TeamIsBlue(status.team) ? baseBlue : baseRed;
+            if (home == null) continue;
+
+            if (status.homeBase != home)
+            {
+                status.homeBase = home;
+                rebound++;
+            }
+        }
+
+        // The human is the only body tagged Player. It is moved onto the slot south of the base
+        // centre: inside the safe circle (radius 4 m on the new maps, 3.2 m on Classic) and clear
+        // of the four 2 x 2 AI slots at +-slotOffset.
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogWarning("[Spawn] no object tagged Player, so the human was not placed. " +
+                             "He keeps whatever position the scene gave him.");
+            return;
+        }
+
+        CharacterStatus playerStatus = player.GetComponent<CharacterStatus>();
+        if (playerStatus == null)
+        {
+            Debug.LogWarning("[Spawn] " + player.name + " has no CharacterStatus, so it cannot be " +
+                             "placed inside a base.");
+            return;
+        }
+
+        BaseZone playerHome = TeamIsBlue(playerStatus.team) ? baseBlue : baseRed;
+        if (playerHome == null)
+        {
+            Debug.LogError("[Spawn] the human has no home base wired, so he cannot start fresh.");
+            return;
+        }
+
+        Vector3 centre = playerHome.transform.position;
+        float inset = Mathf.Min(2f, playerHome.radius * 0.5f);
+        Vector3 start = new Vector3(centre.x, 0f, centre.z - inset);
+
+        CharacterMotor motor = player.GetComponent<CharacterMotor>();
+        if (motor != null) motor.TeleportTo(start);
+        else player.transform.position = start;
+
+        if (logRoster)
+        {
+            Debug.Log("[Spawn] human " + player.name + " placed inside " + playerHome.name +
+                      " at " + start.ToString("F1") + " (base radius " +
+                      playerHome.radius.ToString("F1") + " m), and " + rebound +
+                      " placed homeBase reference(s) rebound.");
+        }
+    }
+
+    /// <summary>Team comparison in one place, so nothing here assumes Blue is 0.</summary>
+    static bool TeamIsBlue(Team team)
+    {
+        return team == Team.Blue;
     }
 }
