@@ -200,9 +200,15 @@ public static class ReleasePanelsBuild
         CreateText(panel.transform, "Title", "HOW TO PLAY",
                    new Vector2(0f, 430f), new Vector2(1400f, 90f), 56, Color.white);
 
+        // The rules are the longest string in the game and they are drawn top-down from the top
+        // edge of their box, so a box that is too short does not clip them - it pushes them out of
+        // the bottom, behind the BACK button. The box therefore stops above the button with room to
+        // spare on a 20:9 phone, where the canvas is only 966 canvas px tall instead of 1031 and the
+        // button's top edge moves up by about 32 px, and the font size is then measured against it.
         Text body = CreateText(panel.transform, "Body", HowToBody,
-                               new Vector2(0f, 0f), new Vector2(1560f, 660f), 26, SoftText);
+                               new Vector2(0f, 30f), new Vector2(1560f, 600f), 26, SoftText);
         body.alignment = TextAnchor.UpperLeft;
+        FitText(body, 600f, 18);
 
         Button back = CreateButtonAnchored(panel.transform, "BackButton", "BACK",
                                            new Vector2(0f, 40f), new Vector2(480f, 144f), 40);
@@ -323,6 +329,36 @@ public static class ReleasePanelsBuild
         text.lineSpacing = 1f;
 
         return text;
+    }
+
+    /// <summary>
+    /// Shrinks a paragraph until it fits the box it was given, and says in the console what it did.
+    ///
+    /// The first build of this panel guessed at 26 px and the measured text turned out to need
+    /// 734.5 px in a 660 px box, so the last seventy-odd canvas units of the rules rendered behind
+    /// the BACK button. Measuring here instead of guessing means the panel cannot regress that way
+    /// if the rule text is ever edited again.
+    /// </summary>
+    static void FitText(Text text, float maxHeight, int minFontSize)
+    {
+        int size = text.fontSize;
+        while (size > minFontSize && text.preferredHeight > maxHeight)
+        {
+            size--;
+            text.fontSize = size;
+        }
+
+        if (text.preferredHeight > maxHeight)
+        {
+            Debug.LogWarning("[Release] " + text.name + " needs " + text.preferredHeight +
+                             " px at font " + size + " but its box is " + maxHeight +
+                             " px - it will overflow.");
+        }
+        else
+        {
+            Debug.Log("[Release] " + text.name + " fitted at font " + size + ": " +
+                      text.preferredHeight + " px inside a " + maxHeight + " px box.");
+        }
     }
 
     static Button CreateButton(Transform parent, string name, string label,
