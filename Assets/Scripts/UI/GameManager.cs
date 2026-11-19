@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     {
         Title,      // title screen, nobody can move
         Profile,    // the player's own record: name, wins/losses, fastest victories
+        HowTo,      // how to play: the rules, written out, reachable from the title
+        Credits,    // who made it, which version this is, and the licences
         MapSelect,  // choose which map to play on
         MatchSetup, // choose the team size and the AI skill
         Playing,    // the match is live
@@ -70,6 +72,22 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The player's profile: display name, record and fastest victories.")]
     public GameObject panelProfile;
+
+    [Tooltip("How to play. Week 17: the module requires instructions, and a flavour line on the " +
+             "title is not instructions.")]
+    public GameObject panelHowTo;
+
+    [Tooltip("Credits: author, version, licences and the AI-assistance disclosure.")]
+    public GameObject panelCredits;
+
+    [Tooltip("Small caption on the title screen that prints ReleaseInfo.BuildId, so the running " +
+             "build can be identified from a screenshot without opening the APK.")]
+    public Text versionLabel;
+
+    [Tooltip("The credits screen's build line. Also filled at runtime: the first version of this " +
+             "screen had the string baked into the scene when it was built, and it went on saying 0.2 " +
+             "after the release candidate had been versioned 1.0.0-rc1.")]
+    public Text creditsVersionLabel;
 
     [Tooltip("Optional. Redrawn every time the profile panel opens.")]
     public ProfileUI profileUI;
@@ -133,6 +151,18 @@ public class GameManager : MonoBehaviour
         // The profile is a file, not a preference, but it is read at the same moment for the same
         // reason: the title screen can open it, and it must already be true when it does.
         PlayerProfile.Load();
+
+        // The version caption is filled from Application.version, so it cannot drift from the
+        // binary it is running inside. Done in Awake so the first frame of the title is correct.
+        if (versionLabel != null)
+        {
+            versionLabel.text = ReleaseInfo.BuildId;
+            Debug.Log("[Release] build id shown on the title: " + ReleaseInfo.BuildId);
+        }
+
+        // Same reason, and the credits screen is the other place a reviewer looks for the version.
+        if (creditsVersionLabel != null)
+            creditsVersionLabel.text = ReleaseInfo.Title + "  -  " + ReleaseInfo.BuildId;
     }
 
     void Start()
@@ -199,6 +229,46 @@ public class GameManager : MonoBehaviour
     public void CloseProfile()
     {
         SetState(GameState.Title);
+    }
+
+    /// <summary>HOW TO PLAY button on the title screen.</summary>
+    public void ShowHowTo()
+    {
+        Debug.Log("[Release] how-to opened.");
+        SetState(GameState.HowTo);
+    }
+
+    /// <summary>CREDITS button on the title screen.</summary>
+    public void ShowCredits()
+    {
+        Debug.Log("[Release] credits opened.");
+        SetState(GameState.Credits);
+    }
+
+    /// <summary>
+    /// BACK button on either of the two reading screens. Both are overlays on the title, not
+    /// destinations of their own, so there is exactly one way back and it is the same for both.
+    /// </summary>
+    public void CloseOverlay()
+    {
+        SetState(GameState.Title);
+    }
+
+    /// <summary>
+    /// EXIT button on the title screen.
+    ///
+    /// Application.Quit() is a no-op inside the editor - Unity ignores it while play mode is
+    /// running - so the editor path only logs, and says so, rather than leaving a button that
+    /// looks broken to whoever is running the demonstration from the editor.
+    /// </summary>
+    public void QuitGame()
+    {
+        Debug.Log("[Release] quit requested.");
+#if UNITY_EDITOR
+        Debug.Log("[Release] Application.Quit() does nothing in the editor - stop Play mode to leave.");
+#else
+        Application.Quit();
+#endif
     }
 
     /// <summary>START button on the match setup screen: go and choose a map.</summary>
@@ -447,6 +517,11 @@ public class GameManager : MonoBehaviour
         // never show a record that the save file no longer holds.
         if (panelProfile != null) panelProfile.SetActive(next == GameState.Profile);
         if (next == GameState.Profile && profileUI != null) profileUI.Open();
+
+        // The two reading screens are overlays on the title. Both are full-screen panels, so the
+        // title goes away while one of them is up and comes back on the way out.
+        if (panelHowTo != null) panelHowTo.SetActive(next == GameState.HowTo);
+        if (panelCredits != null) panelCredits.SetActive(next == GameState.Credits);
         if (panelHud != null) panelHud.SetActive(next == GameState.Playing || next == GameState.Paused);
         if (panelPause != null) panelPause.SetActive(next == GameState.Paused);
 

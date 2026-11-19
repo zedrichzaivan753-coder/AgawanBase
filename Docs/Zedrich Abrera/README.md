@@ -9,8 +9,8 @@
 | Platform | Android (primary), Windows (editor play and standalone) |
 | Engine | Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# |
 | Repository | local Git repository at the project root, branch `main` |
-| Current commit ID | `d08fc9b` - and note that weeks 13, 14 and 15 are all **uncommitted**: 144 dirty paths at the time the Week 15 build was made, so the commit id does not identify the tested code. `Week_15/Evidence/build_and_commit.txt` records the APK's md5 as the identifier of what was actually tested. |
-| Last updated | November 18, 2026 (Week 15, AS3 milestone) |
+| Current commit ID | the Week 17 release commit, tagged `v1.0.0-rc1` on `main`; the exact id is recorded in `Week_17/Evidence/build_and_commit.txt`. The frozen Week 16 tree is `b4cff53`, tagged `week16-final` - a reviewer comparing the two sees only the Week 17 completeness closures, defect fixes and documentation. |
+| Last updated | November 19, 2026 (Week 17, PT7 release candidate) |
 
 ## The game
 
@@ -32,14 +32,18 @@ teams always use the same preset, so neither side gets a hidden advantage.
 
 ## Installation
 
-**Android.** Use the newest build: `Week_15/Abrera_Zedrich_AS3_Milestone.apk`
-(54,489,688 bytes, md5 `f4fa8b51d465f2e9120d9d23c7769245`). Copy it to the phone, allow
+**Android.** Use the release candidate: `Week_17/Abrera_Zedrich_PT7.apk`
+(33,170,059 bytes, md5 `4b1152fe203ba6f679404d955fdaa59d`, version `1.0.0-rc1`). Copy it to the phone, allow
 installing from this source when asked, and open the file, or install it with
-`adb install -r Abrera_Zedrich_AS3_Milestone.apk`. It carries the Week 14 accessibility and
-sound work plus the two Week 15 fixes: the match now pauses when the app goes to the background
-(DEF-15-01) and an out-of-range difficulty is clamped instead of silently falling through
-(DEF-15-03). The build is debug-signed and targets 64-bit ARM phones (ARM64 / IL2CPP, minimum
-Android API 26). Uninstall any older copy first.
+`adb install -r Abrera_Zedrich_PT7.apk`. It is a **release** build (Development Build off) carrying the
+Week 13-16 work plus the Week 17 instructions screen, credits screen, EXIT control and version caption.
+It is debug-signed and targets 64-bit ARM phones (ARM64 / IL2CPP, minimum Android API 26). Uninstall
+any older copy first.
+
+> **The release candidate has not been installed on a handset.** No Android device was attached when
+> it was frozen, so `adb devices` printed an empty list and the module's clean-install checkpoint is
+> recorded **BLOCKED** in `Week_17/Evidence/clean_install.md`. Every runtime result in `Week_17/`
+> comes from the Unity editor's play mode on a desktop machine, not from hardware.
 
 > **Do not install `Week_14/Abrera_Zedrich_PT6_Playtest.apk`.** That file is an Android App
 > Bundle with an `.apk` filename (DEF-15-04 in `Week_15/Evidence/defect_log.md`): it was built
@@ -79,6 +83,8 @@ System's UI pointer handling on desktop.
 | `Week_15/Evidence/` | Environment record, 20 requirements, acceptance criteria, initial and final test logs, traceability matrix, defect log, acceptance summary, accessibility audit, three editor screenshots, and the two Android gap files |
 | `Week_16/` | SA6 performance analysis, AS3 optimisation report, Week 16 reflection, the optimised APK, all as `.md` + `.html` + `.pdf` |
 | `Week_16/Evidence/` | Bottleneck table, 22 per-frame CSVs (baseline, contaminated, A/B pair, ship check), 20 player logs, the two diagrams, and `test_logs_regression/` (EditMode 17/17, play-mode 16/0/0, accessibility 423/0/24) |
+| `Week_17/` | PT7 report, technical documentation, user guide, evidence index, Week 17 reflection, and the release candidate APK - PDFs at the week root, sources and HTML in `others/` |
+| `Week_17/Evidence/` | Feature-freeze checklist, release build record, readiness results, issue disposition, clean-install record (BLOCKED), secrets scan and its raw output, six release screenshots, the capture run log, and the architecture diagram |
 
 Every document from Week 14 on is written twice: `.md` is the source, `.html` is the same text
 with a print stylesheet and every screenshot embedded in the file itself as a data URI. Open the
@@ -120,7 +126,7 @@ removed, so that week ships as PDF only.)
   canvas-pixel arithmetic on the 1920x1080 reference resolution, not a dp measurement taken from
   a device, and the 3-5 tester sessions that would test them with real hands are still
   outstanding.
-- **The device and Windows evidence is still missing.** At the end of Week 15 no Android handset
-  was attached (`adb devices` returned no serial) and no Windows standalone player was built, so
-  three device cases including the crash buffer, and both Windows resolution cases, are recorded
-  **BLOCKED** rather than passed. They are the first work of Week 16.
+- **The device evidence is still missing.** Week 16 built and profiled the Windows standalone player, so the
+  Windows resolution cases are closed; but at the end of Week 17 no Android handset was attached
+  (`adb devices` returned no serial), so the clean-install checkpoint and the crash buffer remain
+  recorded **BLOCKED** rather than passed (`Week_17/Evidence/clean_install.md`).

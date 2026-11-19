@@ -7,7 +7,7 @@ TC-CORE-06	REQ-07	the enemy flag can be taken and the carry penalty arms	Carried
 TC-CORE-07	REQ-08	a dropped flag returns home after 10 s	AtBase once the timer expires	AtBase when checked 1.5 real s after the drop at 20x	PASS
 TC-LIFE-01	REQ-18	pause stops the clock and resume continues it	frozen while paused, running after resume	paused delta 0.00 s, then ran again	PASS
 TC-LIFE-03	REQ-19	backgrounding pauses the match and stops its clock	Paused, clock stopped, resumed on return	paused with the clock frozen for 0.8 s	PASS
-TC-LIFE-02	REQ-18	restart starts a clean match	clock near the full time, outcome None	clock 2.8 s, outcome None	PASS
+TC-LIFE-02	REQ-18	restart starts a clean match	clock near the full time, outcome None	clock 2.9 s, outcome None	PASS
 TC-BND-01	REQ-04	repeated rapid catches stay consistent	no exception, the capture counter matches the captures made	3 captures in one frame, redsCaptured 1 -> 4, no exception	PASS
 TC-BND-02	REQ-18	50 rapid pause toggles	no exception, ends in a known state	no exception; state Playing, timeScale 1.00	PASS
 TC-BND-03	REQ-07	50 rapid pick-up attempts	no exception, the flag ends in one consistent state	no exception; state Dropped, carried=	PASS

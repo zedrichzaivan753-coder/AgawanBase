@@ -30,7 +30,7 @@ using UnityEngine;
 public static class MdToHtml
 {
     // One entry per week folder, with the documents in it. Adding a week is one more line here.
-    static readonly string[] Weeks = { "Week_13", "Week_14", "Week_15", "Week_16" };
+    static readonly string[] Weeks = { "Week_13", "Week_14", "Week_15", "Week_16", "Week_17" };
 
     static readonly string[][] Documents =
     {
@@ -56,6 +56,14 @@ public static class MdToHtml
             "Abrera_Zedrich_SA6.md",
             "Abrera_Zedrich_AS3.md",
             "Abrera_Zedrich_Week16_Reflection.md"
+        },
+        new string[]
+        {
+            "Abrera_Zedrich_PT7.md",
+            "Abrera_Zedrich_PT7_Technical_Documentation.md",
+            "Abrera_Zedrich_PT7_User_Guide.md",
+            "Abrera_Zedrich_PT7_Evidence_Index.md",
+            "Abrera_Zedrich_Week17_Reflection.md"
         }
     };
 

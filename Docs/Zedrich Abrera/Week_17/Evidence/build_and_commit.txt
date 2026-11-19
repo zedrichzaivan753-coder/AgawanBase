@@ -1,0 +1,64 @@
+# Week 17 — release candidate build record
+
+Everything below was read off the machine that produced the file, not typed from memory.
+
+| | |
+|---|---|
+| Artefact | `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` |
+| Build output | `Builds/Week17/AgawanBase_RC.apk` (gitignored; the copy above is the deliverable) |
+| Size on disk | **33,170,059 bytes = 31.63 MB** |
+| MD5 | **4b1152fe203ba6f679404d955fdaa59d** |
+| Built | November 19, 2026, 14:51 local (build started 14:49, took 94 s) |
+| Engine | Unity 6000.6.0f1, URP 17.6.0 |
+| Platform | Android, **release build** — Development Build **off**, Build App Bundle **off** |
+| Scripting backend | IL2CPP |
+| Architecture | ARM64 only |
+| Minimum Android | API 26 (Android 8.0) |
+| Managed stripping | Minimal |
+| Orientation | Landscape left, locked |
+| `bundleVersion` | **1.0.0-rc1** |
+| `AndroidBundleVersionCode` | **2** |
+| `productName` | AgawanBase (the version is *not* part of the app identity — see below) |
+| Application id | `com.zedrich.agawanbase` |
+| Scenes | `Game`, `Map_Palengke`, `Map_SchoolCampus` (index 0 = `Game`) |
+| Source commit at build time | the working tree that step 7 commits and tags `v1.0.0-rc1` |
+| Build report | result `Succeeded`, 0 errors, 15 warnings |
+
+## This is the second build of the day, and why
+
+The first 1.0.0-rc1 APK (33,170,243 bytes, MD5 `bb36569a7a1387997c556a56aeaf0344`, 331 s) was built
+at 14:17 and was correct at the time. Two defects were found afterwards while capturing the release
+screenshots, and both are fixed in this build:
+
+1. **The credits screen printed `0.2`.** Its build line was a string baked into the scene when the
+   panel builder last ran, so it kept the version it was built under. It is now filled at runtime from
+   `ReleaseInfo.BuildId`, exactly like the version caption on the title, and the screenshot `E3_credits.png`
+   shows `AGAWAN BASE  -  1.0.0-rc1  -  built 2026-11-19`.
+2. **`productName` was `AgawanBase v1.0.0-rc1`.** Unity derives the PlayerPrefs namespace and the
+   `persistentDataPath` folder from the product name, so putting the version in it gave the release
+   candidate an empty settings store and a new profile folder: saved match settings and the player
+   record of anyone upgrading were silently abandoned. The name is back to `AgawanBase`; the version is
+   carried by `bundleVersion`, which is what `Application.version` and every on-screen version label read.
+
+Both are recorded in `issue_disposition.md`. The MD5 above, not the earlier one, is the identity of the
+release candidate that `readiness_results.md` describes.
+
+## Package contents check (the DEF-15-04 guard)
+
+`tar -tf Builds/Week17/AgawanBase_RC.apk` lists `classes.dex`, `AndroidManifest.xml` and
+`resources.arsc` **at the root of the archive**. That is what separates a real APK from the Week 14
+file that was an Android App Bundle wearing an `.apk` filename: an app bundle keeps `classes.dex`
+inside `base/dex/`, and no handset will install one. Build App Bundle is off in the project, and the
+listing above is the proof for this build.
+
+## Why this APK is smaller than the Week 16 one
+
+Week 16 shipped a **development** build at 68.30 MB. This is a **release** build at 31.63 MB. The
+difference is the development player's debug symbols and the extra runtime checks that a release
+build strips out; nothing was removed from the game. No size reduction is claimed as an optimisation.
+
+## Identity of what was tested
+
+The commit id alone cannot identify this binary, because the APK had to exist before the commit
+that ships it did. The MD5 above is the identifier: the readiness results in
+`readiness_results.md` are the results for this exact file.
