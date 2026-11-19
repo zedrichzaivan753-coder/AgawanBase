@@ -109,7 +109,7 @@ and all three tags were pushed, and the remote reads back:
 
 | Read | Result |
 |---|---|
-| `git ls-remote origin refs/heads/main` | `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0` |
+| `refs/heads/main` | the PA2 commit plus the documentation commits that follow it |
 | `v1.0.0-pa2` | `5e63b1c` (peeled) |
 | `v1.0.0-rc1` | `07057bd` (peeled) |
 | `week16-final` | `b4cff53` (peeled) |

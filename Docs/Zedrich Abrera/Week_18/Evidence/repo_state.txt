@@ -122,6 +122,22 @@ form.
 GitHub reports pushed_at 2026-11-19T08:52:15Z for the repository, which is the server's own record
 of when the branch landed.
 
+=== TWO THINGS THIS BLOCK DELIBERATELY DOES NOT PIN ===
+
+1. The refs/heads/main line above was the read at the moment the branch landed. Two documentation
+   commits followed it - the local-only corrections, then the record of this run - so refs/heads/main
+   has advanced past 5e63b1c while none of the tags moved. A tip id is not written down here for the
+   same reason the PA2 commit id is not written into the FINAL STATE section: a number describing a
+   moving ref goes stale as soon as anything else is committed. Read it directly:
+
+     git ls-remote origin refs/heads/main
+
+2. The annotated tag object for v1.0.0-pa2 still carries its original message, which says the
+   repository is local only at d08fc9b. That message is a historical artefact of the moment the tag
+   was created on 2026-11-19, before the push. It is not rewritten, because re-tagging would move
+   v1.0.0-pa2 off 5e63b1c and invalidate every record that names that pair - the opposite of what
+   the tag exists to prove.
+
 WHAT THIS MEANS FOR THE DOCUMENTS
 The PA2 documents written earlier on 2026-11-19 said the repository was local only and that the
 instructor could not verify the tag remotely. That is no longer true, and those statements were

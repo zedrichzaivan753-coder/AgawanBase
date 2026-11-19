@@ -276,7 +276,7 @@ Every document from Week 14 on is written twice: `.md` is the source and `.html`
 
 ## 17. Release tag and commit
 
-- Branch `main`, annotated tag **`v1.0.0-rc1`**, created in Week 17 and **published to `origin`** on 2026-11-19 alongside Weeks 16-18; `origin/main` is now `5e63b1c`.
+- Branch `main`, annotated tag **`v1.0.0-rc1`**, created in Week 17 and **published to `origin`** on 2026-11-19 alongside Weeks 16-18; the tag push landed at `5e63b1c`.
 - Week 18 creates the annotated tag **`v1.0.0-pa2`** on the PA2 submission commit. It is a label on the *commit*, not on a new binary: the APK it ships is the Week 17 release candidate, byte for byte, and still reports `1.0.0-rc1`. Rebuilding only to print "1.0.0" would have shipped a build that inherits none of the verification behind `ef38de8d...`; the reasoning is in `Docs/Zedrich Abrera/Week_18/Evidence/release_record.md` section 2.
 - All three tags are **published**. `git ls-remote --tags origin` returns `v1.0.0-pa2` -> `5e63b1c`, `v1.0.0-rc1` -> `07057bd` and `week16-final` -> `b4cff53`, so the instructor can resolve the submission commit and the binary's tag directly from the remote. The repository was local-only until 2026-11-19, when `origin/main` was still `d08fc9b`; `Week_18/Evidence/repo_state.txt` keeps that pre-push state as a record rather than erasing it.
 - A commit id cannot identify the APK, because the APK had to exist before the commit that ships it did. The identity of what was verified is therefore the **APK md5** above; the commit the tag points at is recorded in `Docs/Zedrich Abrera/Week_17/Evidence/build_and_commit.txt`.

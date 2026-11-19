@@ -24,7 +24,7 @@
 | Final PA2 tag | `v1.0.0-pa2` on the PA2 submission commit |
 | Engine | Unity 6000.6.0f1, URP 17.6.0, IL2CPP, ARM64, Android API 26+ |
 | Backup package | `Abrera_Zedrich_PA2_Windows.zip` — MD5 `fe17f2060c994218e4593b2010eb9a98` |
-| Repository | `main`, published at `https://github.com/zedrichzaivan753-coder/AgawanBase`, `origin/main` = `5e63b1c` — see §10 |
+| Repository | `main`, published at `https://github.com/zedrichzaivan753-coder/AgawanBase`; `v1.0.0-pa2` peels to `5e63b1c` — see §10 |
 
 **The submitted APK is not a new build.** It is the Week 17 release candidate, copied byte for byte,
 because every verification result, screenshot, audit and profiling number in this submission belongs
@@ -270,9 +270,9 @@ claims more than the evidence supports.
    this Week 18 submission demonstrates. It is marked **BLOCKED**, not passed.
 2. **The repository was local-only until 2026-11-19.** `origin/main` sat at `d08fc9b`, which predates
    Weeks 15–17, so at the time of writing the instructor could not verify the final tag or commit from
-   the remote. It has since been published: `origin/main` is `5e63b1c` and `v1.0.0-pa2`, `v1.0.0-rc1`
-   and `week16-final` all resolve remotely. `Evidence/repo_state.txt` keeps the pre-push state as a
-   record.
+   the remote. It has since been published: `v1.0.0-pa2` peels to `5e63b1c`, and `v1.0.0-rc1` and
+   `week16-final` resolve with it, with `origin/main` carrying the PA2 commit plus the documentation
+   commits after it. `Evidence/repo_state.txt` keeps the pre-push state as a record.
 3. **E3 is sat under supervision** and had not been sat when this document was written.
    `Evidence/e3_record.md` is a record with fields, and `Evidence/defense_prep.md` holds pointers to
    files and commits, never scripted answers.

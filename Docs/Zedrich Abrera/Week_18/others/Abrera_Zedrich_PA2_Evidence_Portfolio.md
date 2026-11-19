@@ -208,7 +208,7 @@ Claims this portfolio does **not** make, with the reason:
 | 3 | That the two Week 14 discoverability findings are fixed | Never re-tested against the rebuilt instructions screen | Open. The rebuild was for `DEF-17-07`, which is a different defect |
 | 4 | AI difficulty balance across a broad range of human players | Only 16 regression scenarios exist | 16/0 is a regression net, not a balance study |
 | 5 | That the Windows backup plays comfortably with mouse and keyboard | It was launched and reached the title; no input was injected | Recorded as "runs", not "playable" |
-| 6 | That the instructor can verify the final tag and commit remotely | **Resolved 2026-11-19**: published to `origin` | `origin/main` is `5e63b1c`; `v1.0.0-pa2`, `v1.0.0-rc1` and `week16-final` all resolve remotely |
+| 6 | That the instructor can verify the final tag and commit remotely | **Resolved 2026-11-19**: published to `origin` | `v1.0.0-pa2` resolves to `5e63b1c`; `v1.0.0-rc1` and `week16-final` resolve too |
 | 7 | That the Windows backup is equivalent to the APK | It is not: Mono, no haptics, two post-processing passes stripped | Disclosed in `windows_backup_build.md` §6 |
 
 ---

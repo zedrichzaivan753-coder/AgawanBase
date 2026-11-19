@@ -113,8 +113,8 @@ The work is traceable to commits in this repository, each with a message describ
 
 The repository was **local only** while this declaration was written; `origin/main` was at
 `d08fc9b` and predated Weeks 15–18. It was published on 2026-11-19, so this trail is now verifiable
-remotely: `origin/main` is `5e63b1c` and `v1.0.0-pa2`, `v1.0.0-rc1` and `week16-final` all resolve
-on the remote. `Evidence/repo_state.txt` keeps the pre-push state as a record.
+remotely: `v1.0.0-pa2` peels to `5e63b1c`, and `v1.0.0-rc1` and `week16-final` resolve on the remote
+too. `Evidence/repo_state.txt` keeps the pre-push state as a record.
 
 ---
 

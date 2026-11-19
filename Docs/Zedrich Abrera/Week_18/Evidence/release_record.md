@@ -134,7 +134,7 @@ published state.
 | Branch state at capture | `main...origin/main [ahead 9]` |
 | `origin/main` | `d08fc9b2c9e28876f337cfcad009b88802d2b534` — predates Weeks 15–17 |
 | **Published** | 2026-11-19 (GitHub reports `pushed_at` `2026-11-19T08:52:15Z`) |
-| `origin/main` after publish | `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0` |
+| `origin/main` after publish | the PA2 commit `5e63b1c` plus the documentation commits that follow it |
 | Tag `v1.0.0-pa2` remotely | `5e63b1c` |
 | Tag `v1.0.0-rc1` remotely | `07057bd` |
 | Tag `week16-final` remotely | `b4cff53` |

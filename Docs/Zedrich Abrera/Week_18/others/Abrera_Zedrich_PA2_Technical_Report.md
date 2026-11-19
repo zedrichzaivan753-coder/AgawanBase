@@ -257,7 +257,7 @@ looking at it. Guessing a font size once was enough to stop guessing.
    unmodified, but installation on a phone is **BLOCKED**, not demonstrated.
 2. **The repository was local-only when this report was written.** `origin/main` was `d08fc9b`, which
    predates Weeks 15–17, so the tag and commit could not then be verified remotely. It was published on
-   2026-11-19: `origin/main` is now `5e63b1c` and all three tags resolve on the remote.
+   2026-11-19: `v1.0.0-pa2` peels to `5e63b1c` and all three tags resolve on the remote.
 3. **AI balance rests on 16 regression scenarios**, not on a study of human players against the AI.
 4. **Two Week 14 discoverability findings were never re-tested** after the instructions screen was
    rebuilt for `DEF-17-07`.

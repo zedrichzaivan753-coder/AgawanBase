@@ -138,7 +138,8 @@ removed, so that week ships as PDF only.)
   The disclosed fallback is `Week_18/Abrera_Zedrich_PA2_Windows.zip`, a compiled Windows player that
   was launched and reached the title screen; it is not the submission, and it differs in scripting
   backend, haptics and two post-processing passes (`Week_18/Evidence/windows_backup_build.md`).
-- **The repository is published.** `origin/main` is `5e63b1c` and all three tags resolve on the remote
+- **The repository is published.** All three tags resolve on the remote
   (`v1.0.0-pa2` -> `5e63b1c`, `v1.0.0-rc1` -> `07057bd`, `week16-final` -> `b4cff53`), so the instructor
-  can verify the submission commit and the binary's tag directly. It was local-only until 2026-11-19;
+  can verify the submission commit and the binary's tag directly; `origin/main` carries the PA2 commit
+  plus the documentation commits that follow it. It was local-only until 2026-11-19;
   `Week_18/Evidence/repo_state.txt` keeps that pre-push state as a record.
