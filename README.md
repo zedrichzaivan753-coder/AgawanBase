@@ -8,8 +8,8 @@ A 3D top-down mobile capture-the-flag game built on the Filipino street game **A
 | **Theme** | Philippine Games and Sports |
 | **Author** | Zedrich Zaivan B. Abrera |
 | **Version** | **1.0.0-rc1** (versionCode 2) - release build |
-| **Release tag** | annotated tag **`v1.0.0-rc1`** on branch `main` (created locally; not pushed) |
-| **PA2 final tag** | annotated tag **`v1.0.0-pa2`** on the Week 18 submission commit (local; not pushed) |
+| **Release tag** | annotated tag **`v1.0.0-rc1`** on branch `main`, published to `origin` on 2026-11-19 |
+| **PA2 final tag** | annotated tag **`v1.0.0-pa2`** on the Week 18 submission commit, published to `origin` on 2026-11-19 |
 | **Release APK** | `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` - 33,170,107 bytes (31.63 MB), md5 `ef38de8dd65100109791002a67738da1` |
 | **PA2 submission build** | `Docs/Zedrich Abrera/Week_18/Abrera_Zedrich_PA2.apk` - **the same bytes, copied not rebuilt**: 33,170,107 bytes, md5 `ef38de8dd65100109791002a67738da1` |
 | **Engine** | Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# |
@@ -276,9 +276,9 @@ Every document from Week 14 on is written twice: `.md` is the source and `.html`
 
 ## 17. Release tag and commit
 
-- Branch `main`, annotated tag **`v1.0.0-rc1`**, created locally in Week 17 and **not pushed** to `origin`.
+- Branch `main`, annotated tag **`v1.0.0-rc1`**, created in Week 17 and **published to `origin`** on 2026-11-19 alongside Weeks 16-18; `origin/main` is now `5e63b1c`.
 - Week 18 creates the annotated tag **`v1.0.0-pa2`** on the PA2 submission commit. It is a label on the *commit*, not on a new binary: the APK it ships is the Week 17 release candidate, byte for byte, and still reports `1.0.0-rc1`. Rebuilding only to print "1.0.0" would have shipped a build that inherits none of the verification behind `ef38de8d...`; the reasoning is in `Docs/Zedrich Abrera/Week_18/Evidence/release_record.md` section 2.
-- Both tags are **local only**. `origin/main` is `d08fc9b`, which predates Weeks 15-18, so the instructor cannot verify either tag from the remote. `Week_17/Evidence/build_and_commit.txt` and `Week_18/Evidence/repo_state.txt` record the state instead.
+- All three tags are **published**. `git ls-remote --tags origin` returns `v1.0.0-pa2` -> `5e63b1c`, `v1.0.0-rc1` -> `07057bd` and `week16-final` -> `b4cff53`, so the instructor can resolve the submission commit and the binary's tag directly from the remote. The repository was local-only until 2026-11-19, when `origin/main` was still `d08fc9b`; `Week_18/Evidence/repo_state.txt` keeps that pre-push state as a record rather than erasing it.
 - A commit id cannot identify the APK, because the APK had to exist before the commit that ships it did. The identity of what was verified is therefore the **APK md5** above; the commit the tag points at is recorded in `Docs/Zedrich Abrera/Week_17/Evidence/build_and_commit.txt`.
 - The frozen Week 16 tree is commit `b4cff53`, tagged `week16-final`. A reviewer comparing it with `v1.0.0-rc1` will see only completeness closures (instructions, credits, exit, version caption), defect fixes and documentation - the three categories the feature-freeze checklist allows.
 

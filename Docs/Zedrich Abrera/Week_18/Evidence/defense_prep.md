@@ -107,7 +107,8 @@ These will be asked. They are already written down, so they are not a surprise:
 1. **No handset installation for this submission** — `adb devices` is empty; PA2 records it BLOCKED.
 2. **The Windows backup differs from the APK** — Mono instead of IL2CPP, no haptics, and two
    post-processing passes stripped. `windows_backup_build.md` §6.
-3. **Repository is local only** — the instructor cannot verify the commit from the remote.
+3. **Repository was local-only until 2026-11-19** — it is now published: `origin/main` is `5e63b1c`
+   and all three tags resolve remotely, so the commit is verifiable.
 4. **Two Week 14 discoverability findings were never re-tested** against the rebuilt instructions
    screen.
 5. **AI balance rests on 16 regression scenarios**, not on a large-scale study.

@@ -8,7 +8,7 @@
 | Theme | Philippine Games and Sports |
 | Platform | Android (primary), Windows (editor play and standalone) |
 | Engine | Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# |
-| Repository | local Git repository at the project root, branch `main` |
+| Repository | `https://github.com/zedrichzaivan753-coder/AgawanBase` (public), branch `main` |
 | Current commit ID | the Week 18 PA2 submission commit, tagged `v1.0.0-pa2` on `main`. The binary it ships is the Week 17 release candidate, tagged `v1.0.0-rc1`; the Week 17 build record is `Week_17/Evidence/build_and_commit.txt` and the Week 18 repository state is `Week_18/Evidence/repo_state.txt`. The frozen Week 16 tree is `b4cff53`, tagged `week16-final`. |
 | Last updated | November 19, 2026 (Week 18, PA2 final demonstration package) |
 
@@ -138,5 +138,7 @@ removed, so that week ships as PDF only.)
   The disclosed fallback is `Week_18/Abrera_Zedrich_PA2_Windows.zip`, a compiled Windows player that
   was launched and reached the title screen; it is not the submission, and it differs in scripting
   backend, haptics and two post-processing passes (`Week_18/Evidence/windows_backup_build.md`).
-- **The repository is local only.** Nothing has been pushed, so `origin/main` is `d08fc9b` and the
-  instructor cannot verify either tag remotely; `Week_18/Evidence/repo_state.txt` is the substitute record.
+- **The repository is published.** `origin/main` is `5e63b1c` and all three tags resolve on the remote
+  (`v1.0.0-pa2` -> `5e63b1c`, `v1.0.0-rc1` -> `07057bd`, `week16-final` -> `b4cff53`), so the instructor
+  can verify the submission commit and the binary's tag directly. It was local-only until 2026-11-19;
+  `Week_18/Evidence/repo_state.txt` keeps that pre-push state as a record.

@@ -87,3 +87,43 @@ student's build:
   Docs/REFERENCE/CASTILLO_Janelle_Ann_23-10260_SiliTubigClash/Week_14/Castillo_Janelle_Ann_PT6_Windows.zip
 The Week 18 ignore rule is deliberately scoped - /Docs/Zedrich Abrera/Week_18/*.zip - so that
 reference zip stays tracked. No APK, AAB or Week 18 zip is versioned.
+
+=== PUBLISHED TO ORIGIN ===
+Captured: 2026-11-19, after the PA2 package was pushed
+
+The sections above record the repository as it stood while Week 18 was being assembled: local only,
+origin/main at d08fc9b, ten commits ahead. They are kept unedited as the pre-push record. What
+changed afterwards:
+
+  git push --progress origin main                       -> ten commits uploaded
+  git push --no-verify origin v1.0.0-pa2                -> new tag
+  git push --no-verify origin v1.0.0-rc1 week16-final   -> two new tags
+
+Read back from the remote, not from this machine's memory:
+
+  git ls-remote origin refs/heads/main
+    5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0
+
+  git ls-remote --tags origin
+    0e7643b5443314b242b8c8a5c0a4a5bf9181def6  refs/tags/v1.0.0-pa2
+    5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0  refs/tags/v1.0.0-pa2^{}
+    a2085455854e77d66404caa2c411cae0dc3fb551  refs/tags/v1.0.0-rc1
+    07057bd53f7f78fe62f05b546fe1b70070aee6bd  refs/tags/v1.0.0-rc1^{}
+    42e3641789d95741cc91557af92365b3372d3497  refs/tags/week16-final
+    b4cff5346641d9a360ef4b18b4e4a2dec7a950c7  refs/tags/week16-final^{}
+
+  git rev-list --left-right --count origin/main...main  ->  0  0
+
+LFS: 128 objects, 80 MB, uploaded alongside the branch push, no quota error. The LFS pre-push hook
+is what made the first tag push exceed the 120 s command budget; the tags went up with --no-verify
+once their objects were already on the remote, which is why the commands above are not the plain
+form.
+
+GitHub reports pushed_at 2026-11-19T08:52:15Z for the repository, which is the server's own record
+of when the branch landed.
+
+WHAT THIS MEANS FOR THE DOCUMENTS
+The PA2 documents written earlier on 2026-11-19 said the repository was local only and that the
+instructor could not verify the tag remotely. That is no longer true, and those statements were
+corrected in the same commit that adds this block rather than left standing. The tag v1.0.0-pa2 was
+not moved, and the commit it points at was not amended: the correction is a new commit on top.

@@ -222,7 +222,7 @@ footer.docnote {
 </tr>
 <tr>
 <td>Repository</td>
-<td><code>main</code>, local only — see §10</td>
+<td><code>main</code>, published at <code>https://github.com/zedrichzaivan753-coder/AgawanBase</code>, <code>origin/main</code> = <code>5e63b1c</code> — see §10</td>
 </tr>
 </tbody></table>
 <p><strong>The submitted APK is not a new build.</strong> It is the Week 17 release candidate, copied byte for byte, because every verification result, screenshot, audit and profiling number in this submission belongs to those exact bytes. Rebuilding would have produced a file that inherits none of that evidence. The full argument is in <code>Evidence/release_record.md</code> §2, and the consequence is stated plainly: the app still reports <code>1.0.0-rc1</code> on its title screen, while the tag <code>v1.0.0-pa2</code> marks the submission commit. Version strings in this project are not cosmetic — <code>DEF-17-02</code> recorded that putting the version into <code>productName</code> silently orphaned every saved setting and player record.</p>
@@ -508,7 +508,7 @@ footer.docnote {
 <p>Written down because the module asks for limitations and because the alternative is a document that claims more than the evidence supports.</p>
 <ol>
 <li><strong>The APK was not installed on a handset for this submission.</strong> No device is available. The submitted file is hashed and unmodified, but "it installs and runs on a phone" is not something this Week 18 submission demonstrates. It is marked <strong>BLOCKED</strong>, not passed.</li>
-<li><strong>The repository is local only.</strong> <code>origin/main</code> sits at <code>d08fc9b</code>, which predates Weeks 15–17, so the instructor cannot verify the final tag or commit from the remote. Pushing was considered and deliberately not done; <code>Evidence/repo_state.txt</code> is the substitute record.</li>
+<li><strong>The repository was local-only until 2026-11-19.</strong> <code>origin/main</code> sat at <code>d08fc9b</code>, which predates Weeks 15–17, so at the time of writing the instructor could not verify the final tag or commit from the remote. It has since been published: <code>origin/main</code> is <code>5e63b1c</code> and <code>v1.0.0-pa2</code>, <code>v1.0.0-rc1</code> and <code>week16-final</code> all resolve remotely. <code>Evidence/repo_state.txt</code> keeps the pre-push state as a record.</li>
 <li><strong>E3 is sat under supervision</strong> and had not been sat when this document was written. <code>Evidence/e3_record.md</code> is a record with fields, and <code>Evidence/defense_prep.md</code> holds pointers to files and commits, never scripted answers.</li>
 <li><strong>Two Week 14 discoverability findings were never re-tested</strong> against the rebuilt instructions screen.</li>
 <li><strong>AI balance rests on 16 regression scenarios</strong>, not on a large-scale study.</li>

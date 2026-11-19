@@ -74,7 +74,7 @@ phone. That is item 4 above, and it is BLOCKED, not passed.
 
 | Requirement | Status | Note |
 |---|---|---|
-| Final build and repository are submitted | **PASS** | Build copied and hashed; repository local-only, see §5 |
+| Final build and repository are submitted | **PASS** | Build copied and hashed; repository published to `origin` on 2026-11-19, see §5.2 |
 | Documentation and evidence portfolio are complete | **PASS** | Six documents + this evidence folder |
 | The demonstration sequence has been tested | **PASS** | `demo_rehearsal.txt` — 14.2 s, nine distinct captures |
 | The student can explain architecture, code, tests, optimisation, security and limitations | **PENDING** | `defense_prep.md` supplies the pointers; the explaining is the viva |
@@ -83,8 +83,9 @@ phone. That is item 4 above, and it is BLOCKED, not passed.
 
 ## 5. What is BLOCKED, and why it is not being faked
 
-Two items cannot be produced on this machine. They are marked BLOCKED rather than PASS, because a
-checklist that lies is worse than an incomplete one.
+One item cannot be produced on this machine. It is marked BLOCKED rather than PASS, because a
+checklist that lies is worse than an incomplete one. The second item this section originally marked
+BLOCKED — repository access — was resolved on 2026-11-19 and is recorded in §5.2.
 
 ### 5.1 Handset installation and demonstration — BLOCKED
 
@@ -100,15 +101,24 @@ emulator in the project.
   the submission, and it differs in scripting backend, haptics and two post-processing passes —
   all disclosed in `windows_backup_build.md` §6.
 
-### 5.2 Repository access for the instructor — BLOCKED
+### 5.2 Repository access for the instructor — RESOLVED 2026-11-19
 
-The repository is local only. `origin/main` is at `d08fc9b`, which predates Weeks 15–17, and both
-tags exist solely on this machine. The instructor therefore **cannot verify the final tag or commit
-from the remote**.
+This section originally recorded the repository as local-only, with the instructor unable to verify
+anything remotely. That is no longer the state. On 2026-11-19 the ten commits carrying Weeks 16-18
+and all three tags were pushed, and the remote reads back:
 
-This is stated rather than worked around. The verifiable substitute is `repo_state.txt`, the raw
-`git` output captured on this machine, which shows HEAD, both tag targets, and the ahead-by-9 state.
-Pushing was considered and deliberately not done.
+| Read | Result |
+|---|---|
+| `git ls-remote origin refs/heads/main` | `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0` |
+| `v1.0.0-pa2` | `5e63b1c` (peeled) |
+| `v1.0.0-rc1` | `07057bd` (peeled) |
+| `week16-final` | `b4cff53` (peeled) |
+| `git rev-list --left-right --count origin/main...main` | `0 / 0` |
+
+The instructor therefore **can** verify the final tag and commit from the remote. The pre-push state
+is kept rather than erased: the opening section of `repo_state.txt` records `origin/main` at
+`d08fc9b` and the ahead-by-9/10 state as captured during Week 18, and a `=== PUBLISHED TO ORIGIN ===`
+section records the publication and the timestamp GitHub reports.
 
 ---
 

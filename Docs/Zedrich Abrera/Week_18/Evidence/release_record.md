@@ -122,8 +122,10 @@ elsewhere should know what it was, and that it is not the submission.
 
 ## 5. Repository visibility
 
-The repository is **local only**. Both tags and every commit from Weeks 15–18 exist solely on this
-machine; nothing has been pushed.
+The repository was **local only** when this record was written. Both tags and every commit from
+Weeks 15–18 existed solely on this machine. That changed on 2026-11-19: the commits and all three
+tags were published to `origin`, and the table below now carries both the pre-push state and the
+published state.
 
 | Field | Value |
 |---|---|
@@ -131,11 +133,19 @@ machine; nothing has been pushed.
 | Branch | `main` |
 | Branch state at capture | `main...origin/main [ahead 9]` |
 | `origin/main` | `d08fc9b2c9e28876f337cfcad009b88802d2b534` — predates Weeks 15–17 |
+| **Published** | 2026-11-19 (GitHub reports `pushed_at` `2026-11-19T08:52:15Z`) |
+| `origin/main` after publish | `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0` |
+| Tag `v1.0.0-pa2` remotely | `5e63b1c` |
+| Tag `v1.0.0-rc1` remotely | `07057bd` |
+| Tag `week16-final` remotely | `b4cff53` |
+| Branch state after publish | `git rev-list --left-right --count origin/main...main` = `0 / 0` |
+| LFS | 128 objects, 80 MB uploaded, no quota error |
 
 The module asks for repository access so the instructor can verify the final tag and commit. **That
-cannot be done from the remote as it stands.** This record states it plainly rather than implying
-the commit is verifiable online. The evidence the instructor *can* check is local and self-contained:
-`repo_state.txt` (the raw `git` output at capture) and this record.
+can now be done from the remote**: `origin/main` is `5e63b1c` and each tag resolves to the commit it
+names. The local evidence is retained as well — `repo_state.txt` (the raw `git` output at capture,
+followed by the publication block) and this record — so the pre-push state is documented rather than
+quietly overwritten.
 
 ---
 

@@ -111,9 +111,10 @@ The work is traceable to commits in this repository, each with a message describ
 | `983d758` | Repository HEAD at the start of Week 18 |
 | `v1.0.0-pa2` | Final annotated tag on the PA2 submission commit |
 
-The repository is **local only**; `origin/main` is at `d08fc9b` and predates Weeks 15–18. That is
-stated here because it affects how much of this trail the instructor can verify remotely, and
-`Evidence/repo_state.txt` is the record that stands in its place.
+The repository was **local only** while this declaration was written; `origin/main` was at
+`d08fc9b` and predated Weeks 15–18. It was published on 2026-11-19, so this trail is now verifiable
+remotely: `origin/main` is `5e63b1c` and `v1.0.0-pa2`, `v1.0.0-rc1` and `week16-final` all resolve
+on the remote. `Evidence/repo_state.txt` keeps the pre-push state as a record.
 
 ---
 
