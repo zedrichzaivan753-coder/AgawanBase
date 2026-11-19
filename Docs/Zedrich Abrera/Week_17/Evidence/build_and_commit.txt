@@ -21,7 +21,7 @@ Everything below was read off the machine that produced the file, not typed from
 | `productName` | AgawanBase (the version is *not* part of the app identity — see below) |
 | Application id | `com.zedrich.agawanbase` |
 | Scenes | `Game`, `Map_Palengke`, `Map_SchoolCampus` (index 0 = `Game`) |
-| Source commit at build time | the working tree that step 7 commits and tags `v1.0.0-rc1` |
+| Source commit | **`aa1ec43`** - the commit that annotated tag `v1.0.0-rc1` points at (`git rev-parse v1.0.0-rc1^{commit}` returns it) |
 | Build report | result `Succeeded`, 0 errors, 15 warnings |
 
 ## This is the second build of the day, and why
@@ -62,3 +62,9 @@ build strips out; nothing was removed from the game. No size reduction is claime
 The commit id alone cannot identify this binary, because the APK had to exist before the commit
 that ships it did. The MD5 above is the identifier: the readiness results in
 `readiness_results.md` are the results for this exact file.
+
+This row was filled in by the commit that follows the tag, because a commit cannot contain its own
+id - the same circularity as Week 15, where the APK md5 had to stand in for a commit id that did not
+yet exist. `git rev-parse v1.0.0-rc1^{commit}` is the authority; the id above is what it returns.
+
+The tag was created locally on branch `main` and has **not** been pushed to `origin`.
