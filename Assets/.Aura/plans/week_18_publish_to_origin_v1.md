@@ -62,4 +62,15 @@ Push the ten unpushed commits (Weeks 16-18) and the three tags to `https://githu
   Evidence Portfolio 8 / 4, Originality Declaration 3 / 0. User Guide and Reflection were not touched.
 - The plan's Verify bullet expecting `origin/main` at `5e63b1c` now describes an intermediate state:
   `origin/main` is `328853b` and `v1.0.0-pa2` still peels to `5e63b1c`.
+- **Verification came back `broken`, and it was right.** Bullet 1 failed because `origin/main` had
+  advanced past `5e63b1c` with the correction commit. The agent also caught the real defect behind
+  it: the notes above and eleven document sites named `origin/main` as `5e63b1c`, which was true only
+  until the next commit landed - the same mistake `repo_state.txt` already knew to avoid. Every site
+  now names the durable fact instead (`v1.0.0-pa2` peels to `5e63b1c`; all three tags resolve;
+  `origin/main` carries the PA2 commit plus the documentation commits after it). The four documents
+  were re-exported from their Markdown with page and figure counts unchanged, and `repo_state.txt`
+  gained a section explaining why it pins no tip id and why the annotated tag message is left as a
+  historical artefact rather than re-tagged. Bullet 1 as literally worded cannot hold without
+  rewriting history, which would move the tag and destroy the evidence it exists to provide. Final
+  state: `origin/main` = `aa687ed`, `v1.0.0-pa2` -> `5e63b1c`, working tree clean.
 
