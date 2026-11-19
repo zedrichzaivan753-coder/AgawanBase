@@ -81,7 +81,6 @@ AgawanBase/
 ├── ProjectSettings/
 └── Docs/
     ├── Zedrich Abrera/Week_13 … Week_17/   weekly submissions and their Evidence/
-    ├── REFERENCE/                    the course's reference submission
     └── tools/MdToHtml.cs             Markdown -> print-ready HTML converter (outside Assets/)
 ```
 
@@ -270,7 +269,6 @@ The same licence block is printed at runtime on the game's CREDITS screen, assem
 | `Docs/Zedrich Abrera/Week_16/` | SA6 performance analysis, AS3 optimisation report, Week 16 reflection, optimised APK, bottleneck table, 22 per-frame CSVs, 20 player logs, the two diagrams, regression logs |
 | `Docs/Zedrich Abrera/Week_17/` | **the release candidate**: `Abrera_Zedrich_PT7.pdf`, `_Technical_Documentation.pdf`, `_User_Guide.pdf`, `_Evidence_Index.pdf`, `Abrera_Zedrich_Week17_Reflection.pdf`, the APK, and `Evidence/` (feature-freeze checklist, build record, readiness results, issue disposition, clean-install record, secrets scan, six screenshots, run log, architecture diagram) |
 | `Docs/Zedrich Abrera/Week_18/` | **the PA2 package**: `Abrera_Zedrich_PA2.apk` (byte copy of the release candidate), `Abrera_Zedrich_PA2.pdf`, `_Technical_Report.pdf`, `_User_Guide.pdf`, `_Evidence_Portfolio.pdf`, `_Originality_Declaration.pdf`, `Abrera_Zedrich_PA2_Presentation.pptx`, `Abrera_Zedrich_Week18_Reflection.pdf`, the Windows backup package, and `Evidence/` (release record, pre-submission checklist, defence pointers, E3 record, rehearsal log, nine demonstration captures, repository state, backup build log) |
-| `Docs/REFERENCE/` | the course reference submission (Castillo, *SiliTubig Clash*), used as the structural model for Week 17 |
 
 Every document from Week 14 on is written twice: `.md` is the source and `.html` is the same text with a print stylesheet and every screenshot inlined as a data URI. Both are generated into the PDF above them by `Docs/tools/MdToHtml.cs` and printed with a headless browser, so a PDF cannot drift from its HTML, and an HTML cannot lose its figures when an `Evidence/` folder moves. Week 17's sources are in `Week_17/others/`.
 

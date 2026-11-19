@@ -139,7 +139,22 @@ of when the branch landed.
    the tag exists to prove.
 
 WHAT THIS MEANS FOR THE DOCUMENTS
+
 The PA2 documents written earlier on 2026-11-19 said the repository was local only and that the
 instructor could not verify the tag remotely. That is no longer true, and those statements were
 corrected in the same commit that adds this block rather than left standing. The tag v1.0.0-pa2 was
 not moved, and the commit it points at was not amended: the correction is a new commit on top.
+
+=== THE REFERENCE SET WAS REMOVED ===
+Captured: 2026-11-19, after the two blocks above were written
+
+Docs/REFERENCE/CASTILLO_Janelle_Ann_23-10260_SiliTubigClash was deleted from the working tree and
+from the index in a commit made after the PA2 commit, and Docs/REFERENCE/ no longer exists. The
+two "TRACKED BINARIES" blocks above are kept exactly as captured, because that is what the tree
+held at the PA2 commit; they are a record, not a description of the tip. Read the live answer:
+
+  git ls-files "*.apk" "*.aab" "*.zip"                          -> no output
+  git ls-tree -r --name-only HEAD -- Docs/REFERENCE             -> no output
+
+The commits made before the deletion still contain those files. Deleting a path removes it from
+the tip and from every export of the tip, not from the history behind it.

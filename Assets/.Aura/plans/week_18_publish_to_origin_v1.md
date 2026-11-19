@@ -73,4 +73,11 @@ Push the ten unpushed commits (Weeks 16-18) and the three tags to `https://githu
   historical artefact rather than re-tagged. Bullet 1 as literally worded cannot hold without
   rewriting history, which would move the tag and destroy the evidence it exists to provide. Final
   state: `origin/main` = `aa687ed`, `v1.0.0-pa2` -> `5e63b1c`, working tree clean.
+- **Afterwards the user asked for the reference set to go.** `Docs/REFERENCE/` - the other student's
+  Week 13-18 submission that this note calls out above as published by explicit decision - was deleted
+  from the tree and the index (62 tracked files), every document that named it was corrected, the
+  three affected documents were re-exported and re-printed with unchanged page and figure counts, and
+  the removal went in as an ordinary commit with no new tag. The commits before it still carry the
+  files: deleting a path cleans the tip, not the history. `v1.0.0-pa2` was not moved and `5e63b1c`
+  was not amended.
 

@@ -124,6 +124,6 @@ InitTestScene*.unity*
 /[Mm]emoryCaptures/
 
 # Week 18 PA2: the Windows backup package is a local artefact, identified by its hash in
-# Evidence/windows_build.txt rather than versioned. Scoped to Week_18 on purpose - the
-# Week 14 instructor reference zip under Docs/REFERENCE is tracked and must stay tracked.
+# Evidence/windows_build.txt rather than versioned. Scoped to Week_18 on purpose, so a zip
+# anywhere else under Docs/ is not silently ignored.
 /Docs/Zedrich Abrera/Week_18/*.zip

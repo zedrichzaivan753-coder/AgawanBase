@@ -207,7 +207,7 @@ Seven minutes, run in the Unity editor on this machine until a handset is availa
 
 ## 12. References
 
-The following were used while building and verifying this release; the reference set for this course is the SiliTubig Clash submission in `Docs/REFERENCE/CASTILLO_Janelle_Ann_23-10260_SiliTubigClash`, whose Week 17 package (release candidate, technical documentation, user guide, evidence index, reflection) is the model for this one's structure.
+The following were used while building and verifying this release:
 
 - Google. (2024). *Application bundling and APK structure*. Android Developers. https://developer.android.com/guide/app-bundle
 - OWASP Foundation. (2024). *OWASP Mobile Application Security*. https://mas.owasp.org/

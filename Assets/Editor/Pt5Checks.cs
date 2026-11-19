@@ -10,9 +10,9 @@ using UnityEngine;
 ///
 /// Every check runs against a SCRATCH folder under Application.persistentDataPath, never the
 /// player's real save, and writes a PASS/FAIL line to
-/// Docs/Zedrich Abrera/Week_13/Evidence/pt5_checks.log. The format deliberately mirrors the
-/// reference submission (Castillo, Sili-Tubig Clash): one numbered line per case, a TOTAL line
-/// at the end, and a KNOWN LIMIT line that states plainly what the design does NOT protect.
+/// Docs/Zedrich Abrera/Week_13/Evidence/pt5_checks.log. The format is one numbered line per case,
+/// a TOTAL line at the end, and a KNOWN LIMIT line that states plainly what the design does NOT
+/// protect.
 ///
 /// Called through execute_script (method RunDataChecks) - it needs no frames, so it runs in
 /// edit mode. The screenshots are the play-mode half, in Pt5Shots below.

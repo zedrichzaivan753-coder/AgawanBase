@@ -283,8 +283,6 @@ The credits panel inside the game prints the same block at runtime from `Release
 
 ## 17. References
 
-The reference set for this course is the SiliTubig Clash submission in `Docs/REFERENCE/CASTILLO_Janelle_Ann_23-10260_SiliTubigClash`; its Week 17 package is the structural model for this documentation set.
-
 - Google. (2024). *Application bundling and APK structure*. Android Developers. https://developer.android.com/guide/app-bundle
 - Huang, Z., & Benyoucef, M. (2023). A systematic literature review of mobile application usability. *Universal Access in the Information Society, 22*, 715-735. https://doi.org/10.1007/s10209-022-00903-w
 - OWASP Foundation. (2024). *OWASP Mobile Application Security*. https://mas.owasp.org/

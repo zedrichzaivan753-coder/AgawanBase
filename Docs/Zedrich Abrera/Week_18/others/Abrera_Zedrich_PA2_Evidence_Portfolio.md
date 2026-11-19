@@ -225,7 +225,7 @@ certutil -hashfile "Week_18\Abrera_Zedrich_PA2.apk" MD5
                                          # ef38de8dd65100109791002a67738da1
 certutil -hashfile "Week_18\Abrera_Zedrich_PA2_Windows.zip" MD5
                                          # fe17f2060c994218e4593b2010eb9a98
-git ls-files "*.apk" "*.aab" "*.zip"      # one path: instructor reference material only
+git ls-files "*.apk" "*.aab" "*.zip"      # no output: no APK, AAB or zip is versioned
 ```
 
 The EditMode suite is `Assets/Tests/EditMode/` and runs in 0.45 s; the last result on this tree was

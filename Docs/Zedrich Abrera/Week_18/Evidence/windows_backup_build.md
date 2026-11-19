@@ -208,8 +208,7 @@ passes.*
 
 - Build script: `Assets/Editor/Week18Build.cs`
 - Raw stage log: `Docs/Zedrich Abrera/Week_18/Evidence/windows_build.txt`
-- Ignore rule: `.gitignore` carries `/Docs/Zedrich Abrera/Week_18/*.zip`, scoped so the tracked
-  Week 14 reference zip under `Docs/REFERENCE/` stays tracked. The package is identified by hash
-  here instead of being versioned.
+- Ignore rule: `.gitignore` carries `/Docs/Zedrich Abrera/Week_18/*.zip`. The package is identified
+  by hash here instead of being versioned.
 
 *AgawanBase · Zedrich Zaivan B. Abrera · MOBILE DEV 002, Module 5, Week 18*

@@ -156,7 +156,6 @@ quietly overwritten.
   a new, untested build.
 - The binary reports `1.0.0-rc1`; the final tag is `v1.0.0-pa2` on the submission commit. These are
   different kinds of label and both are correct.
-- No APK is versioned in git. `git ls-files "*.apk" "*.aab" "*.zip"` returns exactly one path, and
-  it is instructor reference material under `Docs/REFERENCE/`, not this student's build.
+- No APK, AAB or zip is versioned in git: `git ls-files "*.apk" "*.aab" "*.zip"` returns nothing.
 
 *AgawanBase · Zedrich Zaivan B. Abrera · MOBILE DEV 002, Module 5, Week 18*

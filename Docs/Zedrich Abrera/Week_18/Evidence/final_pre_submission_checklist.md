@@ -25,7 +25,7 @@ in this plan · **BLOCKED** = cannot be produced on this machine, reason given.
 
 ---
 
-## 2. Submission items (mirroring the reference package)
+## 2. Submission items (the module's named deliverables)
 
 | Item | File | Status |
 |---|---|---|
