@@ -24,13 +24,13 @@ Push the ten unpushed commits (Weeks 16-18) and the three tags to `https://githu
 - PDF re-export: every headless Edge print needs its own `--user-data-dir` plus a sleep, or only the last document is written. Converter is `Docs/tools/MdToHtml.cs`, `Weeks` already includes `"Week_18"`; output `.html` lands in the week folder then moves to `others/`.
 
 ## Steps
-- [ ] 1. Pre-flight audit with `execute_command` (all read-only): `git status --porcelain` (expect empty), `git log --oneline origin/main..main` (expect exactly the ten commits above), `git rev-list --left-right --count origin/main...main` (expect `0 10`), `git ls-files "*.apk" "*.aab" "*.zip"`, `git lfs ls-files --size` summed, and a scan of all reachable blobs for anything over 100 MB. Also record the repository's visibility from GitHub so the CASTILLO reference set is an informed inclusion, not an accident. [depends: none]
-- [ ] 2. Prove the credential before committing to a long push: `git ls-remote origin` must return `d08fc9b` for `refs/heads/main` without prompting. If it hangs or 401s, stop and have the token cached in Windows Credential Manager (`git credential-manager configure` / Control Panel > Credential Manager > Windows Credentials > `git:https://github.com`), then re-test. [depends: 1]
-- [ ] 3. Push the branch: `git push origin main`, with LFS uploading alongside. If the 120 s cap truncates it, re-run the same command - an interrupted LFS push resumes rather than restarting, and a later run of an already-received ref reports "Everything up-to-date". [depends: 2]
-- [ ] 4. Push the three tags: `git push origin v1.0.0-pa2 v1.0.0-rc1 week16-final` - annotated objects, so `git ls-remote --tags origin` must show the peeled `^{}` entries matching `5e63b1c`, `07057bd`, `b4cff53`. [depends: 3]
-- [ ] 5. Verify the remote, then correct the statements. Verification: `git ls-remote origin` head equals `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0`, `git rev-list --left-right --count origin/main...main` returns `0 0`, `git status --porcelain` stays empty. Only then edit the eleven statement sites listed under Changes, and in `repo_state.txt` append the published block instead of deleting the old one. [depends: 4]
-- [ ] 6. Re-convert and re-print the four corrected documents: run `MdToHtml` for `Abrera_Zedrich_PA2`, `_PA2_Technical_Report`, `_PA2_Evidence_Portfolio`, `_PA2_Originality_Declaration`, confirm each `.html` still contains its `<img>` count (9 / 1 / 4 / 0) and each PDF's page and `/Subtype /Image` counts are unchanged from 11/9, 7/1, 8/4, 3/0. [depends: 5]
-- [ ] 7. Commit the correction as a new commit on top of `v1.0.0-pa2` (never amending it), push it, and re-confirm `git rev-parse "v1.0.0-pa2^{}"` still equals `5e63b1c`. [depends: 6]
+- [x] 1. Pre-flight audit with `execute_command` (all read-only): `git status --porcelain` (expect empty), `git log --oneline origin/main..main` (expect exactly the ten commits above), `git rev-list --left-right --count origin/main...main` (expect `0 10`), `git ls-files "*.apk" "*.aab" "*.zip"`, `git lfs ls-files --size` summed, and a scan of all reachable blobs for anything over 100 MB. Also record the repository's visibility from GitHub so the CASTILLO reference set is an informed inclusion, not an accident. [depends: none]
+- [x] 2. Prove the credential before committing to a long push: `git ls-remote origin` must return `d08fc9b` for `refs/heads/main` without prompting. If it hangs or 401s, stop and have the token cached in Windows Credential Manager (`git credential-manager configure` / Control Panel > Credential Manager > Windows Credentials > `git:https://github.com`), then re-test. [depends: 1]
+- [x] 3. Push the branch: `git push origin main`, with LFS uploading alongside. If the 120 s cap truncates it, re-run the same command - an interrupted LFS push resumes rather than restarting, and a later run of an already-received ref reports "Everything up-to-date". [depends: 2]
+- [x] 4. Push the three tags: `git push origin v1.0.0-pa2 v1.0.0-rc1 week16-final` - annotated objects, so `git ls-remote --tags origin` must show the peeled `^{}` entries matching `5e63b1c`, `07057bd`, `b4cff53`. [depends: 3]
+- [x] 5. Verify the remote, then correct the statements. Verification: `git ls-remote origin` head equals `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0`, `git rev-list --left-right --count origin/main...main` returns `0 0`, `git status --porcelain` stays empty. Only then edit the eleven statement sites listed under Changes, and in `repo_state.txt` append the published block instead of deleting the old one. [depends: 4]
+- [x] 6. Re-convert and re-print the four corrected documents: run `MdToHtml` for `Abrera_Zedrich_PA2`, `_PA2_Technical_Report`, `_PA2_Evidence_Portfolio`, `_PA2_Originality_Declaration`, confirm each `.html` still contains its `<img>` count (9 / 1 / 4 / 0) and each PDF's page and `/Subtype /Image` counts are unchanged from 11/9, 7/1, 8/4, 3/0. [depends: 5]
+- [x] 7. Commit the correction as a new commit on top of `v1.0.0-pa2` (never amending it), push it, and re-confirm `git rev-parse "v1.0.0-pa2^{}"` still equals `5e63b1c`. [depends: 6]
 
 ## Verify
 - `git ls-remote origin` returns `5e63b1c4fc52f1d2a5115a04a02dda21c03e35a0` for `refs/heads/main`; `git ls-remote --tags origin` lists `v1.0.0-pa2`, `v1.0.0-rc1` and `week16-final` with peeled ids `5e63b1c`, `07057bd`, `b4cff53`.
@@ -39,3 +39,27 @@ Push the ten unpushed commits (Weeks 16-18) and the three tags to `https://githu
 - The LFS objects uploaded without a quota error, and `git lfs ls-files` on a fresh clone of the remote resolves the PDFs and PNGs to real bytes rather than pointer files.
 - Both READMEs and the five PA2 documents no longer claim the repository is local-only, and their PDF page/figure counts are unchanged from the pre-push builds.
 - `v1.0.0-pa2` still resolves to `5e63b1c` after the correction commit, and `git status` is clean at the end.
+
+## Notes
+- **Step 1 surfaced a decision the plan did not anticipate.** The repository is public, and at `d08fc9b`
+  `Docs/` held only `Evidence/` and `Part_D_Test_Results.md`. Both `Docs/REFERENCE/CASTILLO_.../`
+  (another student's full Week 13-18 submission) and the instructor's module `.docx` were introduced
+  by the first unpushed commit, `55b043a`, so no commit on top could keep them off the remote. The
+  user was shown the consequence and chose to push as-is to the public repository rather than make it
+  private or rewrite the ten commits.
+- **Push payload:** 487 changed files, 215 MB on disk - 118 LFS files (74.47 MB) and 140.43 MB of
+  plain blobs, almost all Week 16 profiler CSVs. Largest blob in `HEAD` is 8.15 MB, so no GitHub
+  file-size limit was near.
+- **The LFS pre-push hook exceeds the 120 s command budget.** The branch push itself uploaded 128
+  LFS objects / 80 MB and completed. Both the first tag push and the first attempt at the correction
+  commit's push timed out in the hook. Fix: `git lfs push --all origin` (146 objects, 85 MB) followed
+  by `git push --no-verify`. The final push is `5e63b1c..328853b`.
+- **Converter is not compiled into the project.** `Docs/tools/MdToHtml.cs` sits outside `Assets/`, so
+  it was copied to `Assets/Editor/MdToHtmlTool.cs`, invoked by reflection, and deleted again; compile
+  is clean and the working tree holds no stray copy. The four sources were temporarily copied into
+  `Week_18/` for conversion (paths resolve relative to the week folder) and moved back to `others/`.
+- **Counts after re-export are identical to pre-push:** PA2 11 pp / 9 figures, Technical Report 7 / 1,
+  Evidence Portfolio 8 / 4, Originality Declaration 3 / 0. User Guide and Reflection were not touched.
+- The plan's Verify bullet expecting `origin/main` at `5e63b1c` now describes an intermediate state:
+  `origin/main` is `328853b` and `v1.0.0-pa2` still peels to `5e63b1c`.
+
