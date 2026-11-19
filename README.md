@@ -9,7 +9,9 @@ A 3D top-down mobile capture-the-flag game built on the Filipino street game **A
 | **Author** | Zedrich Zaivan B. Abrera |
 | **Version** | **1.0.0-rc1** (versionCode 2) - release build |
 | **Release tag** | annotated tag **`v1.0.0-rc1`** on branch `main` (created locally; not pushed) |
+| **PA2 final tag** | annotated tag **`v1.0.0-pa2`** on the Week 18 submission commit (local; not pushed) |
 | **Release APK** | `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` - 33,170,107 bytes (31.63 MB), md5 `ef38de8dd65100109791002a67738da1` |
+| **PA2 submission build** | `Docs/Zedrich Abrera/Week_18/Abrera_Zedrich_PA2.apk` - **the same bytes, copied not rebuilt**: 33,170,107 bytes, md5 `ef38de8dd65100109791002a67738da1` |
 | **Engine** | Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# |
 | **Platform** | Android (primary) - ARM64, IL2CPP, minimum API 26, landscape |
 
@@ -267,6 +269,7 @@ The same licence block is printed at runtime on the game's CREDITS screen, assem
 | `Docs/Zedrich Abrera/Week_15/` | AS3 milestone report, Week 15 reflection, corrected APK, environment record, 20 requirements, acceptance criteria, test logs, traceability matrix, defect log |
 | `Docs/Zedrich Abrera/Week_16/` | SA6 performance analysis, AS3 optimisation report, Week 16 reflection, optimised APK, bottleneck table, 22 per-frame CSVs, 20 player logs, the two diagrams, regression logs |
 | `Docs/Zedrich Abrera/Week_17/` | **the release candidate**: `Abrera_Zedrich_PT7.pdf`, `_Technical_Documentation.pdf`, `_User_Guide.pdf`, `_Evidence_Index.pdf`, `Abrera_Zedrich_Week17_Reflection.pdf`, the APK, and `Evidence/` (feature-freeze checklist, build record, readiness results, issue disposition, clean-install record, secrets scan, six screenshots, run log, architecture diagram) |
+| `Docs/Zedrich Abrera/Week_18/` | **the PA2 package**: `Abrera_Zedrich_PA2.apk` (byte copy of the release candidate), `Abrera_Zedrich_PA2.pdf`, `_Technical_Report.pdf`, `_User_Guide.pdf`, `_Evidence_Portfolio.pdf`, `_Originality_Declaration.pdf`, `Abrera_Zedrich_PA2_Presentation.pptx`, `Abrera_Zedrich_Week18_Reflection.pdf`, the Windows backup package, and `Evidence/` (release record, pre-submission checklist, defence pointers, E3 record, rehearsal log, nine demonstration captures, repository state, backup build log) |
 | `Docs/REFERENCE/` | the course reference submission (Castillo, *SiliTubig Clash*), used as the structural model for Week 17 |
 
 Every document from Week 14 on is written twice: `.md` is the source and `.html` is the same text with a print stylesheet and every screenshot inlined as a data URI. Both are generated into the PDF above them by `Docs/tools/MdToHtml.cs` and printed with a headless browser, so a PDF cannot drift from its HTML, and an HTML cannot lose its figures when an `Evidence/` folder moves. Week 17's sources are in `Week_17/others/`.
@@ -274,6 +277,8 @@ Every document from Week 14 on is written twice: `.md` is the source and `.html`
 ## 17. Release tag and commit
 
 - Branch `main`, annotated tag **`v1.0.0-rc1`**, created locally in Week 17 and **not pushed** to `origin`.
+- Week 18 creates the annotated tag **`v1.0.0-pa2`** on the PA2 submission commit. It is a label on the *commit*, not on a new binary: the APK it ships is the Week 17 release candidate, byte for byte, and still reports `1.0.0-rc1`. Rebuilding only to print "1.0.0" would have shipped a build that inherits none of the verification behind `ef38de8d...`; the reasoning is in `Docs/Zedrich Abrera/Week_18/Evidence/release_record.md` section 2.
+- Both tags are **local only**. `origin/main` is `d08fc9b`, which predates Weeks 15-18, so the instructor cannot verify either tag from the remote. `Week_17/Evidence/build_and_commit.txt` and `Week_18/Evidence/repo_state.txt` record the state instead.
 - A commit id cannot identify the APK, because the APK had to exist before the commit that ships it did. The identity of what was verified is therefore the **APK md5** above; the commit the tag points at is recorded in `Docs/Zedrich Abrera/Week_17/Evidence/build_and_commit.txt`.
 - The frozen Week 16 tree is commit `b4cff53`, tagged `week16-final`. A reviewer comparing it with `v1.0.0-rc1` will see only completeness closures (instructions, credits, exit, version caption), defect fixes and documentation - the three categories the feature-freeze checklist allows.
 

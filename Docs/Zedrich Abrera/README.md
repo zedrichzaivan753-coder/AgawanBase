@@ -9,8 +9,8 @@
 | Platform | Android (primary), Windows (editor play and standalone) |
 | Engine | Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# |
 | Repository | local Git repository at the project root, branch `main` |
-| Current commit ID | the Week 17 release commit, tagged `v1.0.0-rc1` on `main`; the exact id is recorded in `Week_17/Evidence/build_and_commit.txt`. The frozen Week 16 tree is `b4cff53`, tagged `week16-final` - a reviewer comparing the two sees only the Week 17 completeness closures, defect fixes and documentation. |
-| Last updated | November 19, 2026 (Week 17, PT7 release candidate) |
+| Current commit ID | the Week 18 PA2 submission commit, tagged `v1.0.0-pa2` on `main`. The binary it ships is the Week 17 release candidate, tagged `v1.0.0-rc1`; the Week 17 build record is `Week_17/Evidence/build_and_commit.txt` and the Week 18 repository state is `Week_18/Evidence/repo_state.txt`. The frozen Week 16 tree is `b4cff53`, tagged `week16-final`. |
+| Last updated | November 19, 2026 (Week 18, PA2 final demonstration package) |
 
 ## The game
 
@@ -32,10 +32,11 @@ teams always use the same preset, so neither side gets a hidden advantage.
 
 ## Installation
 
-**Android.** Use the release candidate: `Week_17/Abrera_Zedrich_PT7.apk`
-(33,170,107 bytes, md5 `ef38de8dd65100109791002a67738da1`, version `1.0.0-rc1`). Copy it to the phone, allow
-installing from this source when asked, and open the file, or install it with
-`adb install -r Abrera_Zedrich_PT7.apk`. It is a **release** build (Development Build off) carrying the
+**Android.** Use the PA2 submission build: `Week_18/Abrera_Zedrich_PA2.apk`. It is the Week 17 release
+candidate copied byte for byte - 33,170,107 bytes, md5 `ef38de8dd65100109791002a67738da1`,
+version `1.0.0-rc1` - so `Week_17/Abrera_Zedrich_PT7.apk` and `Week_18/Abrera_Zedrich_PA2.apk` are
+the same file under two names. Copy either to the phone, allow installing from this source when
+asked, and open the file, or install it with `adb install -r Abrera_Zedrich_PA2.apk`. It is a **release** build (Development Build off) carrying the
 Week 13-16 work plus the Week 17 instructions screen, credits screen, EXIT control and version caption.
 It is debug-signed and targets 64-bit ARM phones (ARM64 / IL2CPP, minimum Android API 26). Uninstall
 any older copy first.
@@ -85,6 +86,8 @@ System's UI pointer handling on desktop.
 | `Week_16/Evidence/` | Bottleneck table, 22 per-frame CSVs (baseline, contaminated, A/B pair, ship check), 20 player logs, the two diagrams, and `test_logs_regression/` (EditMode 17/17, play-mode 16/0/0, accessibility 423/0/24) |
 | `Week_17/` | PT7 report, technical documentation, user guide, evidence index, Week 17 reflection, and the release candidate APK - PDFs at the week root, sources and HTML in `others/` |
 | `Week_17/Evidence/` | Feature-freeze checklist, release build record, readiness results, issue disposition, clean-install record (BLOCKED), secrets scan and its raw output, six release screenshots, the capture run log, and the architecture diagram |
+| `Week_18/` | PA2 report, technical report, user guide, evidence portfolio, originality declaration, presentation deck, Week 18 reflection, the submitted APK (`Abrera_Zedrich_PA2.apk`) and the Windows backup package - PDFs and binaries at the week root, sources and HTML in `others/` |
+| `Week_18/Evidence/` | Release record, final pre-submission checklist, defence pointer sheet (no scripted answers), E3 record (fields blank until sat), repository state, backup-package build log and write-up, the rehearsal log, and the nine demonstration captures D1-D9 |
 
 Every document from Week 14 on is written twice: `.md` is the source, `.html` is the same text
 with a print stylesheet and every screenshot embedded in the file itself as a data URI. Open the
@@ -130,3 +133,10 @@ removed, so that week ships as PDF only.)
   Windows resolution cases are closed; but at the end of Week 17 no Android handset was attached
   (`adb devices` returned no serial), so the clean-install checkpoint and the crash buffer remain
   recorded **BLOCKED** rather than passed (`Week_17/Evidence/clean_install.md`).
+- **Week 18 did not close that gap, and does not claim to.** PA2 ships the same APK and still records
+  handset installation as **BLOCKED** (`Week_18/Evidence/final_pre_submission_checklist.md` section 5.1).
+  The disclosed fallback is `Week_18/Abrera_Zedrich_PA2_Windows.zip`, a compiled Windows player that
+  was launched and reached the title screen; it is not the submission, and it differs in scripting
+  backend, haptics and two post-processing passes (`Week_18/Evidence/windows_backup_build.md`).
+- **The repository is local only.** Nothing has been pushed, so `origin/main` is `d08fc9b` and the
+  instructor cannot verify either tag remotely; `Week_18/Evidence/repo_state.txt` is the substitute record.

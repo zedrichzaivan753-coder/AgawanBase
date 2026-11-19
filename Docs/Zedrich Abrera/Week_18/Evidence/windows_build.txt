@@ -1,0 +1,51 @@
+Week 18 PA2 Windows backup package
+Unity 6000.6.0f1 - editor script Assets/Editor/Week18Build.cs
+
+[2026-11-19 07:54:20 UTC] stage 1
+  === Stage 1: prepare for the Windows backup build ===
+  -- Android build facts (before the Windows detour) --
+    activeTarget        = Android
+    buildAppBundle      = False  (must be False)
+    development         = False  (must be False)
+    scriptingBackend    = IL2CPP  (must be IL2CPP)
+    targetArchitectures = ARM64  (must be ARM64)
+    minSdkVersion       = AndroidApiLevel26  (must be 26)
+    versionCode         = 2  (must be 2)
+    bundleVersion       = 1.0.0-rc1  (must be 1.0.0-rc1)
+    applicationId       = com.zedrich.agawanbase
+    orientation         = LandscapeLeft
+  saved Standalone scripting backend = Mono2x (restored in stage 3)
+  Standalone backend set to Mono2x, development build off
+  cleared C:\Users\Zedrich\AgawanBase\Builds\PA2_Windows
+  SwitchActiveBuildTarget(StandaloneWindows64) -> True, activeTarget now StandaloneWindows64
+
+[2026-11-19 07:55:33 UTC] stage 2 succeeded
+  === Stage 2: build and package the Windows player ===
+  scenes: Assets/Scenes/Game.unity, Assets/Scenes/Map_Palengke.unity, Assets/Scenes/Map_SchoolCampus.unity
+  output: C:\Users\Zedrich\AgawanBase\Builds\PA2_Windows\AgawanBase.exe
+  backend for this build: Mono2x
+  result=Succeeded errors=0 warnings=8 sizeBytes=110142056 sizeMB=105.04 buildSeconds=42.7
+  zip: C:\Users\Zedrich\AgawanBase\Docs\Zedrich Abrera\Week_18\Abrera_Zedrich_PA2_Windows.zip
+  zipBytes=41305552 zipMB=39.39
+  zipMd5=fe17f2060c994218e4593b2010eb9a98
+  exeMd5=6466092eafd62cf0159050e5ef5d62b7
+  haptics in this package: absent (GameFeedback guards the catch buzz behind UNITY_ANDROID || UNITY_IOS)
+  this is a backup/demo package, NOT the submitted binary; the submitted binary is the APK copied from Week_17
+
+[2026-11-19 07:57:02 UTC] stage 3 clean
+  === Stage 3: restore the Android configuration ===
+  SwitchActiveBuildTarget(Android) -> True, activeTarget now Android
+  Standalone scripting backend restored to Mono2x
+  -- Android build facts (after the Windows detour) --
+    activeTarget        = Android
+    buildAppBundle      = False  (must be False)
+    development         = False  (must be False)
+    scriptingBackend    = IL2CPP  (must be IL2CPP)
+    targetArchitectures = ARM64  (must be ARM64)
+    minSdkVersion       = AndroidApiLevel26  (must be 26)
+    versionCode         = 2  (must be 2)
+    bundleVersion       = 1.0.0-rc1  (must be 1.0.0-rc1)
+    applicationId       = com.zedrich.agawanbase
+    orientation         = LandscapeLeft
+  all Android build facts read back correct
+

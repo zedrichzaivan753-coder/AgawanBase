@@ -1,0 +1,28 @@
+Week 18 PA2 demonstration rehearsal (Tools > Week18 > Rehearse PA2 Demonstration)
+Unity 6000.6.0f1 - editor play mode, no handset attached
+Finished: 2026-11-19 07:48:48 UTC
+Total rehearsal time: 14.2s
+Shots: D1_title, D2_how_to_play, D3_credits, D4_map_select, D5_match_setup, D6_match_running, D7_pause_settings, D8_end_screen, D9_restart
+Each shot was hashed when written and re-taken if it repeated any earlier shot, so an identical pair would mean the Game View never repainted.
+Notes: title shows version '1.0.0-rc1  -  built 2026-11-19'; match started; captured Red_AI_1; captured Red_AI_2; captured Red_AI_3; captured Red_AI_4; match ended as Victory after 4 scripted capture(s); restart pressed; restart reached a live match again 3.4s into the reloaded scene; 
+
+Timeline (wall clock from the first frame of the run):
+   0.00s  run started - play mode live
+   2.28s  title reached, state=Title, version caption '1.0.0-rc1  -  built 2026-11-19'
+   2.33s  captured D1_title.png md5 61e87eb3
+   3.23s  captured D2_how_to_play.png md5 ff710de1
+   4.09s  captured D3_credits.png md5 6b703d35
+   5.05s  captured D4_map_select.png md5 57dfa273
+   5.98s  captured D5_match_setup.png md5 2e61e60a
+   5.98s  match setup reached, state=MatchSetup
+   6.00s  START pressed from match setup
+   7.55s  captured D6_match_running.png md5 a77ac870
+   8.52s  captured D7_pause_settings.png md5 b8961c39
+   8.52s  pause screen shown and resumed, state=Playing
+   8.57s  match ended as Victory after 4 scripted capture(s)
+  10.12s  captured D8_end_screen.png md5 098e8af7
+  10.12s  end screen captured, state=Victory
+  10.13s  RESTART pressed
+  13.67s  captured D9_restart.png md5 61effdb0
+  13.67s  live match again 3.4s into the reloaded scene
+  13.68s  EXIT pressed (editor: logs only)

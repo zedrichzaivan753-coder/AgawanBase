@@ -1,0 +1,89 @@
+PA2 repository state - captured before any Week 18 work
+Captured: 2026-11-19 (Week 18 execution start)
+Machine: Windows, project C:\Users\Zedrich\AgawanBase
+
+=== HEAD ===
+983d758c637629c2fda618a92cb188e07e2eb9e0
+983d758c637629c2fda618a92cb188e07e2eb9e0  Week 17: note the post-verification panel fix in the plan
+
+=== TAGS ===
+v1.0.0-rc1
+week16-final
+
+=== TAG TARGETS (commit ids) ===
+v1.0.0-rc1  -> 07057bd53f7f78fe62f05b546fe1b70070aee6bd
+week16-final -> b4cff5346641d9a360ef4b18b4e4a2dec7a950c7
+
+=== BRANCH AND REMOTE ===
+branch: main
+ahead/behind: "## main...origin/main [ahead 9]"  (git rev-list --left-right --count origin/main...main = 0 9)
+origin: https://github.com/zedrichzaivan753-coder/AgawanBase.git (fetch and push)
+origin/main: d08fc9b2c9e28876f337cfcad009b88802d2b534
+
+=== WHAT THIS PROVES ===
+The repository is LOCAL ONLY. The nine commits that carry Weeks 15-17 and the v1.0.0-rc1 tag
+have never been pushed: origin/main still points at d08fc9b, which predates them. The module
+asks for repository access so the instructor can verify the final tag and commit; that cannot
+be done from the remote as it stands, so PA2 states it instead of implying otherwise.
+
+=== TRACKED BINARIES AS OF THIS CAPTURE ===
+git ls-files "*.apk" "*.aab" "*.zip" returns exactly one path:
+  Docs/REFERENCE/CASTILLO_Janelle_Ann_23-10260_SiliTubigClash/Week_14/Castillo_Janelle_Ann_PT6_Windows.zip
+That file is instructor reference material, not this student's build. No .apk and no .aab is
+versioned in this repository in any week.
+
+=== WORKING TREE AT CAPTURE ===
+?? Assets/.Aura/plans/week_18_pa2_defense_homestretch_v1.md
+?? Assets/Editor/Week18Shots.cs
+(Everything else clean.)
+
+=== FINAL STATE AFTER STEP 6 ===
+Captured: 2026-11-19, after the PA2 commit and the v1.0.0-pa2 tag
+
+The PA2 submission commit is the commit that contains this file: it is the tip of main, its
+subject is "Week 18: PA2 final demonstration package and individual defense", and it carries
+the annotated tag v1.0.0-pa2. The commit and the tag therefore name the same object, and both
+ids are read from the repository rather than written down here:
+
+  git rev-parse HEAD                      -> the PA2 commit id
+  git rev-parse v1.0.0-pa2^{}             -> the same id (the tag's target)
+  git describe --tags --exact-match HEAD  -> v1.0.0-pa2
+  git cat-file -t v1.0.0-pa2              -> tag   (annotated, not lightweight)
+
+The id is deliberately not written into this file. Writing it here would change the tree,
+which changes the id, which makes the number wrong the moment it is committed. The four
+commands above are the authoritative read, and they cannot go stale.
+
+=== TAGS AT THE PA2 COMMIT ===
+v1.0.0-rc1   -> 07057bd53f7f78fe62f05b546fe1b70070aee6bd   (Week 17 release candidate; the bytes PA2 ships)
+week16-final -> b4cff5346641d9a360ef4b18b4e4a2dec7a950c7   (frozen Week 16 tree)
+v1.0.0-pa2   -> the PA2 commit, annotated, local only
+
+Note the separation: v1.0.0-pa2 labels the submission package, v1.0.0-rc1 labels the binary
+inside it. The APK is not rebuilt and still reports 1.0.0-rc1 at run time, which is the honest
+state - see Evidence/release_record.md section 2.
+
+=== REMOTE: STILL UNTOUCHED ===
+origin/main remains d08fc9b2c9e28876f337cfcad009b88802d2b534, which predates Weeks 15-18.
+Nothing was pushed, by the user's decision. main is now ahead of it by ten commits:
+
+  git rev-list --left-right --count origin/main...main  ->  0 10
+
+v1.0.0-pa2 has no remote counterpart; git ls-remote --tags origin does not list it.
+
+=== WHAT THE PA2 COMMIT CARRIES ===
+Docs/Zedrich Abrera/Week_18/ - the six PDFs, the presentation deck, Evidence/ (release record,
+pre-submission checklist, defence pointers, E3 record, rehearsal log, nine demonstration
+captures D1-D9, four rasterised figures), and others/ (the six Markdown sources and their HTML).
+
+Two large binaries sit in that folder and are NOT versioned: the submitted APK (33,170,107
+bytes, md5 ef38de8dd65100109791002a67738da1) and the Windows backup package (41,305,552
+bytes, md5 fe17f2060c994218e4593b2010eb9a98). Each is identified by hash and size in
+Evidence/release_record.md and Evidence/windows_backup_build.md instead.
+
+=== TRACKED BINARIES AT THE PA2 COMMIT ===
+git ls-files "*.apk" "*.aab" "*.zip" still returns exactly one path, and it is not this
+student's build:
+  Docs/REFERENCE/CASTILLO_Janelle_Ann_23-10260_SiliTubigClash/Week_14/Castillo_Janelle_Ann_PT6_Windows.zip
+The Week 18 ignore rule is deliberately scoped - /Docs/Zedrich Abrera/Week_18/*.zip - so that
+reference zip stays tracked. No APK, AAB or Week 18 zip is versioned.
