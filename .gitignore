@@ -112,3 +112,13 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Week 17 repository hygiene: browser "Save page as" artefacts that sit beside the
+# hand-maintained Markdown/HTML sources. The documents themselves (.md, .html, .pdf)
+# stay versioned; only the generated *_files/ mirrors of their images are ignored.
+*_files/
+
+# Local build output and profiling captures that must never be versioned
+/Builds/
+*.raw
+/[Mm]emoryCaptures/
