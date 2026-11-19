@@ -5,10 +5,10 @@ Everything below was read off the machine that produced the file, not typed from
 | | |
 |---|---|
 | Artefact | `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` |
-| Build output | `Builds/Week17/AgawanBase_RC.apk` (gitignored; the copy above is the deliverable) |
-| Size on disk | **33,170,059 bytes = 31.63 MB** |
-| MD5 | **4b1152fe203ba6f679404d955fdaa59d** |
-| Built | November 19, 2026, 14:51 local (build started 14:49, took 94 s) |
+| Build output | `Builds_RC2/Abrera_Zedrich_PT7.apk` (staging folder, deleted after the copy above) |
+| Size on disk | **33,170,107 bytes = 31.63 MB** |
+| MD5 | **ef38de8dd65100109791002a67738da1** |
+| Built | November 19, 2026, 15:20 local (build started 15:20:27, took 24.8 s) |
 | Engine | Unity 6000.6.0f1, URP 17.6.0 |
 | Platform | Android, **release build** — Development Build **off**, Build App Bundle **off** |
 | Scripting backend | IL2CPP |
@@ -21,34 +21,49 @@ Everything below was read off the machine that produced the file, not typed from
 | `productName` | AgawanBase (the version is *not* part of the app identity — see below) |
 | Application id | `com.zedrich.agawanbase` |
 | Scenes | `Game`, `Map_Palengke`, `Map_SchoolCampus` (index 0 = `Game`) |
-| Source commit | **`aa1ec43`** - the commit that annotated tag `v1.0.0-rc1` points at (`git rev-parse v1.0.0-rc1^{commit}` returns it) |
-| Build report | result `Succeeded`, 0 errors, 15 warnings |
+| Source commit | **`84c0f2e`** — the commit holding the fitted how-to panel and the three rebuilt scenes; this APK was built from that tree |
+| Build report | result `Succeeded`, 0 errors, 13 warnings |
 
-## This is the second build of the day, and why
+## This is the third build of the day, and why
 
-The first 1.0.0-rc1 APK (33,170,243 bytes, MD5 `bb36569a7a1387997c556a56aeaf0344`, 331 s) was built
-at 14:17 and was correct at the time. Two defects were found afterwards while capturing the release
-screenshots, and both are fixed in this build:
+| # | Time | Size | MD5 | Why it was superseded |
+|---|---|---|---|---|
+| 1 | 14:17 | 33,170,243 B | `bb36569a7a1387997c556a56aeaf0344` | `productName` carried the version and the credits line printed `0.2` |
+| 2 | 14:51 | 33,170,059 B | `4b1152fe203ba6f679404d955fdaa59d` | the how-to text overflowed its box onto the BACK button |
+| 3 | **15:20** | **33,170,107 B** | **`ef38de8dd65100109791002a67738da1`** | **current** |
 
-1. **The credits screen printed `0.2`.** Its build line was a string baked into the scene when the
-   panel builder last ran, so it kept the version it was built under. It is now filled at runtime from
-   `ReleaseInfo.BuildId`, exactly like the version caption on the title, and the screenshot `E3_credits.png`
-   shows `AGAWAN BASE  -  1.0.0-rc1  -  built 2026-11-19`.
-2. **`productName` was `AgawanBase v1.0.0-rc1`.** Unity derives the PlayerPrefs namespace and the
-   `persistentDataPath` folder from the product name, so putting the version in it gave the release
-   candidate an empty settings store and a new profile folder: saved match settings and the player
-   record of anyone upgrading were silently abandoned. The name is back to `AgawanBase`; the version is
-   carried by `bundleVersion`, which is what `Application.version` and every on-screen version label read.
+The first two are recorded rather than deleted because each one is a real state of the release
+candidate that some artefact was produced against, and a reader who finds an older hash quoted
+somewhere needs to know what it was.
 
-Both are recorded in `issue_disposition.md`. The MD5 above, not the earlier one, is the identity of the
-release candidate that `readiness_results.md` describes.
+1. **The first build shipped `productName = AgawanBase v1.0.0-rc1`, and the credits screen printed
+   `0.2`.** Both are `DEF-17-02` and `DEF-17-01` in `issue_disposition.md`: Unity derives the
+   `PlayerPrefs` namespace and `persistentDataPath` from the product name, so the version in that
+   string silently abandoned the saved settings and the player record, and the credits build line was
+   a scene string that had been baked before the version was unfrozen.
+2. **The second build was correct at the time,** and verification of it (compile check, the four
+   release screens in play mode, `VERDICT: working`) turned up one defect that neither the
+   accessibility audit nor the screenshot review had measured: `Panel_HowTo/Body` needed **734.5 px**
+   of text in a **660 px** rect, so the last ~74 canvas units of the rules — the tail of *PAUSING AND
+   SETTINGS* — rendered **behind the BACK button**. `DEF-17-07`.
+3. **This build is that defect fixed.** The body box is `1560 × 600` at y `+30`, which clears the BACK
+   button by 102.8 px even on a 20:9 phone where the canvas is 966 tall instead of 1031, and
+   `ReleasePanelsBuild.FitText` now *measures* the paragraph against the box and shrinks the font until
+   it fits, logging the result (`Body fitted at font 21: 526.2 px inside a 600 px box`). Guessing the
+   font size once was enough.
+
+Because the scenes and the panel builder changed, the scenes were rebuilt, the screenshots were
+re-captured from the new layout, and the accessibility audit was re-run: **516 passed, 0 failed, 0
+warnings, 24 not measurable**, identical to the pre-fix audit. `readiness_results.md` records both
+runs.
 
 ## Package contents check (the DEF-15-04 guard)
 
-`tar -tf Builds/Week17/AgawanBase_RC.apk` lists `classes.dex`, `AndroidManifest.xml` and
-`resources.arsc` **at the root of the archive**. That is what separates a real APK from the Week 14
-file that was an Android App Bundle wearing an `.apk` filename: an app bundle keeps `classes.dex`
-inside `base/dex/`, and no handset will install one. Build App Bundle is off in the project, and the
+Reading the archive's entry list with `System.IO.Compression.ZipFile` gives **419 entries**, and
+`classes.dex` and `AndroidManifest.xml` are **at the root of the archive**; there is no
+`BundleConfig.pb` and no `base/dex/` prefix. That is what separates a real APK from the Week 14 file
+that was an Android App Bundle wearing an `.apk` filename: an app bundle keeps `classes.dex` inside
+`base/dex/`, and no handset will install one. Build App Bundle is off in the project, and the entry
 listing above is the proof for this build.
 
 ## Why this APK is smaller than the Week 16 one
@@ -59,12 +74,16 @@ build strips out; nothing was removed from the game. No size reduction is claime
 
 ## Identity of what was tested
 
-The commit id alone cannot identify this binary, because the APK had to exist before the commit
-that ships it did. The MD5 above is the identifier: the readiness results in
-`readiness_results.md` are the results for this exact file.
+Two ids are involved and they are not the same commit:
 
-This row was filled in by the commit that follows the tag, because a commit cannot contain its own
-id - the same circularity as Week 15, where the APK md5 had to stand in for a commit id that did not
-yet exist. `git rev-parse v1.0.0-rc1^{commit}` is the authority; the id above is what it returns.
+- **`84c0f2e`** is the source the APK was built from.
+- **`v1.0.0-rc1`** is an annotated tag on the commit that *ships* this APK together with the
+  documentation written against its MD5. `git rev-parse v1.0.0-rc1^{commit}` is the authority for
+  that one; it is not printed here because a commit cannot contain its own id, which is the same
+  circularity recorded in Week 15.
+
+Neither id identifies the binary on its own. **The MD5 above is the identifier**: the results in
+`readiness_results.md` are the results for this exact file, and `ef38de8d…` is the only hash that
+should be quoted as the release candidate.
 
 The tag was created locally on branch `main` and has **not** been pushed to `origin`.

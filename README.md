@@ -9,7 +9,7 @@ A 3D top-down mobile capture-the-flag game built on the Filipino street game **A
 | **Author** | Zedrich Zaivan B. Abrera |
 | **Version** | **1.0.0-rc1** (versionCode 2) - release build |
 | **Release tag** | annotated tag **`v1.0.0-rc1`** on branch `main` (created locally; not pushed) |
-| **Release APK** | `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` - 33,170,059 bytes (31.63 MB), md5 `4b1152fe203ba6f679404d955fdaa59d` |
+| **Release APK** | `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` - 33,170,107 bytes (31.63 MB), md5 `ef38de8dd65100109791002a67738da1` |
 | **Engine** | Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C# |
 | **Platform** | Android (primary) - ARM64, IL2CPP, minimum API 26, landscape |
 
@@ -190,11 +190,12 @@ Other screens: **START** on the title opens **MAP SELECT**, then **match setup**
 
 | Item | Result |
 |---|---|
-| Build result | **Succeeded**, 0 errors, 15 warnings, 94 s, November 19, 2026 |
-| Output | `Builds/Week17/AgawanBase_RC.apk` (gitignored); the deliverable copy is `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` |
-| Size / md5 | **33,170,059 bytes (31.63 MB)** / **`4b1152fe203ba6f679404d955fdaa59d`** |
+| Build result | **Succeeded**, 0 errors, 13 warnings, 24.8 s, November 19, 2026 |
+| Output | `Builds_RC2/Abrera_Zedrich_PT7.apk` (staging folder, deleted); the deliverable copy is `Docs/Zedrich Abrera/Week_17/Abrera_Zedrich_PT7.apk` |
+| Size / md5 | **33,170,107 bytes (31.63 MB)** / **`ef38de8dd65100109791002a67738da1`** |
+| Source commit | `84c0f2e` - the commit the APK was built from; tag `v1.0.0-rc1` marks the commit that ships it |
 | Scripting backend | IL2CPP, ARM64 only, minimum API 26, managed stripping Minimal |
-| Package shape | `classes.dex`, `AndroidManifest.xml`, `resources.arsc` at the archive root (Build App Bundle **off**) |
+| Package shape | `classes.dex` and `AndroidManifest.xml` at the archive root of 419 entries, no `BundleConfig.pb` (Build App Bundle **off**) |
 | Application id | `com.zedrich.agawanbase` |
 | Version | `1.0.0-rc1`, versionCode 2, product name `AgawanBase` |
 

@@ -33,7 +33,7 @@ teams always use the same preset, so neither side gets a hidden advantage.
 ## Installation
 
 **Android.** Use the release candidate: `Week_17/Abrera_Zedrich_PT7.apk`
-(33,170,059 bytes, md5 `4b1152fe203ba6f679404d955fdaa59d`, version `1.0.0-rc1`). Copy it to the phone, allow
+(33,170,107 bytes, md5 `ef38de8dd65100109791002a67738da1`, version `1.0.0-rc1`). Copy it to the phone, allow
 installing from this source when asked, and open the file, or install it with
 `adb install -r Abrera_Zedrich_PT7.apk`. It is a **release** build (Development Build off) carrying the
 Week 13-16 work plus the Week 17 instructions screen, credits screen, EXIT control and version caption.

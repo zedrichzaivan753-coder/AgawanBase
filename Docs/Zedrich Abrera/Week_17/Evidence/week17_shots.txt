@@ -1,6 +1,6 @@
 Week 17 readiness captures (Tools > Week17 > Capture Release Screenshots)
 Unity 6000.6.0f1
-Finished: 2026-11-19 06:36:23 UTC
+Finished: 2026-11-19 07:21:33 UTC
 E1_title_release.png, E2_how_to_play.png, E3_credits.png, E4_match_running.png, E5_end_screen.png, E6_restart.png
 Each shot was hashed when written and re-taken if it repeated the previous shot, so an identical pair here would mean the Game View never repainted.
-Notes: title shows version '1.0.0-rc1  -  built 2026-11-19'; match started; captured Red_AI_1; match ended as Victory after 1 scripted capture(s); restart pressed; E6_restart.png repeats an earlier screen even after forced repaints; restart reached a live match again 3.5s into the reloaded scene; 
+Notes: title shows version '1.0.0-rc1  -  built 2026-11-19'; match started; captured Red_AI_1; captured Red_AI_2; captured Red_AI_3; captured Red_AI_4; match ended as Victory after 4 scripted capture(s); restart pressed; restart reached a live match again 3.4s into the reloaded scene; 

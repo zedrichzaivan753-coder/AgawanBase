@@ -4,7 +4,7 @@
 **Student:** Zedrich Zaivan B. Abrera
 **Course:** MOBILE DEV 002 - Advanced Mobile Application Development, Module 5
 **Theme:** Philippine Games and Sports (traditional Filipino street game *Agawang Base*)
-**Release candidate:** `Abrera_Zedrich_PT7.apk`, 33,170,059 bytes, md5 `4b1152fe203ba6f679404d955fdaa59d`
+**Release candidate:** `Abrera_Zedrich_PT7.apk`, 33,170,107 bytes, md5 `ef38de8dd65100109791002a67738da1`
 **Engine:** Unity 6000.6.0f1, Universal Render Pipeline 17.6.0, C#
 
 This is the reference document for the code that ships in the release candidate. Every claim about a script names the file; every number names the evidence file it was read from. Section 14 lists what the build does **not** do, and section 17 lists the sources used.
@@ -110,7 +110,7 @@ There is no PlayMode test assembly; the play-mode checks are driven by editor ha
 | `Map_Palengke.unity` | Palengke | same panel tree, market geometry |
 | `Map_SchoolCampus.unity` | School Campus | same panel tree, campus geometry |
 
-Each map is a `MapDefinition` asset (`Assets/Config/Map_*.asset`) with a `mapId`, `displayName`, `sceneName`, preview sprite, accent colour and arena bounds; `MapSelectUI` reads those assets and `GameManager` loads the chosen scene. The three scenes are **not** three apps: each one contains the whole `Game/UI` panel tree, written by `Assets/Editor/ReleasePanelsBuild.cs`, which is rerunnable and warns rather than silently skipping when a panel it expects is missing.
+Each map is a `MapDefinition` asset (`Assets/Config/Map_*.asset`) with a `mapId`, `displayName`, `sceneName`, preview sprite, accent colour and arena bounds; `MapSelectUI` reads those assets and `GameManager` loads the chosen scene. The three scenes are **not** three apps: each one contains the whole `Game/UI` panel tree, written by `Assets/Editor/ReleasePanelsBuild.cs`, which is rerunnable and warns rather than silently skipping when a panel it expects is missing. That builder also **measures** the long paragraph on the instructions screen - `FitText` compares `Text.preferredHeight` with the box and decrements the font size until the text fits, logging `Body fitted at font 21: 526.2 px inside a 600 px box` - because a legacy `Text` with `verticalOverflow = Overflow` draws past the bottom of a rect that is too short rather than clipping, which is how the tail of the rules came to be drawn behind the BACK button (`DEF-17-07`).
 
 That decision has a cost worth naming: the same UI exists three times, so a UI change must be applied by the builder to all three scenes, and the builder is the only supported way to do it. In exchange, any map can be loaded directly - from the map select screen, from a scene reload on RESTART, or by opening that scene in the editor - with no cross-scene bootstrap and no "missing manager" state.
 
@@ -199,7 +199,7 @@ Every layout is measured, not eyeballed: `Assets/Editor/A11yAudit.cs` scores all
 1. File > Build Profiles > Android. The profile is already active.
 2. Confirm the scene list is `Game`, `Map_Palengke`, `Map_SchoolCampus`, with `Game` at index 0.
 3. Development Build **off**, Build App Bundle **off**, IL2CPP, ARM64.
-4. Build to `Builds/AgawanBase.apk`. On this machine it took 94 s and reported 0 errors, 15 warnings.
+4. Build to `Builds/AgawanBase.apk`. On this machine the build took 24.8 s from a warm IL2CPP cache (331 s from cold) and reported 0 errors, 13 warnings.
 
 **Install.**
 

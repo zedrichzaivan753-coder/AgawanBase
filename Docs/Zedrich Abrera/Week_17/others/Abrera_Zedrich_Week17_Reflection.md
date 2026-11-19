@@ -1,6 +1,6 @@
 # Week 17 Reflection - Treating the Game as a Release Candidate
 
-**Abrera, Zedrich Zaivan B.** · MOBILE DEV 002, Module 5 · **Agawan Base 1.0.0-rc1** (versionCode 2, APK md5 `4b1152fe203ba6f679404d955fdaa59d`), branch `main`, annotated tag `v1.0.0-rc1`
+**Abrera, Zedrich Zaivan B.** · MOBILE DEV 002, Module 5 · **Agawan Base 1.0.0-rc1** (versionCode 2, APK md5 `ef38de8dd65100109791002a67738da1`), branch `main`, annotated tag `v1.0.0-rc1`
 **Evidence leaned on:** `Week_17/Evidence/build_and_commit.txt`, `issue_disposition.md`, `readiness_results.md`, `Assets/Scripts/Core/ReleaseInfo.cs`
 
 ---
@@ -23,7 +23,7 @@ Second-hardest was my own evidence: the first screenshot run produced six files 
 
 Four executable gates, all re-run against this APK on November 19, 2026, with raw output in `readiness_results.md`: EditMode **17 passed / 0 failed**; the accessibility audit **516 passed / 0 failed / 24 not measurable**, up from 423 because the two new screens added 93 measurable labels and buttons that clear the 144 x 144 touch floor and the 4.5:1 contrast rule; the Week 15 quality suite **16 / 0 / 0** with no exceptions; and `classes.dex` at the APK root, the guard against the Week 14 bundle-named-`.apk`.
 
-Behind those numbers is what I would actually show: one session walking title, HOW TO PLAY, CREDITS, a live 4v4 match, an elimination victory and a restart, with the run log recording the version string it read and the 3.5 s of `timeSinceLevelLoad` that proves the restart reloaded the scene.
+Behind those numbers is what I would actually show: one session walking title, HOW TO PLAY, CREDITS, a live 4v4 match, an elimination victory and a restart, with the run log recording the version string it read and the 3.4 s of `timeSinceLevelLoad` that proves the restart reloaded the scene. All four gates were run again after the last fix, and the only number that moved was the APK's md5.
 
 ![E3 - the CREDITS screen, whose build line is filled at runtime from `ReleaseInfo` after DEF-17-01 had it printing a stale "0.2".](Evidence/E3_credits.png)
 

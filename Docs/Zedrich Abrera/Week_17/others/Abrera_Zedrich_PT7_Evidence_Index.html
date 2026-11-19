@@ -198,12 +198,12 @@ footer.docnote {
 <tr>
 <td>The release candidate is this exact APK</td>
 <td><code>Week_17/Abrera_Zedrich_PT7.apk</code></td>
-<td>33,170,059 bytes; md5 <code>4b1152fe203ba6f679404d955fdaa59d</code></td>
+<td>33,170,107 bytes; md5 <code>ef38de8dd65100109791002a67738da1</code></td>
 </tr>
 <tr>
 <td>The identity of the artefact and its build settings</td>
 <td><code>Week_17/Evidence/build_and_commit.txt</code></td>
-<td>size, md5, build date and duration, engine, Platform/IL2CPP/ARM64/API 26, <code>bundleVersion 1.0.0-rc1</code>, versionCode 2, product name, app id, scene list, build report 0 errors / 15 warnings</td>
+<td>size, md5, source commit <code>84c0f2e</code>, build date and duration, engine, Platform/IL2CPP/ARM64/API 26, <code>bundleVersion 1.0.0-rc1</code>, versionCode 2, product name, app id, scene list, build report 0 errors / 13 warnings, and the two superseded builds with their hashes</td>
 </tr>
 <tr>
 <td>The version shown in-game cannot drift from the binary</td>
@@ -218,7 +218,7 @@ footer.docnote {
 <tr>
 <td>The package is a real APK</td>
 <td><code>Week_17/Evidence/readiness_results.md</code> §5</td>
-<td><code>classes.dex</code>, <code>AndroidManifest.xml</code>, <code>resources.arsc</code> at the archive root; Build App Bundle off (the DEF-15-04 guard)</td>
+<td><code>classes.dex</code> and <code>AndroidManifest.xml</code> at the archive root of 419 entries, no <code>BundleConfig.pb</code>; Build App Bundle off (the DEF-15-04 guard)</td>
 </tr>
 <tr>
 <td>The build is a release build, not a development build</td>
@@ -242,7 +242,7 @@ footer.docnote {
 <tr>
 <td>Every issue found this week is fixed or carried with a reason</td>
 <td><code>Week_17/Evidence/issue_disposition.md</code></td>
-<td>DEF-17-01 to DEF-17-06, ENV-17-01, OBS-17-01/02, BLOCKED-17-01, with severity, how each was found, and its disposition</td>
+<td>DEF-17-01 to DEF-17-07, ENV-17-01, OBS-17-01/02, BLOCKED-17-01, with severity, how each was found, and its disposition</td>
 </tr>
 <tr>
 <td>The release candidate passes the four executable gates</td>
@@ -257,7 +257,7 @@ footer.docnote {
 <tr>
 <td>The captures are not stale or duplicated by accident</td>
 <td><code>Week_17/Evidence/week17_shots.txt</code></td>
-<td>run log: the version string it read, the capture that ended the match, the restart, and <code>timeSinceLevelLoad 3.5 s</code>; plus the harness's hashing/repaint note</td>
+<td>run log: the version string it read, the four captures that ended the match, the restart, and <code>timeSinceLevelLoad 3.4 s</code>; plus the harness's hashing/repaint note. All six files have distinct MD5s</td>
 </tr>
 <tr>
 <td>The six screens are reached by driving the game, not by editing scenes</td>

@@ -50,8 +50,12 @@ debug-signed by Unity's own debug keystore rather than by a checked-in keystore.
 
 `Library/`, `Temp/`, `obj/`, `Logs/`, `UserSettings/`, `Builds/`, `*.apk`, `*.aab`, `*.log`,
 `*.unitypackage`, `MemoryCaptures/`, `Recordings/`, and the Addressables and Visual Scripting
-caches. The submission APK under `Docs/Zedrich Abrera/Week_17/` is force-added, exactly as the
-Week 13-16 APKs were, because it is the deliverable rather than build output.
+caches. **No APK is versioned, including the release candidate.** `git ls-files` lists no `.apk` in the
+repository at all: every week's APK, from Week 14's playtest build to `Week_17/Abrera_Zedrich_PT7.apk`,
+lives in its folder on disk and in the Drive submission, and the `*.apk` rule keeps it out of history.
+That is deliberate - the deliverable is the file, and its md5 is how it is identified - but earlier
+drafts of this file and of the PT7 report claimed those APKs were force-added, which they are not, and
+that claim has been removed rather than made true by adding four binaries to the repository.
 
 ## 5. Conclusion
 

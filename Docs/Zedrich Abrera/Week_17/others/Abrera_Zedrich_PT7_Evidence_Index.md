@@ -35,11 +35,11 @@ Three rules make this index useful rather than decorative:
 
 | Claim | File | What it shows |
 |---|---|---|
-| The release candidate is this exact APK | `Week_17/Abrera_Zedrich_PT7.apk` | 33,170,059 bytes; md5 `4b1152fe203ba6f679404d955fdaa59d` |
-| The identity of the artefact and its build settings | `Week_17/Evidence/build_and_commit.txt` | size, md5, build date and duration, engine, Platform/IL2CPP/ARM64/API 26, `bundleVersion 1.0.0-rc1`, versionCode 2, product name, app id, scene list, build report 0 errors / 15 warnings |
+| The release candidate is this exact APK | `Week_17/Abrera_Zedrich_PT7.apk` | 33,170,107 bytes; md5 `ef38de8dd65100109791002a67738da1` |
+| The identity of the artefact and its build settings | `Week_17/Evidence/build_and_commit.txt` | size, md5, source commit `84c0f2e`, build date and duration, engine, Platform/IL2CPP/ARM64/API 26, `bundleVersion 1.0.0-rc1`, versionCode 2, product name, app id, scene list, build report 0 errors / 13 warnings, and the two superseded builds with their hashes |
 | The version shown in-game cannot drift from the binary | `Assets/Scripts/Core/ReleaseInfo.cs` | `Version` reads `Application.version`; `BuildId` = version + build stamp; no version string is hard-coded |
 | The repository tag and commit | `README.md` (repository root, release section) and `Week_17/Evidence/build_and_commit.txt` | branch `main`, annotated tag `v1.0.0-rc1`, and the commit the tag points at |
-| The package is a real APK | `Week_17/Evidence/readiness_results.md` §5 | `classes.dex`, `AndroidManifest.xml`, `resources.arsc` at the archive root; Build App Bundle off (the DEF-15-04 guard) |
+| The package is a real APK | `Week_17/Evidence/readiness_results.md` §5 | `classes.dex` and `AndroidManifest.xml` at the archive root of 419 entries, no `BundleConfig.pb`; Build App Bundle off (the DEF-15-04 guard) |
 | The build is a release build, not a development build | `Week_17/Evidence/build_and_commit.txt` | Development Build **off**; and why 31.63 MB is not comparable with Week 16's 68.30 MB |
 
 ## 3. Week 17 - release candidate evidence
@@ -47,10 +47,10 @@ Three rules make this index useful rather than decorative:
 | Claim | File | What it shows |
 |---|---|---|
 | Nothing was added after the freeze except closures and fixes | `Week_17/Evidence/feature_freeze_checklist.md` | frozen tree `b4cff53` / tag `week16-final`, the three permitted categories of change, the accepted Week 13-16 change sets, the checklist itself, and the explicit list of what is *not* in the RC |
-| Every issue found this week is fixed or carried with a reason | `Week_17/Evidence/issue_disposition.md` | DEF-17-01 to DEF-17-06, ENV-17-01, OBS-17-01/02, BLOCKED-17-01, with severity, how each was found, and its disposition |
+| Every issue found this week is fixed or carried with a reason | `Week_17/Evidence/issue_disposition.md` | DEF-17-01 to DEF-17-07, ENV-17-01, OBS-17-01/02, BLOCKED-17-01, with severity, how each was found, and its disposition |
 | The release candidate passes the four executable gates | `Week_17/Evidence/readiness_results.md` | six numbered checks with results and raw-output pointers; §"What is not claimed" |
 | The game really runs, screen by screen | `Week_17/Evidence/E1_title_release.png` … `E6_restart.png` | six captures: title with the version caption, how-to, credits, live match, ending, restart |
-| The captures are not stale or duplicated by accident | `Week_17/Evidence/week17_shots.txt` | run log: the version string it read, the capture that ended the match, the restart, and `timeSinceLevelLoad 3.5 s`; plus the harness's hashing/repaint note |
+| The captures are not stale or duplicated by accident | `Week_17/Evidence/week17_shots.txt` | run log: the version string it read, the four captures that ended the match, the restart, and `timeSinceLevelLoad 3.4 s`; plus the harness's hashing/repaint note. All six files have distinct MD5s |
 | The six screens are reached by driving the game, not by editing scenes | `Assets/Editor/Week17Shots.cs` | the harness that performs the walk and hashes each frame |
 | The two reading screens exist in all three scenes | `Assets/Editor/ReleasePanelsBuild.cs` | the builder that writes `Panel_HowTo`, `Panel_Credits`, the version labels and the title row into every scene, and warns if a target object is missing |
 | No credential is versioned | `Week_17/Evidence/secret_scan.md`, `secret_scan_raw.txt` | the scan command, twelve matches, all prose; the hygiene actions taken |

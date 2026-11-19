@@ -1,7 +1,7 @@
 # Week 17 — release-candidate readiness results
 
 Everything here was run on the release candidate described in `build_and_commit.txt`
-(`Abrera_Zedrich_PT7.apk`, **33,170,059 bytes = 31.63 MB**, MD5 **4b1152fe203ba6f679404d955fdaa59d**)
+(`Abrera_Zedrich_PT7.apk`, **33,170,107 bytes = 31.63 MB**, MD5 **ef38de8dd65100109791002a67738da1**)
 on November 19, 2026, on the machine that built it. Nothing in this file is projected from an earlier
 week.
 
@@ -12,11 +12,15 @@ place. No other requirement is blocked.
 | # | Check | Expected | Result | Where the raw output is |
 |---|---|---|---|---|
 | 1 | EditMode test suite (`run_tests`, EditMode) | 17 of 17 | **17 passed, 0 failed, 0 skipped** in 0.62 s | Unity Test Runner job `86f790ea73364aad84ccc49f1ced1357` |
-| 2 | Accessibility audit (`A11yAudit.Run()`) | 0 failed, no regression from the 423 baseline | **516 passed, 0 failed, 0 warnings, 24 not measurable** | `../../Week_14/Evidence/a11y_audit.log` |
+| 2 | Accessibility audit (`A11yAudit.Run()`) | 0 failed, no regression from the 423 baseline | **516 passed, 0 failed, 0 warnings, 24 not measurable** — re-run after the panel fix, same numbers | `../../Week_14/Evidence/a11y_audit_20261119_152329.log` |
 | 3 | Week 15 quality scenarios (`QualityRun.Run()`) | same as the Week 16 gate: 16 passed, 0 failed | **16 passed, 0 failed, 0 blocked**, 0 exceptions | `../../Week_15/Evidence/test_logs_final/scenario.tsv` |
 | 4 | Play-mode walk of the release screens (`Week17Shots.Run()`) | title → how-to → credits → match → end → restart, each photographed | **all six screens reached and captured** | `week17_shots.txt`, `E1`–`E6*.png` |
-| 5 | APK is a real APK, not an `.aab` (DEF-15-04 guard) | `classes.dex` at the archive root | **`classes.dex`, `AndroidManifest.xml`, `resources.arsc` at the root** | `tar -tf`, transcribed in `build_and_commit.txt` |
+| 5 | APK is a real APK, not an `.aab` (DEF-15-04 guard) | `classes.dex` at the archive root | **`classes.dex` and `AndroidManifest.xml` at the root of 419 entries, no `BundleConfig.pb`** | the entry listing transcribed in `build_and_commit.txt` |
 | 6 | Install on the target device from a clean state | the module's checkpoint | **BLOCKED — no handset** | `clean_install.md` |
+
+Every line above was then **re-run against the rebuilt APK** after the how-to panel was fixed
+(`DEF-17-07`); see section 6, which also records the one number that changed between the two
+capture runs — the screenshots themselves.
 
 ## 1. EditMode tests — 17 of 17
 
@@ -74,18 +78,18 @@ module's timed demonstration that can be done without a handset.
 
 | Shot | Screen | Bytes | MD5 (first 8) | What it proves |
 |---|---|---|---|---|
-| `E1_title_release.png` | title | 70,644 | `30a553b6` | version caption `1.0.0-rc1 - built 2026-11-19`, and HOW TO PLAY / CREDITS / EXIT all present, `RulesText` no longer hidden under PROFILE |
-| `E2_how_to_play.png` | how to play | 168,135 | `d1f285a3` | the instructions screen opens from the title and is readable |
-| `E3_credits.png` | credits | 135,495 | `bff35daf` | author, course, theme, engine, licences, AI-assistance disclosure, and the build line reading `1.0.0-rc1` |
-| `E4_match_running.png` | match | 72,213 | `1a24411b` | the core loop running: HUD, joystick, SPRINT, pause, both flags at base |
-| `E5_end_screen.png` | end screen | 62,356 | `cf69ce58` | a real ending, reached by elimination through `MatchManager.Capture` |
-| `E6_restart.png` | restarted match | 72,213 | `1a24411b` | a live match again, 3.5 s into the reloaded scene |
+| `E1_title_release.png` | title | 73,710 | `61e87eb3` | version caption `1.0.0-rc1 - built 2026-11-19`, and HOW TO PLAY / CREDITS / EXIT all present, `RulesText` no longer hidden under PROFILE |
+| `E2_how_to_play.png` | how to play | 145,119 | `ff710de1` | the instructions screen opens from the title, and the whole rules block now ends **above** the BACK button — this is the shot the panel fix changed |
+| `E3_credits.png` | credits | 143,454 | `6b703d35` | author, course, theme, engine, licences, AI-assistance disclosure, and the build line reading `1.0.0-rc1` |
+| `E4_match_running.png` | match | 78,750 | `aed46379` | the core loop running: HUD, joystick, SPRINT, pause, both flags at base |
+| `E5_end_screen.png` | end screen | 73,647 | `6b93ef8b` | a real ending, reached by elimination through `MatchManager.Capture` |
+| `E6_restart.png` | restarted match | 87,248 | `40a7cef2` | a live match again, 3.4 s into the reloaded scene |
 
 The walk logged, in order: the title showing `1.0.0-rc1 - built 2026-11-19`; the how-to opened; the
-credits opened; the match started; `Red_AI_1` captured; **the match ended as `Victory` after 1 scripted
-capture**; restart pressed; restart reached a live match **3.5 s into the reloaded scene**; then the
-EXIT control logged `[Release] quit requested.` and, as designed inside the editor,
-`Application.Quit() does nothing in the editor - stop Play mode to leave.`
+credits opened; the match started; `Red_AI_1`, `Red_AI_2`, `Red_AI_3` and `Red_AI_4` captured; **the
+match ended as `Victory` after 4 scripted captures**; restart pressed; restart reached a live match
+**3.4 s into the reloaded scene**; then the EXIT control logged `[Release] quit requested.` and, as
+designed inside the editor, `Application.Quit() does nothing in the editor - stop Play mode to leave.`
 
 Two things about this evidence are stated plainly rather than glossed over:
 
@@ -93,13 +97,13 @@ Two things about this evidence are stated plainly rather than glossed over:
   `MatchManager.Capture()` the tag rule calls, so the imprisonment, the elimination victory, the end
   screen and the profile write are all the real paths; what is scripted is that a script, not a thumb,
   made the tag happen.
-- **E6 is byte-identical to E4, on purpose.** After RESTART the reloaded match starts from the same
-  deterministic state — player in the blue base, `Red_AI_1` in the red base, both flags home, stamina
-  full — so the first seconds of both matches render identically. The harness hashes every shot and
-  re-requests the frame (forcing a Game View repaint) when a shot repeats an earlier one; that retry
-  happened three times and produced the same bytes, which is what establishes the frame is live rather
-  than stale. `week17_shots.txt` records both the retries and the 3.5 s figure. The two files are kept
-  as they are instead of cropping something into E6 to make it look different.
+- **E6 is a fresh frame, and it is no longer a copy of E4.** In the capture run that preceded the
+  panel fix the two hashed identically, and that was kept and disclosed rather than dressed up. In
+  this run they differ — `aed46379…` against `40a7cef2…` — because the AI's opening positions are not
+  identical frame-for-frame between runs. Either outcome is safe evidence, because the harness hashes
+  every shot and re-requests any frame that repeats a hash it has already seen: an identical pair
+  would have been retried up to three times, and a unique hash cannot be a stale frame of an earlier
+  screen. `week17_shots.txt` records the 3.4 s figure that proves the reload happened.
 
 ### Why the harness needed fixing first
 
@@ -120,6 +124,29 @@ that was still in progress was declared a failure. It now waits on real time. Bo
 `resources.arsc` at the archive root. This is the guard against DEF-15-04, where Build App Bundle
 produced a bundle named `.apk` that no handset would install: a bundle keeps `classes.dex` inside
 `base/dex/`. Build App Bundle is **off** and the listing is the proof for this exact file.
+
+## 6. Re-verification after the how-to panel fix
+
+Verifying the second build in play mode found the one defect the automated gates had not measured:
+`Panel_HowTo/Body` needed **734.5 px** of text in a **660 px** rect, so the tail of the rules rendered
+behind the BACK button. Nothing was edited by hand to hide it — the box was resized to `1560 × 600` at
+y `+30` (which clears the BACK button by 102.8 px even on a 20:9 phone, where the canvas is 966 tall
+instead of 1031), and `ReleasePanelsBuild.FitText` now shrinks the font until the measured text fits,
+which it does at **21 px for 526.2 px of text**. The panel builder was re-run over all three scenes
+and every gate was then re-run:
+
+| Gate | Before the fix | After the fix |
+|---|---|---|
+| Compile | clean | clean |
+| Accessibility audit | 516 passed, 0 failed, 24 not measurable | **516 passed, 0 failed, 24 not measurable** (`a11y_audit_20261119_152329.log`) |
+| Screenshot walk (`Week17Shots.Run()`) | six screens, E4 = E6 byte-identical | **six screens, all six hashes distinct**; `E2` re-taken and now shows the rules ending above BACK |
+| Release APK | `4b1152fe…`, 33,170,059 B | **`ef38de8d…`, 33,170,107 B** (rebuilt from commit `84c0f2e`) |
+
+Only the screenshots and the APK identity changed; the audit numbers did not, because resizing a
+rect and shrinking a font changes neither the contrast ratio of a label nor the size of a touch
+target. The EditMode suite and the Week 15 quality scenarios were not re-run for this fix: it touches
+no rule, no component and no test subject, and the three scenes it rewrote are the same three the
+suite loads.
 
 ## What is not claimed
 

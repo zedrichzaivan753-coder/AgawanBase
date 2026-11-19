@@ -19,7 +19,7 @@ List of devices attached
 ```
 
 An empty device list is the whole reason: there is no handset, no tablet and no emulator image to
-install **33,170,059 bytes / MD5 `4b1152fe203ba6f679404d955fdaa59d`** onto, and `adb install` cannot be
+install **33,170,107 bytes / MD5 `ef38de8dd65100109791002a67738da1`** onto, and `adb install` cannot be
 invented. `adb` on its own is not evidence of anything; its empty device list is.
 
 ## What would have been tested, and what stands in its place
